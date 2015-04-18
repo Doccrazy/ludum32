@@ -2,6 +2,7 @@ package de.obvious.ld32.game;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Scaling;
 
@@ -15,7 +16,6 @@ public class GameRenderer extends BaseGameRenderer {
 	private static final float CAM_PPS = 5f;
 
     private Scaling bgScaling = Scaling.fill;
-	private float zoom = 1;
 	private float zoomDelta = 0;
 	private float camY;
     private boolean animateCamera;
@@ -42,7 +42,7 @@ public class GameRenderer extends BaseGameRenderer {
 
 	@Override
 	protected void beforeRender() {
-	    //zoom = MathUtils.clamp(zoom + zoomDelta*0.02f, 1f, 2f);
+	    zoom = MathUtils.clamp(zoom + zoomDelta*0.02f, 1f, 2f);
 
 	    PlayerActor player = ((GameWorld)world).getPlayer();
         camera.position.x = player.getX() + player.getOriginX();
@@ -54,4 +54,8 @@ public class GameRenderer extends BaseGameRenderer {
         camera.position.x = GameRules.LEVEL_WIDTH / 2;
         camera.position.y = Math.max(camY, gameViewport.y/2 - GameRules.LEVEL_HEIGHT + 1);*/
 	}
+
+    public void setZoomDelta(float zoomDelta) {
+        this.zoomDelta = zoomDelta;
+    }
 }

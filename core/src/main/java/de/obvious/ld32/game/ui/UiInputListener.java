@@ -22,9 +22,9 @@ public class UiInputListener extends InputListener {
 			root.getWorld().transition(GameState.PRE_GAME);
 		}
 		if (Debug.ON) {
-			/*if (keycode == Keys.Z) {
+			if (keycode == Keys.Z) {
 				root.getRenderer().setZoomDelta(1f);
-			}*/
+			}
 		}
 		return false;
 	}
@@ -32,9 +32,9 @@ public class UiInputListener extends InputListener {
 	@Override
 	public boolean keyUp(InputEvent event, int keycode) {
         if (Debug.ON) {
-            /*if (keycode == Keys.Z) {
+            if (keycode == Keys.Z) {
                 root.getRenderer().setZoomDelta(-2f);
-            }*/
+            }
         }
         return false;
 	}
