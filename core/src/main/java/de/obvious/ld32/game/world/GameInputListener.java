@@ -28,6 +28,14 @@ public class GameInputListener extends InputListener {
         return false;
     }
 
+    @Override
+    public boolean mouseMoved(InputEvent event, float x, float y) {
+        if (world.getGameState() != GameState.GAME) {
+            return false;
+        }
+        return true;
+    }
+
     public void reset() {
 
     }
