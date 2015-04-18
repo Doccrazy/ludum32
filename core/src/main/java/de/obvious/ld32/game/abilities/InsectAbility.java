@@ -1,6 +1,7 @@
 package de.obvious.ld32.game.abilities;
 
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.math.Vector2;
 
 import de.obvious.ld32.core.Resource;
@@ -28,4 +29,8 @@ public class InsectAbility implements Ability {
 		return texture;
 	}
 
+    @Override
+    public Animation getWeaponAnimation(boolean fire) {
+        return Resource.GFX.weaponInsect[fire ? 1 : 0];
+    }
 }

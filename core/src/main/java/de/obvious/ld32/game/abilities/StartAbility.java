@@ -2,6 +2,7 @@ package de.obvious.ld32.game.abilities;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.math.Vector2;
 
 import de.obvious.ld32.core.Resource;
@@ -33,6 +34,10 @@ public class StartAbility implements Ability {
 		return texture;
 	}
 
+	@Override
+	public Animation getWeaponAnimation(boolean fire) {
+	    return Resource.GFX.weaponStart[fire ? 1 : 0];
+	}
 }
 
 

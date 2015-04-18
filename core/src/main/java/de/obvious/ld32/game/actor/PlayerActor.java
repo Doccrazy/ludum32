@@ -18,7 +18,6 @@ import de.obvious.ld32.game.abilities.FireMode;
 import de.obvious.shared.game.actor.ShapeActor;
 import de.obvious.shared.game.world.BodyBuilder;
 import de.obvious.shared.game.world.Box2dWorld;
-import de.obvious.shared.game.world.GameState;
 import de.obvious.shared.game.world.ShapeBuilder;
 
 public class PlayerActor extends ShapeActor {
@@ -32,6 +31,7 @@ public class PlayerActor extends ShapeActor {
     private Vector2 crosshair = new Vector2();
     private Map<Integer, Ability> abilities = new HashMap<Integer, Ability>();
     private float animTime = 0f;
+    private Float triggerTime;
 
     public PlayerActor(Box2dWorld world, Vector2 spawn, boolean spawnIsLeftBottom) {
 		super(world, spawn, spawnIsLeftBottom);
@@ -56,6 +56,12 @@ public class PlayerActor extends ShapeActor {
         body.setTransform(body.getPosition(), d.angleRad());
         if (moving) {
             animTime += delta;
+        }
+        if (triggerTime != null) {
+            triggerTime += delta;
+            if (triggerTime > getWeaponAbility().getWeaponAnimation(true).getAnimationDuration()) {
+                triggerTime = null;
+            }
         }
         super.doAct(delta);
     }
@@ -98,9 +104,9 @@ public class PlayerActor extends ShapeActor {
         drawTorso(batch, direction, reverse);
         drawWeapon(batch);
         drawHead(batch, direction, reverse);
-	    if (world.getGameState() == GameState.GAME) {
+	    /*if (world.getGameState() == GameState.GAME) {
 	        batch.draw(Resource.GFX.crosshair, crosshair.x - 0.25f, crosshair.y - 0.25f, 0.25f, 0.25f, 0.5f, 0.5f, 1f, 1f, 0f);
-	    }
+	    }*/
 	}
 
     private void drawTorso(Batch batch, AnimDir direction, boolean reverse) {
@@ -126,8 +132,9 @@ public class PlayerActor extends ShapeActor {
     }
 
     private void drawWeapon(Batch batch) {
-        Animation weapon = Resource.GFX.weaponInsect[0];
-        TextureRegion frame = weapon.getKeyFrame(stateTime, true);
+        boolean firing = triggerTime != null;
+        Animation anim = getWeaponAbility().getWeaponAnimation(firing);
+        TextureRegion frame = anim.getKeyFrame(firing ? triggerTime : stateTime, !firing);
 
         Vector2 aim = aimDirection();
         float scaleY = aim.x < 0 ? -1 : 1;
@@ -148,6 +155,7 @@ public class PlayerActor extends ShapeActor {
         if (ability != null) {
             ability.trigger(crosshair, mode);
         }
+        triggerTime = 0f;
         System.out.println("Fire " + slotNumber + " " + x + " " + y);
     }
 
@@ -157,6 +165,10 @@ public class PlayerActor extends ShapeActor {
 
     public void setAbility(int slot, Ability ability) {
         abilities.put(slot, ability);
+    }
+
+    private Ability getWeaponAbility() {
+        return abilities.get(0);
     }
 }
 

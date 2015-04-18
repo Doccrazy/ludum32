@@ -27,8 +27,6 @@ public class GameWorld extends Box2dWorld {
 	public GameWorld() {
         super(GameRules.GRAVITY);
         RayHandler.useDiffuseLight(true);
-        transition(GameState.PRE_GAME);
-        transition(GameState.GAME);
     }
 
     @Override
@@ -46,12 +44,16 @@ public class GameWorld extends Box2dWorld {
         case GAME:
             stage.setKeyboardFocus(player);
             break;
+        default:
         }
     }
 
     @Override
     protected void doUpdate(float delta) {
         switch(getGameState()) {
+        case INIT:
+            transition(GameState.PRE_GAME);
+            break;
         case PRE_GAME:
             if (getStateTime() > 0.5f) {
                 transition(GameState.GAME);

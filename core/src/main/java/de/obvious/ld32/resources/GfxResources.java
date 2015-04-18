@@ -1,9 +1,9 @@
 package de.obvious.ld32.resources;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
-import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 
@@ -24,11 +24,19 @@ public class GfxResources extends ResourcesBase {
     	new Animation(0.025f, atlas.findRegions("player/tHeadVor"))
 	};
 
-	public Animation[] weaponInsect = new Animation[] {
-        new Animation(0.1f, atlas.findRegions("weapon/tWeaponInsekt")),
-        new Animation(0.1f, atlas.findRegions("weapon/tWeaponInsektFire")),
+	public Animation[] weaponStart = new Animation[] {
+        new Animation(0.1f, atlas.findRegions("weapon/tWeaponBeginn")),
+        new Animation(0.1f, atlas.findRegions("weapon/tWeaponBeginn")),  //TODO
 	};
-	public Sprite crosshair = atlas.createSprite("crosshair");
+	public Animation[] weaponInsect = new Animation[] {
+	        new Animation(0.1f, atlas.findRegions("weapon/tWeaponInsekt")),
+	        new Animation(0.1f, atlas.findRegions("weapon/tWeaponInsektFire")),
+	};
+	public Animation[] weaponShroom = new Animation[] {
+	        new Animation(0.1f, atlas.findRegions("weapon/tWeaponPilz")),
+	        new Animation(0.1f, atlas.findRegions("weapon/tWeaponPilzFire")),
+	};
+	public Pixmap crosshair = new Pixmap(Gdx.files.internal("crosshair.png"));
 	public Texture insect = new Texture(Gdx.files.internal("Grafiken/Insekt/tInsektFront.png"));
 	public Texture lifeBar = new Texture(Gdx.files.internal("Grafiken/lifebar.png"));
 	public Texture itemSlot = new Texture(Gdx.files.internal("Grafiken/tFeatureUmrandung.png"));
