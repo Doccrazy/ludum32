@@ -10,8 +10,24 @@ import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import de.obvious.shared.core.ResourcesBase;
 
 public class GfxResources extends ResourcesBase {
-	public Sprite player = atlas.createSprite("player");
-	public Animation playerLeft = new Animation(0.1f, atlas.findRegions("player/tLinks"));
+	//Left, Right, Up, Down
+    public Animation[] player = new Animation[] {
+        new Animation(0.025f, atlas.findRegions("player/tLinks")),
+        flip(new Animation(0.025f, atlas.findRegions("player/tLinks")), true, false),
+        new Animation(0.05f, atlas.findRegions("player/tBack")),
+        new Animation(0.05f, atlas.findRegions("player/tVor"))
+    };
+	public Animation[] playerHead = new Animation[] {
+    	new Animation(0.025f, atlas.findRegions("player/tHeadLeft")),
+    	flip(new Animation(0.025f, atlas.findRegions("player/tHeadLeft")), true, false),
+    	new Animation(0.025f, atlas.findRegions("player/tHeadBack")),
+    	new Animation(0.025f, atlas.findRegions("player/tHeadVor"))
+	};
+
+	public Animation[] weaponInsect = new Animation[] {
+        new Animation(0.1f, atlas.findRegions("weapon/tWeaponInsekt")),
+        new Animation(0.1f, atlas.findRegions("weapon/tWeaponInsektFire")),
+	};
 	public Sprite crosshair = atlas.createSprite("crosshair");
 	public Texture insect = new Texture(Gdx.files.internal("Grafiken/Insekt/tInsektFront.png"));
 	public Texture lifeBar = new Texture(Gdx.files.internal("Grafiken/lifebar.png"));

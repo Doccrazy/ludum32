@@ -9,4 +9,6 @@ public class Constants {
 
     public static final int MAP_WIDTH = 200;
     public static final int MAP_HEIGHT = 100;
+
+    public static final float PIXEL_SCALE = 1f/50f;
 }

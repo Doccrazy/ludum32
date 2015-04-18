@@ -6,11 +6,13 @@ import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.ParticleEffect;
 import com.badlogic.gdx.graphics.g2d.ParticleEffectPool;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 public abstract class ResourcesBase {
     protected final TextureAtlas atlas;
@@ -54,6 +56,17 @@ public abstract class ResourcesBase {
     	effect.load(Gdx.files.internal(filename), atlas);
     	effect.scaleEffect(scale);
     	return new ParticleEffectPool(effect, 10, 100);
+    }
+
+    protected Animation flip(Animation anim, boolean flipX, boolean flipY) {
+        TextureRegion[] framesFlipped = new TextureRegion[anim.getKeyFrames().length];
+        for (int i = 0; i < anim.getKeyFrames().length; i++) {
+            framesFlipped[i] = new TextureRegion(anim.getKeyFrames()[i]);
+            framesFlipped[i].flip(flipX, flipY);
+        }
+        Animation result = new Animation(anim.getFrameDuration(), framesFlipped);
+        result.setPlayMode(anim.getPlayMode());
+        return result;
     }
 
     public TextureAtlas getAtlas() {
