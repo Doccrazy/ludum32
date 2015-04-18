@@ -18,6 +18,8 @@ public class GameRenderer extends BaseGameRenderer {
 	private float camY;
     private boolean animateCamera;
 
+
+
     public GameRenderer(Box2dWorld world) {
         super(world, new Vector2(GameRules.LEVEL_WIDTH, GameRules.LEVEL_WIDTH * 9f / 16f));
     }
