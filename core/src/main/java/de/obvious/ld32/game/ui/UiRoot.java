@@ -18,6 +18,7 @@ public class UiRoot extends UiBase<GameWorld, GameRenderer, GameInputListener> {
 		Controllers.addListener(padInput);
 
 		stage.addActor(new ControllerLabel(this));
+		stage.addActor(new UiItemSlots(this, world));
 	}
 
 	@Override

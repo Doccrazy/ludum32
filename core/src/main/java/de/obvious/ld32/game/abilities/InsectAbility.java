@@ -1,22 +1,31 @@
 package de.obvious.ld32.game.abilities;
 
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Vector2;
 
+import de.obvious.ld32.core.Resource;
 import de.obvious.ld32.game.world.GameWorld;
 import de.obvious.shared.game.actor.WorldActor;
 
 public class InsectAbility implements Ability {
 	private GameWorld world;
 	private WorldActor actor;
+	   private Texture texture;
 
-	public InsectAbility(GameWorld world, WorldActor actor) {
+	public InsectAbility(GameWorld world) {
 		this.world = world;
-		this.actor = actor;
+		texture = Resource.GFX.insectWeapon;
 	}
 
 	@Override
 	public void trigger(Vector2 position, FireMode mode) {
 
+	}
+
+	@Override
+	public Texture getTexture() {
+		// TODO Auto-generated method stub
+		return texture;
 	}
 
 }

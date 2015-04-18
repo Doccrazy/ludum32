@@ -1,8 +1,10 @@
 package de.obvious.ld32.game.world;
 
+import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 
+import de.obvious.ld32.game.abilities.Ability;
 import de.obvious.ld32.game.abilities.FireMode;
 import de.obvious.ld32.game.ui.UiRoot;
 import de.obvious.shared.game.world.GameState;
@@ -52,5 +54,16 @@ public class GameInputListener extends InputListener {
 
     public void reset() {
 
+    }
+
+    @Override
+    public boolean keyUp(InputEvent event, int keycode) {
+    	if(keycode == Keys.SPACE){
+    		Ability tmp = world.getPlayer().getAbility(0);
+    		world.getPlayer().setAbility(0, world.getPlayer().getAbility(1));
+    		world.getPlayer().setAbility(1, tmp);
+    	}
+
+    	return true;
     }
 }

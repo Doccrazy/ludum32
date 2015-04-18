@@ -9,7 +9,7 @@ import com.badlogic.gdx.math.Vector2;
 
 import de.obvious.ld32.data.GameRules;
 import de.obvious.ld32.data.GamepadActions;
-import de.obvious.ld32.game.abilities.DevAbility;
+import de.obvious.ld32.game.abilities.StartAbility;
 import de.obvious.ld32.game.actor.EnemyActor;
 import de.obvious.ld32.game.actor.PlayerActor;
 import de.obvious.ld32.game.actor.TiledMapActor;
@@ -36,8 +36,8 @@ public class GameWorld extends Box2dWorld {
         switch (newState) {
         case INIT:
             player = new PlayerActor(this, new Vector2(100, 50), true);
-            player.setAbility(0, new DevAbility(this, new Color(1f, 1f, 0f, 1f)));  //TODO
-            player.setAbility(1, new DevAbility(this, new Color(1f, 0f, 0f, 1f)));  //TODO
+            player.setAbility(0, new StartAbility(this, new Color(1f, 1f, 0f, 1f)));  //TODO
+            player.setAbility(1, new StartAbility(this, new Color(1f, 0f, 0f, 1f)));  //TODO
             player.setupKeyboardControl();
             addActor(new TiledMapActor(this));
             addActor(player);
