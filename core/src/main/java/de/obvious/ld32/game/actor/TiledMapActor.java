@@ -1,7 +1,6 @@
 package de.obvious.ld32.game.actor;
 
 import java.awt.Point;
-import java.util.ArrayList;
 import java.util.HashMap;
 
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -31,14 +30,12 @@ public class TiledMapActor extends WorldActor {
 		renderer = new OrthogonalTiledMapRenderer(Resource.GFX.LEVEL1, 1f / 50f);
 		bodies = new HashMap<Point, Body>();
 		player = ((GameWorld) world).getPlayer();
-//		createBodys();
 	}
 
 	@Override
 	public void draw(Batch batch, float parentAlpha) {
 		batch.end();
 		renderer.setView((OrthographicCamera) world.stage.getCamera());
-
 		renderer.render();
 		batch.begin();
 	}
@@ -62,7 +59,6 @@ public class TiledMapActor extends WorldActor {
 		lastPosition.y = playerY;
 		for (int y = playerY - 10; y <= playerY + 10; y++) {
 			for (int x = playerX - 15; x <= playerX + 15; x++) {
-				System.out.println("tile");
 				if (mapLayer.getCell(x, y) == null)
 					continue;
 				if (bodies.get(new Point(x, y)) != null)
@@ -126,27 +122,6 @@ public class TiledMapActor extends WorldActor {
 				 world.box2dWorld.destroyBody(tmp);
 			}
 
-		}
-	}
-
-
-
-	private void createBodys() {
-		TiledMap map = Resource.GFX.LEVEL1;
-		TiledMapTileLayer mapLayer = (TiledMapTileLayer) map.getLayers().get("Physic");
-
-		ArrayList<Body> bodies = new ArrayList<Body>();
-
-		for (int y = 0; y <= 10; y++) {
-			for (int x = 0; x <= 10; x++) {
-				if (mapLayer.getCell(x, y) != null) {
-
-					Body body = BodyBuilder.forStatic(new Vector2(x + 1, y + 1)).fixShape(ShapeBuilder.box(1, 1)).build(world);
-
-					bodies.add(body);
-				}
-
-			}
 		}
 	}
 
