@@ -5,8 +5,8 @@ import com.badlogic.gdx.math.Vector2;
 public class GameRules {
     public static final Vector2 GRAVITY = new Vector2(0, -9.8f);
 
-    public static final float LEVEL_WIDTH = 25.6f;
-    public static final float LEVEL_HEIGHT = 14.4f;
+    public static final float LEVEL_WIDTH = 24f;
+    public static final float LEVEL_HEIGHT = 14f;
     public static final float WALL_WIDTH = 0.3f;
 
     public static final float PLAYER_HEATH = 2000;
