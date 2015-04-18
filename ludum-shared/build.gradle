@@ -1,0 +1,36 @@
+apply plugin: "java"
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+configurations {
+    tools
+}
+
+dependencies {
+    compile "com.badlogicgames.gdx:gdx:$gdxVersion"
+    compile "com.badlogicgames.gdx:gdx-box2d:$gdxVersion"
+    compile "com.badlogicgames.gdx:gdx-freetype:$gdxVersion"
+    compile "com.badlogicgames.box2dlights:box2dlights:$box2DLightsVersion"
+    compile "com.badlogicgames.ashley:ashley:$ashleyVersion"
+    compile "com.badlogicgames.gdx:gdx-ai:$aiVersion"
+    compile "com.badlogicgames.gdx:gdx-controllers:$gdxVersion"
+    compile 'net.dermetfan.libgdx-utils:libgdx-utils:0.10.0'
+    tools "com.badlogicgames.gdx:gdx-tools:$gdxVersion"
+    tools "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-desktop"
+}
+
+task runPartEdit << {
+    ant.java( fork:true, spawn:true, classname:'com.badlogic.gdx.tools.particleeditor.ParticleEditor'){
+		classpath {
+			pathelement(path:configurations.tools.asPath)
+		}
+    }
+}
+task runHiero << {
+    ant.java( fork:true, spawn:true, classname:'com.badlogic.gdx.tools.hiero.Hiero'){
+		classpath {
+			pathelement(path:configurations.tools.asPath)
+		}
+    }
+}
