@@ -11,6 +11,6 @@ import de.obvious.shared.core.ResourcesBase;
 public class GfxResources extends ResourcesBase {
 
     public GfxResources() {
-        super("game.atlas");
+       // super("game.atlas");
     }
 }
