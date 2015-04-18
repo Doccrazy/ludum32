@@ -22,6 +22,7 @@ public class GameWorld extends Box2dWorld {
 
 	public GameWorld() {
         super(GameRules.GRAVITY);
+        addActor(new TiledMapActor(this));
         RayHandler.useDiffuseLight(true);
     }
 

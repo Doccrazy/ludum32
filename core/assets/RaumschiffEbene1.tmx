@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="200" height="100" tilewidth="50" tileheight="50" nextobjectid="1">
+ <tileset firstgid="1" name="Raumschiff" tilewidth="100" tileheight="100">
+  <tile id="0">
+   <image width="50" height="50" source="Grafiken/Tile/tTileGras.png"/>
+  </tile>
+  <tile id="1">
+   <image width="50" height="50" source="Grafiken/Tile/tTileLueftung.png"/>
+  </tile>
+  <tile id="2">
+   <image width="50" height="50" source="Grafiken/Tile/tTileStahl.png"/>
+  </tile>
+  <tile id="3">
+   <image width="50" height="50" source="Grafiken/Tile/tTileStone.png"/>
+  </tile>
+  <tile id="4">
+   <image width="50" height="50" source="Grafiken/Tile/tTileSumpf.png"/>
+  </tile>
+  <tile id="5">
+   <image width="50" height="50" source="Grafiken/Tile/tTileWand.png"/>
+  </tile>
+  <tile id="6">
+   <image width="50" height="75" source="Grafiken/Insekt/tInsektFront.png"/>
+  </tile>
+  <tile id="7">
+   <image width="100" height="50" source="Grafiken/tDoor.png"/>
+  </tile>
+  <tile id="8">
+   <image width="50" height="100" source="Grafiken/tDoorBird.png"/>
+  </tile>
+  <tile id="9">
+   <image width="50" height="50" source="Grafiken/tKlo.png"/>
+  </tile>
+  <tile id="10">
+   <image width="50" height="50" source="Grafiken/tPissoir.png"/>
+  </tile>
+  <tile id="11">
+   <image width="100" height="50" source="Grafiken/tSchaltpult.png"/>
+  </tile>
+  <tile id="12">
+   <image width="100" height="50" source="Grafiken/tSchreibtisch.png"/>
+  </tile>
+ </tileset>
+ <layer name="Background" width="200" height="100">
+  <data encoding="base64" compression="zlib">
+   eJzt2t1uAiEQBlCjie//yL1pk4aAsMjsoHsuTmLXLT8yX0Hr83a7PQEAAAAAAAAAAAAAAAAAAAAAAADgQzx+/X/8OLH/7Hn3ZI+TPerk7/H9dl5dlHV4Vm2OZkNGyNw/supSPoiolYi+75V+ovcw+SCiViL7ro0lcs61XJ6dU/bXqtHaPa3fm82Y9x/sLjMfr8bT6ufV+N+pZVmg5kg+ejU/cv1ou+VZ6NX45YMM2fk44ywkH8yKOl/JB9/grHyUnym1+u/9PMNnVcyq1U7W/vEceH7G6v0jap9jPzudr8rxlHvPyjmueM1e/Z8le11Zu9a1a70aaJ2Zyjautn/Ix/eI2j96fay49505rmhPRq6ptsattZ/N0sh3QDLbXNFW9jqyZz4iav8TMiUf36e2lqvr4Ui9RNTW6jbl4zp6+fD+vN2ebHy/qP2jl69aP+V45INs0fm44v6RvaasX+sj678yH+X3d3vPz87xvsFrzeeJyker7Xf6WTlHGDFakyPXj7YrH2Rq1WJ5z8j3iGby0Wt3dP+RDyKM5iPifDWzf7TGLx9E2D0fkXOOPrPx+XarkzP66p3rHsU92WtEnsx89M5TO8xZPq6tVZ9n933m32354Eit/K/HrLOU9x/sKHP/2GXesgEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAMAqP8asxvI=
+  </data>
+ </layer>
+ <layer name="Foreground" width="200" height="100">
+  <data encoding="base64" compression="zlib">
+   eJzt2TESgyAQBVDKYJL7XzeT2nE00QUX3quo5BeMsx9KAQAAAAAAAAAAAAAAAAAAAAAAAIA8Xr0DAJvevQMAADRWeweAiekfcNxjsn3JxX0vnKOTAJDBXjfQHWAM+h0A8NVivv9lj4g8OgzAvXk7YTTmKwAA7sBbIEAcvRiuUzfWEOGfGdm5hLmY8wBy8x8nk8iu8Qz8NoxC34e1pXcAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAJr5ABNsASw=
+  </data>
+ </layer>
+</map>
