@@ -3,7 +3,7 @@ package de.obvious.ld32.data;
 import com.badlogic.gdx.math.Vector2;
 
 public class GameRules {
-    public static final Vector2 GRAVITY = new Vector2(0, -9.8f);
+    public static final Vector2 GRAVITY = new Vector2(0, 0);
 
     public static final float LEVEL_WIDTH = 24f;
     public static final float LEVEL_HEIGHT = 14f;
@@ -15,5 +15,7 @@ public class GameRules {
     public static final float STAGGER_TIME = 0.75f;
 
     public static final int ROUNDS_TO_WIN = 3;
+
+    public static final float PLAYER_VELOCITY = 1f;  //m/s
 
 }
