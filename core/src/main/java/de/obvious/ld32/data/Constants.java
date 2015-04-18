@@ -6,4 +6,7 @@ public class Constants {
 
     public static final int SCREEN_WIDTH = 1280;
     public static final int SCREEN_HEIGHT = (int)(SCREEN_WIDTH*9f/16f);
+
+    public static final int MAP_WIDTH = 200;
+    public static final int MAP_HEIGHT = 100;
 }

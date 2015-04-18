@@ -30,7 +30,7 @@ public class GameWorld extends Box2dWorld {
     protected void doTransition(GameState newState) {
         switch (newState) {
         case INIT:
-            player = new PlayerActor(this, new Vector2(5, 5), true);
+            player = new PlayerActor(this, new Vector2(100, 50), true);
             player.toFront();
             player.setupKeyboardControl();
             addActor(new TiledMapActor(this));
