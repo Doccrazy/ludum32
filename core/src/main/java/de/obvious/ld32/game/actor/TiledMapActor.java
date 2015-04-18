@@ -22,9 +22,11 @@ public class TiledMapActor extends WorldActor {
 
 	@Override
 	public void draw(Batch batch, float parentAlpha) {
+	    batch.end();
 		renderer.setView((OrthographicCamera) world.stage.getCamera());
 
 		renderer.render();
+		batch.begin();
 	}
 
 	@Override

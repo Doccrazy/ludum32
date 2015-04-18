@@ -6,7 +6,6 @@ import com.badlogic.gdx.math.Vector2;
 import de.obvious.ld32.core.Resource;
 import de.obvious.ld32.data.GameRules;
 import de.obvious.shared.game.actor.ShapeActor;
-import de.obvious.shared.game.base.KeyboardMovementListener;
 import de.obvious.shared.game.world.BodyBuilder;
 import de.obvious.shared.game.world.Box2dWorld;
 import de.obvious.shared.game.world.ShapeBuilder;

@@ -33,6 +33,7 @@ public class GameInputListener extends InputListener {
         if (world.getGameState() != GameState.GAME) {
             return false;
         }
+        System.out.println(x + " " + y);
         return true;
     }
 

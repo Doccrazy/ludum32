@@ -51,4 +51,8 @@ public class GameWorld extends Box2dWorld {
 		this.actionMap = actionMap;
     }
 
+    public PlayerActor getPlayer() {
+        return player;
+    }
+
 }

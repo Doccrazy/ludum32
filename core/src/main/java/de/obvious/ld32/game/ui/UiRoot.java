@@ -35,4 +35,9 @@ public class UiRoot extends UiBase<GameWorld, GameRenderer, GameInputListener> {
 	protected InputListener createUiInput() {
 		return new UiInputListener(this);
 	}
+
+	@Override
+	protected GameInputListener createGameInput() {
+	    return new GameInputListener(this);
+	}
 }
