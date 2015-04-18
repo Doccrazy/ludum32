@@ -18,8 +18,8 @@ public class UiInputListener extends InputListener {
     public boolean keyDown(InputEvent event, int keycode) {
 		if (keycode == Keys.ENTER
 				&& (root.getWorld().getGameState() == GameState.INIT)) {
-			root.getWorld().transition(GameState.INIT);
-			root.getWorld().transition(GameState.PRE_GAME);
+			//root.getWorld().transition(GameState.INIT);
+			//root.getWorld().transition(GameState.PRE_GAME);
 		}
 		if (Debug.ON) {
 			if (keycode == Keys.Z) {

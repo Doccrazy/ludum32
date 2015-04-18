@@ -26,6 +26,8 @@ public class GameWorld extends Box2dWorld {
 	public GameWorld() {
         super(GameRules.GRAVITY);
         RayHandler.useDiffuseLight(true);
+        transition(GameState.PRE_GAME);
+        transition(GameState.GAME);
     }
 
     @Override
