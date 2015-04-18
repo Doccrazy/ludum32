@@ -9,6 +9,7 @@ import com.badlogic.gdx.math.Vector2;
 import de.obvious.ld32.data.GameRules;
 import de.obvious.ld32.data.GamepadActions;
 import de.obvious.ld32.game.actor.PlayerActor;
+import de.obvious.ld32.game.actor.TiledMapActor;
 import de.obvious.shared.game.base.GamepadMovementListener;
 import de.obvious.shared.game.world.Box2dWorld;
 import de.obvious.shared.game.world.GameState;
@@ -22,7 +23,6 @@ public class GameWorld extends Box2dWorld {
 
 	public GameWorld() {
         super(GameRules.GRAVITY);
-        addActor(new TiledMapActor(this));
         RayHandler.useDiffuseLight(true);
     }
 
@@ -31,7 +31,9 @@ public class GameWorld extends Box2dWorld {
         switch (newState) {
         case INIT:
             player = new PlayerActor(this, new Vector2(5, 5), true);
+            player.toFront();
             player.setupKeyboardControl();
+            addActor(new TiledMapActor(this));
             addActor(player);
             transition(GameState.GAME);
             break;

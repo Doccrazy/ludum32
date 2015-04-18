@@ -1,4 +1,4 @@
-package de.obvious.ld32.game.world;
+package de.obvious.ld32.game.actor;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
@@ -32,6 +32,10 @@ public class TiledMapActor extends WorldActor {
 		if(Gdx.input.isKeyPressed(Input.Keys.PLUS)){
 
 		}
+	}
+
+	private void createBodys(){
+//		renderer.getMap().getLayers().get("Background").
 	}
 
 }
