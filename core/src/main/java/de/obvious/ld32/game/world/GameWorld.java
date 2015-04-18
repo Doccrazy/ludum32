@@ -4,10 +4,12 @@ import java.util.Map;
 
 import box2dLight.RayHandler;
 
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.math.Vector2;
 
 import de.obvious.ld32.data.GameRules;
 import de.obvious.ld32.data.GamepadActions;
+import de.obvious.ld32.game.abilities.DevAbility;
 import de.obvious.ld32.game.actor.PlayerActor;
 import de.obvious.ld32.game.actor.TiledMapActor;
 import de.obvious.shared.game.base.GamepadMovementListener;
@@ -31,11 +33,11 @@ public class GameWorld extends Box2dWorld {
         switch (newState) {
         case INIT:
             player = new PlayerActor(this, new Vector2(100, 50), true);
-            player.toFront();
+            player.setAbility(0, new DevAbility(this, new Color(1f, 1f, 0f, 1f)));  //TODO
+            player.setAbility(1, new DevAbility(this, new Color(1f, 0f, 0f, 1f)));  //TODO
             player.setupKeyboardControl();
             addActor(new TiledMapActor(this));
             addActor(player);
-            transition(GameState.GAME);
             break;
         case GAME:
             stage.setKeyboardFocus(player);
@@ -45,6 +47,14 @@ public class GameWorld extends Box2dWorld {
 
     @Override
     protected void doUpdate(float delta) {
+        switch(getGameState()) {
+        case PRE_GAME:
+            if (getStateTime() > 0.5f) {
+                transition(GameState.GAME);
+            }
+            break;
+        default:
+        }
     }
 
     public void controllerConfigured(Map<Integer, GamepadActions> actionMap) {
