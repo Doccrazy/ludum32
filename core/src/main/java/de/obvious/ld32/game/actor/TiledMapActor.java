@@ -126,6 +126,9 @@ public class TiledMapActor extends WorldActor {
 
 	@Override
 	protected void doAct(float delta) {
+        if (player.isDead()) {
+            return;
+        }
 		Vector2 playerPosition = player.getBody().getPosition();
 		int playerX = (int) playerPosition.x;
 		int playerY = (int) playerPosition.y;
@@ -141,9 +144,6 @@ public class TiledMapActor extends WorldActor {
 	}
 
 	private void checkBodys(int layer) {
-		if (player.isDead()) {
-			return;
-		}
 		TiledMapTileLayer mapLayer = (TiledMapTileLayer) map.getLayers().get(layer);
 		Vector2 playerPosition = player.getBody().getPosition();
 		int playerX = (int) playerPosition.x;
