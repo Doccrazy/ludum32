@@ -11,7 +11,8 @@ import de.obvious.shared.game.actor.WorldActor;
 public class InsectAbility implements Ability {
 	private GameWorld world;
 	private WorldActor actor;
-	   private Texture texture;
+	private Texture texture;
+
 
 	public InsectAbility(GameWorld world) {
 		this.world = world;
@@ -20,12 +21,13 @@ public class InsectAbility implements Ability {
 
 	@Override
 	public void trigger(Vector2 position, FireMode mode) {
+		if(mode == FireMode.PRIMARY){
 
+		}
 	}
 
 	@Override
 	public Texture getTexture(FireMode mode) {
-		// TODO Auto-generated method stub
 		return texture;
 	}
 
