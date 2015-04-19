@@ -1,6 +1,7 @@
 package de.obvious.ld32.game.actor;
 
 import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 
@@ -19,7 +20,8 @@ public class ShroomActor extends EnemyActor{
 
 	@Override
 	void drawBody(Batch batch) {
-		batch.draw(Resource.GFX.shroom, getX(), getY(), getWidth(), getHeight() * 1.5f );
+		TextureRegion frame = Resource.GFX.enemyShroom[animationDir().ordinal()].getKeyFrame(isMoving() ? stateTime : 0, true);
+		batch.draw(frame, getX(), getY(), getWidth(), getHeight() * 1.5f );
 
 	}
 

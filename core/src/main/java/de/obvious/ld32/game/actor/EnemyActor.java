@@ -8,6 +8,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 
 import de.obvious.ld32.core.Resource;
+import de.obvious.ld32.data.AnimDir;
 import de.obvious.ld32.game.abilities.Ability;
 import de.obvious.ld32.game.actor.action.AiAction;
 import de.obvious.ld32.game.actor.action.MeleeState;
@@ -88,6 +89,26 @@ public abstract class EnemyActor extends ShapeActor implements CollisionListener
 	@Override
 	public void hit(float force) {
 
+	}
+
+	protected AnimDir animationDir() {
+	    if (!isMoving()) {
+	        return AnimDir.DOWN;
+	    }
+	    Vector2 v = body.getLinearVelocity();
+	    if (v.x > Math.abs(v.y)) {
+	        return AnimDir.RIGHT;
+	    } else if (v.x < -Math.abs(v.y)) {
+	        return AnimDir.LEFT;
+	    } else if (v.y > Math.abs(v.x)) {
+	        return AnimDir.UP;
+	    } else {
+	        return AnimDir.DOWN;
+	    }
+	}
+
+	protected boolean isMoving() {
+	    return body.getLinearVelocity().len2() > 0.2f;
 	}
 
 }

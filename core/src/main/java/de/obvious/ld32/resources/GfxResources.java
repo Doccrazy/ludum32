@@ -67,9 +67,26 @@ public class GfxResources extends ResourcesBase {
 	        new Animation(0.1f, atlas.findRegions("weapon/tWeaponPilz")),
 	        new Animation(0.1f, atlas.findRegions("weapon/tWeaponPilzFire")),
 	};
+
+	public Animation[] enemyShroom = new Animation[] {
+	        new Animation(0.1f, atlas.findRegions("enemy/Pilzgegner/tPilzGegnerLinks")),
+	        new Animation(0.1f, atlas.findRegions("enemy/Pilzgegner/tPilzGegnerRechts")),
+	        new Animation(0.1f, atlas.findRegions("enemy/Pilzgegner/tPilzGegnerHinten")),
+	        new Animation(0.1f, atlas.findRegions("enemy/Pilzgegner/tPilzGegner")),
+	};
+    public Animation[] enemySpiky = new Animation[] {
+            new Animation(0.1f, atlas.findRegions("enemy/Stachelmonster/tStachelmonsterLinks")),
+            new Animation(0.1f, atlas.findRegions("enemy/Stachelmonster/tStachelmonsterRechts")),
+            new Animation(0.1f, atlas.findRegions("enemy/Stachelmonster/tStachelmonsterHinten")),
+            new Animation(0.1f, atlas.findRegions("enemy/Stachelmonster/tStachelmonster")),
+    };
+    public Animation[] enemyInsect = new Animation[] {
+            flip(new Animation(0.1f, atlas.findRegions("enemy/Insekt/tInsektRight")), true, false),
+            new Animation(0.1f, atlas.findRegions("enemy/Insekt/tInsektRight")),
+            new Animation(0.1f, atlas.findRegions("enemy/Insekt/tInsektBack")),
+            new Animation(0.1f, atlas.findRegions("enemy/Insekt/tInsektVor")),
+    };
 	public Pixmap crosshair = new Pixmap(Gdx.files.internal("crosshair.png"));
-	public Texture insect = new Texture(Gdx.files.internal("Grafiken/Insekt/tInsektFront.png"));
-	public Texture shroom = new Texture(Gdx.files.internal("Grafiken/Pilzgegner/tPilzGegner_1.png"));
 	public Texture lifeBar = new Texture(Gdx.files.internal("Grafiken/lifebar.png"));
 	public Texture itemSlot = new Texture(Gdx.files.internal("Grafiken/tFeatureUmrandung.png"));
 	public Texture startWeapon = new Texture(Gdx.files.internal("Grafiken/tBeginnerwaffe.png"));
