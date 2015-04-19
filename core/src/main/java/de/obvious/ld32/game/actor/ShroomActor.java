@@ -16,9 +16,9 @@ public class ShroomActor extends EnemyActor{
 
 	}
 
+
 	@Override
-	public void draw(Batch batch, float parentAlpha) {
-		super.draw(batch, parentAlpha);
+	void drawBody(Batch batch) {
 		batch.draw(Resource.GFX.shroom, getX(), getY(), getWidth(), getHeight() * 1.5f );
 
 	}

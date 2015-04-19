@@ -3,6 +3,7 @@ package de.obvious.ld32.game.actor;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 
@@ -16,11 +17,12 @@ import de.obvious.shared.game.base.CollisionListener;
 import de.obvious.shared.game.world.BodyBuilder;
 import de.obvious.shared.game.world.ShapeBuilder;
 
-public class EnemyActor extends ShapeActor implements CollisionListener {
+public abstract class EnemyActor extends ShapeActor implements CollisionListener {
 
 	protected static final float RADIUS = 0.5f;
 	protected int lives = 100;
 	protected Map<Integer, Ability> abilities = new HashMap<Integer, Ability>();
+	protected float alpha = 0;
 
 	public EnemyActor(GameWorld world, Vector2 spawn, boolean spawnIsLeftBottom) {
 		super(world, spawn, spawnIsLeftBottom);
@@ -37,14 +39,14 @@ public class EnemyActor extends ShapeActor implements CollisionListener {
 	}
 
 	@Override
-    protected void init() {
-	    super.init();
-	    addAction(new AiAction(MeleeState.IDLE));
+	protected void init() {
+		super.init();
+		addAction(new AiAction(MeleeState.IDLE));
 	}
 
 	@Override
 	protected BodyBuilder createBody(Vector2 spawn) {
-		return BodyBuilder.forDynamic(spawn).fixShape(ShapeBuilder.circle(RADIUS)).damping(0.99f, 0.9f).fixFilter((short)1, (short)-1);
+		return BodyBuilder.forDynamic(spawn).fixShape(ShapeBuilder.circle(RADIUS)).damping(0.99f, 0.9f).fixFilter((short) 1, (short) -1);
 	}
 
 	@Override
@@ -59,10 +61,29 @@ public class EnemyActor extends ShapeActor implements CollisionListener {
 
 	@Override
 	public void draw(com.badlogic.gdx.graphics.g2d.Batch batch, float parentAlpha) {
-		if (lives < 100)
-			batch.draw(Resource.GFX.lifeBar, getX(), getY() + 1.6f, getWidth() * lives / 100f, getWidth() / 10f);
+
+
+		if (world.rayHandler.pointAtLight(getX(), getY()) || world.rayHandler.pointAtLight(getX() + 2 * RADIUS, getY() + 2 * RADIUS)) {
+			if (alpha < 1)
+				alpha += 0.05;
+			batch.setColor(1, 1, 1, alpha);
+			if (lives < 100)
+				batch.draw(Resource.GFX.lifeBar, getX(), getY() + 1.6f, getWidth() * lives / 100f, getWidth() / 10f);
+			drawBody(batch);
+			batch.setColor(1, 1, 1, 1);
+		}else{
+			if (alpha > 0)
+				alpha -= 0.05f;
+			batch.setColor(1, 1, 1, alpha);
+			if (lives < 100)
+				batch.draw(Resource.GFX.lifeBar, getX(), getY() + 1.6f, getWidth() * lives / 100f, getWidth() / 10f);
+			drawBody(batch);
+			batch.setColor(1, 1, 1, 1);
+		}
 
 	}
+
+	abstract void drawBody(Batch batch);
 
 	@Override
 	public void hit(float force) {
