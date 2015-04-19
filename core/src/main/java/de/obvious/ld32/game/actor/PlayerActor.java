@@ -3,6 +3,9 @@ package de.obvious.ld32.game.actor;
 import java.util.HashMap;
 import java.util.Map;
 
+import box2dLight.ConeLight;
+
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Animation.PlayMode;
 import com.badlogic.gdx.graphics.g2d.Batch;
@@ -33,14 +36,18 @@ public class PlayerActor extends ShapeActor {
     private Map<Integer, Ability> abilities = new HashMap<Integer, Ability>();
     private float animTime = 0f;
     private Float triggerTime;
+    private ConeLight flashlight;
     private Box2dSteeringEntity steering;
     private float health = GameRules.PLAYER_HEALTH;
     private Emotion emotion = Emotion.NEUTRAL;
     private RageAction rage;
 
+
     public PlayerActor(Box2dWorld world, Vector2 spawn, boolean spawnIsLeftBottom) {
 		super(world, spawn, spawnIsLeftBottom);
-	}
+		flashlight = new ConeLight(world.rayHandler, 200, Color.WHITE, 500, getX(), getY(), 0, 60);
+		flashlight.setContactFilter((short)1,(short)0,(short)2);
+    }
 
     @Override
     protected void init() {
@@ -121,6 +128,12 @@ public class PlayerActor extends ShapeActor {
         if (health < GameRules.PLAYER_HEALTH_WOUNDED) {
             drawHead(batch, direction, reverse, true);
         }
+
+        flashlight.setDirection(aimDirection().angle());
+        flashlight.setPosition(body.getPosition());
+
+
+
 	    /*if (world.getGameState() == GameState.GAME) {
 	        batch.draw(Resource.GFX.crosshair, crosshair.x - 0.25f, crosshair.y - 0.25f, 0.25f, 0.25f, 0.5f, 0.5f, 1f, 1f, 0f);
 	    }*/

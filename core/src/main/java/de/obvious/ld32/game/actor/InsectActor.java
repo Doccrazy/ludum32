@@ -31,11 +31,12 @@ public class InsectActor extends EnemyActor {
 		return BodyBuilder.forDynamic(spawn).fixShape(ShapeBuilder.circle(RADIUS)).damping(0.99f, 0.9f);
 	}
 
-
 	@Override
 	public void draw(Batch batch, float parentAlpha) {
-		batch.draw(Resource.GFX.insect, getX(), getY(), getWidth(), getHeight() * 1.5f);
-		super.draw(batch, parentAlpha);
+		if (world.rayHandler.pointAtLight(getX(), getY())||world.rayHandler.pointAtLight(getX() + 2*radius, getY() + 2*radius)) {
+			batch.draw(Resource.GFX.insect, getX(), getY(), getWidth(), getHeight() * 1.5f);
+			super.draw(batch, parentAlpha);
+		}
 	}
 
 	@Override

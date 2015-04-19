@@ -37,6 +37,7 @@ public class TiledMapActor extends WorldActor {
 	private HashMap<Point, Body> bodies;
 	PlayerActor player;
 	private Point lastPosition = new Point(0, 0);
+	int[] renderedLayers = {0,1,2,3};
 
 	private ShapeRenderer shapeRenderer = new ShapeRenderer();
 	private FlatTiledGraph graph;
@@ -86,7 +87,7 @@ public class TiledMapActor extends WorldActor {
 	public void draw(Batch batch, float parentAlpha) {
 		batch.end();
 		renderer.setView((OrthographicCamera) world.stage.getCamera());
-		renderer.render();
+		renderer.render(renderedLayers);
 
 		shapeRenderer.begin(ShapeType.Filled);
 		shapeRenderer.setProjectionMatrix(world.stage.getCamera().combined);
@@ -123,7 +124,7 @@ public class TiledMapActor extends WorldActor {
 	    if (player.isDead()) {
 	        return;
 	    }
-		TiledMapTileLayer mapLayer = (TiledMapTileLayer) map.getLayers().get("Physic");
+		TiledMapTileLayer mapLayer = (TiledMapTileLayer) map.getLayers().get("Foreground");
 		Vector2 playerPosition = player.getBody().getPosition();
 		int playerX = (int) playerPosition.x;
 		int playerY = (int) playerPosition.y;
@@ -139,7 +140,7 @@ public class TiledMapActor extends WorldActor {
 					continue;
 				if (bodies.get(new Point(x, y)) != null)
 					continue;
-				Body body = BodyBuilder.forStatic(new Vector2(x+0.5f , y+0.5f )).fixShape(ShapeBuilder.box(0.5f,  0.5f)).build(world);
+				Body body = BodyBuilder.forStatic(new Vector2(x+0.5f , y+0.5f )).fixShape(ShapeBuilder.box(0.5f,  0.5f)).fixFilter((short)2, (short)-1).build(world);
 				bodies.put(new Point(x, y), body);
 
 			}

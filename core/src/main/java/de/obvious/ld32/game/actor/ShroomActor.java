@@ -13,6 +13,7 @@ public class ShroomActor extends EnemyActor{
 	public ShroomActor(GameWorld world, Vector2 spawn, boolean spawnIsLeftBottom) {
 		super(world, spawn, spawnIsLeftBottom);
 		abilities.put(0, new ShroomAbility(world));
+
 	}
 
 	@Override

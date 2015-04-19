@@ -28,7 +28,7 @@ public class GameRenderer extends BaseGameRenderer {
 
     @Override
     protected void init() {
-        world.rayHandler.setAmbientLight(new Color(0.8f, 0.8f, 0.8f, 0f));
+        world.rayHandler.setAmbientLight(new Color(0.2f, 0.2f, 0.2f, 0.4f));
     }
 
     @Override
@@ -38,6 +38,7 @@ public class GameRenderer extends BaseGameRenderer {
         Vector2 bgSize = bgScaling.apply(gameViewport.x, gameViewport.y, world.stage.getWidth(), world.stage.getHeight());
         //batch.draw(Resource.GFX.backgroundHigh, world.stage.getWidth() / 2 - bgSize.x / 2, 0, bgSize.x, bgSize.y);
         //batch.draw(Resource.GFX.backgroundLow, world.stage.getWidth() / 2 - bgSize.x / 2, -bgSize.y + 0.1f, bgSize.x, bgSize.y);
+
     }
 
 	@Override
