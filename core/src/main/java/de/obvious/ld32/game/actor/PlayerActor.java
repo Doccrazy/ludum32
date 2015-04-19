@@ -27,7 +27,7 @@ import de.obvious.shared.game.world.Box2dWorld;
 import de.obvious.shared.game.world.ShapeBuilder;
 
 public class PlayerActor extends ShapeActor {
-    public static final float RADIUS = 0.5f;
+    public static final float RADIUS = 0.49f;
 
 	private KeyboardMovementListener movement;
     private boolean moving;
@@ -168,7 +168,7 @@ public class PlayerActor extends ShapeActor {
 
         Vector2 aim = aimDirection();
         float scaleY = aim.x < 0 ? -1 : 1;
-        batch.draw(frame, getX() + RADIUS, getY() + RADIUS/2f, 0, (frame.getRegionHeight() * Constants.PIXEL_SCALE) / 2f,
+        batch.draw(frame, getX() + getOriginX(), getY() + RADIUS/2f, 0, (frame.getRegionHeight() * Constants.PIXEL_SCALE) / 2f,
                 frame.getRegionWidth() * Constants.PIXEL_SCALE, frame.getRegionHeight() * Constants.PIXEL_SCALE, getScaleX(), getScaleY() * scaleY, aim.angle());
     }
 
@@ -214,6 +214,10 @@ public class PlayerActor extends ShapeActor {
         }
     }
 
+    public float getHealth() {
+        return health;
+    }
+
     public Emotion getEmotion() {
         return emotion;
     }
@@ -222,6 +226,11 @@ public class PlayerActor extends ShapeActor {
         this.emotion = emotion;
     }
 
+    public Vector2 getWeaponMuzzle() {
+        Vector2 pos = body.getPosition().cpy();
+        pos.y += RADIUS/2f;
+        return pos.add(aimDirection().scl(0.8f));
+    }
 
 }
 
