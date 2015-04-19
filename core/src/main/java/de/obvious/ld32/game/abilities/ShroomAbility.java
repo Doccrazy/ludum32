@@ -6,17 +6,14 @@ import com.badlogic.gdx.math.Vector2;
 
 import de.obvious.ld32.core.Resource;
 import de.obvious.ld32.game.world.GameWorld;
-import de.obvious.shared.game.actor.WorldActor;
 
-public class ShroomAbility implements Ability{
+public class ShroomAbility implements Ability {
 	private GameWorld world;
-	private WorldActor actor;
-	   private Texture texture;
+	private Texture texture;
 
-	public ShroomAbility(GameWorld world, WorldActor actor) {
+	public ShroomAbility(GameWorld world) {
 		this.world = world;
-		this.actor = actor;
-
+		texture = Resource.GFX.shroomWeapon;
 	}
 
 	@Override
@@ -25,13 +22,12 @@ public class ShroomAbility implements Ability{
 	}
 
 	@Override
-	public Texture getTexture() {
-		// TODO Auto-generated method stub
-		return null;
+	public Texture getTexture(FireMode mode) {
+		return texture;
 	}
 
-    @Override
-    public Animation getWeaponAnimation(boolean fire) {
-        return Resource.GFX.weaponShroom[fire ? 1 : 0];
-    }
+	@Override
+	public Animation getWeaponAnimation(boolean fire) {
+		return Resource.GFX.weaponShroom[fire ? 1 : 0];
+	}
 }

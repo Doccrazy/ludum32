@@ -10,8 +10,9 @@ import com.badlogic.gdx.math.Vector2;
 import de.obvious.ld32.data.GameRules;
 import de.obvious.ld32.data.GamepadActions;
 import de.obvious.ld32.game.abilities.StartAbility;
-import de.obvious.ld32.game.actor.EnemyActor;
+import de.obvious.ld32.game.actor.InsectActor;
 import de.obvious.ld32.game.actor.PlayerActor;
+import de.obvious.ld32.game.actor.ShroomActor;
 import de.obvious.ld32.game.actor.TiledMapActor;
 import de.obvious.shared.game.base.GamepadMovementListener;
 import de.obvious.shared.game.world.Box2dWorld;
@@ -39,7 +40,8 @@ public class GameWorld extends Box2dWorld {
             player.setupKeyboardControl();
             addActor(new TiledMapActor(this));
             addActor(player);
-            addActor(new EnemyActor(this, new Vector2(100, 55), true));
+            addActor(new InsectActor(this, new Vector2(100, 55), true));
+            addActor(new ShroomActor(this, new Vector2(100, 60), true));
             break;
         case GAME:
             stage.setKeyboardFocus(player);

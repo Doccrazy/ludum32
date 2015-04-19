@@ -10,6 +10,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Widget;
 import de.obvious.ld32.core.Resource;
 import de.obvious.ld32.data.Constants;
 import de.obvious.ld32.game.abilities.Ability;
+import de.obvious.ld32.game.abilities.FireMode;
 import de.obvious.ld32.game.actor.PlayerActor;
 import de.obvious.ld32.game.world.GameWorld;
 
@@ -35,9 +36,9 @@ public class UiItemSlots extends Widget {
 	public void draw(Batch batch, float parentAlpha) {
 
 		batch.draw(Resource.GFX.itemSlot, Constants.SCREEN_WIDTH/2 -120, Constants.SCREEN_HEIGHT -120, 100,100);
-		batch.draw(player.getAbility(0).getTexture(),Constants.SCREEN_WIDTH/2 -120 , Constants.SCREEN_HEIGHT -120, 100, 100 );
+		batch.draw(player.getAbility(0).getTexture(FireMode.PRIMARY),Constants.SCREEN_WIDTH/2 -120 , Constants.SCREEN_HEIGHT -120, 100, 100 );
 		batch.draw(Resource.GFX.itemSlot, Constants.SCREEN_WIDTH/2 +20, Constants.SCREEN_HEIGHT -120, 100,100);
-		batch.draw(player.getAbility(1).getTexture(), Constants.SCREEN_WIDTH/2 +20, Constants.SCREEN_HEIGHT -120, 100,100);
+		batch.draw(player.getAbility(1).getTexture(FireMode.ALTERNATE), Constants.SCREEN_WIDTH/2 +20, Constants.SCREEN_HEIGHT -120, 100,100);
 		super.draw(batch, parentAlpha);
 
 	}

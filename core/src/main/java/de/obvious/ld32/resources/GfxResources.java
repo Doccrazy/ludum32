@@ -38,10 +38,14 @@ public class GfxResources extends ResourcesBase {
 	};
 	public Pixmap crosshair = new Pixmap(Gdx.files.internal("crosshair.png"));
 	public Texture insect = new Texture(Gdx.files.internal("Grafiken/Insekt/tInsektFront.png"));
+	public Texture shroom = new Texture(Gdx.files.internal("Grafiken/Pilzgegner/tPilzGegner_1.png"));
 	public Texture lifeBar = new Texture(Gdx.files.internal("Grafiken/lifebar.png"));
 	public Texture itemSlot = new Texture(Gdx.files.internal("Grafiken/tFeatureUmrandung.png"));
 	public Texture startWeapon = new Texture(Gdx.files.internal("Grafiken/tBeginnerwaffe.png"));
+	public Texture startWeaponX = new Texture(Gdx.files.internal("Grafiken/tBeginnerwaffeX.png"));
 	public Texture insectWeapon = new Texture(Gdx.files.internal("Grafiken/tInsektenwaffe.png"));
+	public Texture shroomWeapon = new Texture(Gdx.files.internal("Grafiken/tPilzwaffe.png"));
+
 
 	public TiledMap LEVEL1 = new TmxMapLoader().load("RaumschiffEbene1.tmx");
 

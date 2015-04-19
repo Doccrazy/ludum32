@@ -8,7 +8,7 @@ public interface Ability {
 
     void trigger(Vector2 position, FireMode mode);
 
-    Texture getTexture();
+    Texture getTexture(FireMode mode);
 
     Animation getWeaponAnimation(boolean fire);
 

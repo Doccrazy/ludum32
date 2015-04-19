@@ -24,7 +24,7 @@ public class InsectAbility implements Ability {
 	}
 
 	@Override
-	public Texture getTexture() {
+	public Texture getTexture(FireMode mode) {
 		// TODO Auto-generated method stub
 		return texture;
 	}
