@@ -99,6 +99,9 @@ public class GfxResources extends ResourcesBase {
 	public Texture startWeaponBullet = new Texture(Gdx.files.internal("Grafiken/Waffeneffekte/tSchussStandard.png"));
 	public TextureRegion startWeaponBulletR = new TextureRegion(startWeaponBullet);
 
+	public Texture healthbarEmpty = texture("Grafiken/tLebensanzeige.png");
+	public Texture healthbarFull = texture("Grafiken/tLebensanzeigeVoll.png");
+
 	public TiledMap LEVEL1 = new TmxMapLoader().load("RaumschiffEbene1.tmx");
 
     public GfxResources() {
