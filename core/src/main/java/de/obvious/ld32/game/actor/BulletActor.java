@@ -25,6 +25,8 @@ public class BulletActor extends ShapeActor implements CollisionListener {
 		super(world, spawn, false);
 		this.velocity = velocity;
 		this.color = color;
+
+		task.in(5f, (Void) -> kill());
 	}
 
 	@Override
@@ -58,9 +60,12 @@ public class BulletActor extends ShapeActor implements CollisionListener {
     public boolean beginContact(Body me, Body other, Vector2 normal, Vector2 contactPoint) {
         if (other.getUserData() instanceof EnemyActor) {
             ((EnemyActor) other.getUserData()).damage(10, DamageType.NORMAL);
-            kill();
+
             ((GameWorld)world).addShake(0.25f);
         }
+
+        if(!other.isBullet() && !(other.getUserData() instanceof PlayerActor))
+        	kill();
         return false;
     }
 

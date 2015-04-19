@@ -96,6 +96,11 @@ public class GfxResources extends ResourcesBase {
             new Animation(0.1f, atlas.findRegions("enemy/Insekt/tInsektBackAttack")),
             new Animation(0.1f, atlas.findRegions("enemy/Insekt/tInsektFrontAttack")),
     };
+
+    public Animation spikeBigProjectile = new Animation(0.1f, atlas.findRegions("projectiles/tSchussDorne"));
+    public Animation spikeLittleProjectile = new Animation(0.1f, atlas.findRegions("projectiles/tSchussDorneSplitter"));
+    public Animation spikeExplosion = new Animation(0.1f, atlas.findRegions("projectiles/tExplosionDorne"));
+
 	public Pixmap crosshair = new Pixmap(Gdx.files.internal("crosshair.png"));
 	public Texture lifeBar = new Texture(Gdx.files.internal("Grafiken/lifebar.png"));
 	public Texture itemSlot = new Texture(Gdx.files.internal("Grafiken/tFeatureUmrandung.png"));
@@ -103,6 +108,7 @@ public class GfxResources extends ResourcesBase {
 	public Texture startWeaponX = new Texture(Gdx.files.internal("Grafiken/tBeginnerwaffeX.png"));
 	public Texture insectWeapon = new Texture(Gdx.files.internal("Grafiken/tInsektenwaffe.png"));
 	public Texture shroomWeapon = new Texture(Gdx.files.internal("Grafiken/tPilzwaffe.png"));
+	public Texture spikeWeapon = new Texture(Gdx.files.internal("Grafiken/tStachelwaffe.png"));
 	public Texture startWeaponBullet = new Texture(Gdx.files.internal("Grafiken/Waffeneffekte/tSchussStandard.png"));
 	public TextureRegion startWeaponBulletR = new TextureRegion(startWeaponBullet);
 
