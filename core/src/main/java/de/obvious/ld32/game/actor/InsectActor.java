@@ -31,7 +31,7 @@ public class InsectActor extends EnemyActor {
 
 	@Override
 	protected BodyBuilder createBody(Vector2 spawn) {
-		return BodyBuilder.forDynamic(spawn).fixShape(ShapeBuilder.circle(RADIUS)).damping(0.99f, 0.9f);
+		return BodyBuilder.forDynamic(spawn).fixShape(ShapeBuilder.circle(radius)).damping(0.99f, 0.9f);
 	}
 
 	@Override

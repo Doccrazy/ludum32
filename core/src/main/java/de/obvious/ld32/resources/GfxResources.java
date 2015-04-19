@@ -80,14 +80,21 @@ public class GfxResources extends ResourcesBase {
             new Animation(0.1f, atlas.findRegions("enemy/Stachelmonster/tStachelmonsterRechts")),
             new Animation(0.1f, atlas.findRegions("enemy/Stachelmonster/tStachelmonsterHinten")),
             new Animation(0.1f, atlas.findRegions("enemy/Stachelmonster/tStachelmonster")),
-            new Animation(0.1f, atlas.findRegions("enemy/Stachelmonster/tStachelmonster")),  //TODO
+            new Animation(0.1f, atlas.findRegions("enemy/Stachelmonster/tStachelmonsterTod"))
     };
+    public Animation enemySpikyAttack = new Animation(0.1f, atlas.findRegions("enemy/Stachelmonster/tStachelmonsterAttacke"));
     public Animation[] enemyInsect = new Animation[] {
             flip(new Animation(0.1f, atlas.findRegions("enemy/Insekt/tInsektRight")), true, false),
             new Animation(0.1f, atlas.findRegions("enemy/Insekt/tInsektRight")),
             new Animation(0.1f, atlas.findRegions("enemy/Insekt/tInsektBack")),
             new Animation(0.1f, atlas.findRegions("enemy/Insekt/tInsektVor")),
             new Animation(0.1f, atlas.findRegions("enemy/Insekt/tInsektDead")),
+    };
+    public Animation[] enemyInsectAttack = new Animation[] {
+            flip(new Animation(0.1f, atlas.findRegions("enemy/Insekt/tInsektRightAttack")), true, false),
+            new Animation(0.1f, atlas.findRegions("enemy/Insekt/tInsektRightAttack")),
+            new Animation(0.1f, atlas.findRegions("enemy/Insekt/tInsektBackAttack")),
+            new Animation(0.1f, atlas.findRegions("enemy/Insekt/tInsektFrontAttack")),
     };
 	public Pixmap crosshair = new Pixmap(Gdx.files.internal("crosshair.png"));
 	public Texture lifeBar = new Texture(Gdx.files.internal("Grafiken/lifebar.png"));

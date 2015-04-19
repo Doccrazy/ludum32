@@ -21,7 +21,7 @@ import de.obvious.shared.game.world.ShapeBuilder;
 
 public abstract class EnemyActor extends ShapeActor implements CollisionListener {
 
-	protected static final float RADIUS = 0.5f;
+	protected float radius = 0.49f;
 	protected int lives = 100;
 	protected Map<Integer, Ability> abilities = new HashMap<Integer, Ability>();
 	protected float alpha = 0;
@@ -49,7 +49,7 @@ public abstract class EnemyActor extends ShapeActor implements CollisionListener
 
 	@Override
 	protected BodyBuilder createBody(Vector2 spawn) {
-		return BodyBuilder.forDynamic(spawn).fixShape(ShapeBuilder.circle(RADIUS)).damping(0.99f, 0.9f).fixFilter((short) 1, (short) -1);
+		return BodyBuilder.forDynamic(spawn).fixShape(ShapeBuilder.circle(radius)).damping(0.99f, 0.9f).fixFilter((short) 1, (short) -1);
 	}
 
 	@Override
@@ -65,7 +65,7 @@ public abstract class EnemyActor extends ShapeActor implements CollisionListener
 
 	@Override
 	public void draw(com.badlogic.gdx.graphics.g2d.Batch batch, float parentAlpha) {
-	    boolean litUp = world.rayHandler.pointAtLight(getX(), getY()) || world.rayHandler.pointAtLight(getX() + 2 * RADIUS, getY() + 2 * RADIUS);
+	    boolean litUp = world.rayHandler.pointAtLight(getX(), getY()) || world.rayHandler.pointAtLight(getX() + 2 * radius, getY() + 2 * radius);
 	    alpha = MathUtils.clamp(alpha + (litUp ? 0.05f : -0.05f), 0f, 1f);
 
 	    batch.setColor(1, 1, 1, alpha);
