@@ -51,6 +51,8 @@ public class PlayerActor extends ShapeActor {
 		super(world, spawn, spawnIsLeftBottom);
 		flashlight = new ConeLight(world.rayHandler, 200, Color.WHITE, 10, getX(), getY(), 0, 40);
 		flashlight.setContactFilter((short)1,(short)0,(short)2);
+		flashlight.setSoftnessLength(1f);
+		lights.add(flashlight);
     }
 
     @Override

@@ -13,7 +13,8 @@ public class AlarmLight extends ConeLight{
 		secondLight = new ConeLight(rayHandler, rays, color, distance, x, y, directionDegree-180, coneDegree);
 		setContactFilter((short)1,(short)0,(short)2);
 		secondLight.setContactFilter((short)1,(short)0,(short)2);
-
+		setSoftnessLength(0.5f);
+		secondLight.setSoftnessLength(0.5f);
 	}
 
 	@Override
