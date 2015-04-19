@@ -27,7 +27,7 @@ import de.obvious.shared.game.world.Box2dWorld;
 import de.obvious.shared.game.world.ShapeBuilder;
 
 public class PlayerActor extends ShapeActor {
-    private static final float RADIUS = 0.5f;
+    public static final float RADIUS = 0.5f;
 
 	private KeyboardMovementListener movement;
     private boolean moving;
@@ -45,7 +45,7 @@ public class PlayerActor extends ShapeActor {
 
     public PlayerActor(Box2dWorld world, Vector2 spawn, boolean spawnIsLeftBottom) {
 		super(world, spawn, spawnIsLeftBottom);
-		flashlight = new ConeLight(world.rayHandler, 200, Color.WHITE, 500, getX(), getY(), 0, 60);
+		flashlight = new ConeLight(world.rayHandler, 200, Color.WHITE, 10, getX(), getY(), 0, 40);
 		flashlight.setContactFilter((short)1,(short)0,(short)2);
     }
 
@@ -221,6 +221,8 @@ public class PlayerActor extends ShapeActor {
     public void setEmotion(Emotion emotion) {
         this.emotion = emotion;
     }
+
+
 }
 
 class AnimOrientation {

@@ -7,6 +7,7 @@ import com.badlogic.gdx.math.Vector2;
 
 import de.obvious.ld32.core.Resource;
 import de.obvious.ld32.game.actor.BulletActor;
+import de.obvious.ld32.game.actor.PlayerActor;
 import de.obvious.ld32.game.world.GameWorld;
 
 public class StartAbility implements Ability {
@@ -27,8 +28,7 @@ public class StartAbility implements Ability {
 		if (mode == FireMode.PRIMARY) {
 			Vector2 d = position.cpy().sub(world.getPlayer().getBody().getPosition());
 			d.nor().scl(5f);
-
-			world.addActor(new BulletActor(world, world.getPlayer().getBody().getPosition(), d, color));
+			world.addActor(new BulletActor(world, new Vector2(world.getPlayer().getBody().getPosition().x, world.getPlayer().getBody().getPosition().y + PlayerActor.RADIUS/2) , d, color));
 		}
 
 
