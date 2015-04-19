@@ -93,8 +93,13 @@ public abstract class EnemyActor extends ShapeActor {
 	protected void killme() {
 	    killed = true;
 	    stateTime = 0;
-	    body.setLinearVelocity(0, 0);
-	    body.setActive(false);
+	    Vector2 pos = body.getPosition();
+	    Vector2 v = body.getLinearVelocity();
+	    v.limit(1f);
+	    world.box2dWorld.destroyBody(body);
+
+	    BodyBuilder builder = createBody(pos).velocity(v).fixSensor();
+	    body = builder.build(world);
 	}
 
     public boolean isKilled() {
