@@ -1,5 +1,6 @@
 package de.obvious.ld32.game.actor;
 
+import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
@@ -20,7 +21,8 @@ public class ShroomActor extends EnemyActor{
 
 	@Override
 	void drawBody(Batch batch) {
-		TextureRegion frame = Resource.GFX.enemyShroom[animationDir().ordinal()].getKeyFrame(isMoving() ? stateTime : 0, true);
+	    Animation anim = Resource.GFX.enemyShroom[animationDir().ordinal()];
+		TextureRegion frame = anim.getKeyFrame(killed ? Math.min(stateTime, anim.getAnimationDuration()) : (isMoving() ? stateTime : 0), !killed);
 		batch.draw(frame, getX(), getY(), getWidth(), getHeight() * 1.5f );
 
 	}
@@ -29,6 +31,7 @@ public class ShroomActor extends EnemyActor{
 	public boolean beginContact(Body me, Body other, Vector2 normal, Vector2 contactPoint) {
 		if (other.getUserData() instanceof BulletActor) {
 			((BulletActor) other.getUserData()).kill();
+			((GameWorld)world).addShake(0.25f);
 			lives -= 10;
 		}
 		return false;

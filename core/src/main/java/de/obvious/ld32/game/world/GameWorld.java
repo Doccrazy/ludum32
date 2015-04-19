@@ -26,6 +26,7 @@ public class GameWorld extends Box2dWorld {
 	private GamepadMovementListener moveListener;
     private PlayerActor player;
     private TiledMapActor level;
+    private float shakeLevel, shakeDegrade;
 
 	public GameWorld() {
         super(GameRules.GRAVITY);
@@ -70,6 +71,7 @@ public class GameWorld extends Box2dWorld {
             }
         default:
         }
+        shakeLevel = Math.max(shakeLevel - delta*shakeDegrade, 0);
     }
 
     public void controllerConfigured(Map<Integer, GamepadActions> actionMap) {
@@ -82,5 +84,14 @@ public class GameWorld extends Box2dWorld {
 
     public TiledMapActor getLevel() {
         return level;
+    }
+
+    public void addShake(float percent) {
+        shakeLevel = Math.min(shakeLevel + percent, 1f);
+        shakeDegrade = shakeLevel;
+    }
+
+    public float getShakeLevel() {
+        return shakeLevel;
     }
 }

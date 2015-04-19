@@ -6,6 +6,7 @@ import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Scaling;
 
+import de.obvious.ld32.data.Constants;
 import de.obvious.ld32.data.GameRules;
 import de.obvious.ld32.game.actor.PlayerActor;
 import de.obvious.ld32.game.world.GameWorld;
@@ -46,8 +47,10 @@ public class GameRenderer extends BaseGameRenderer {
 	    zoom = MathUtils.clamp(zoom + zoomDelta*0.02f, 1f, 2f);
 
 	    PlayerActor player = ((GameWorld)world).getPlayer();
-        camera.position.x = player.getX() + player.getOriginX();
-        camera.position.y = player.getY() + player.getOriginY();
+	    float shakeX = (float)(Constants.SCREEN_SHAKE * Math.random() * ((GameWorld)world).getShakeLevel());
+	    float shakeY = (float)(Constants.SCREEN_SHAKE * Math.random() * ((GameWorld)world).getShakeLevel());
+        camera.position.x = player.getX() + player.getOriginX() + shakeX;
+        camera.position.y = player.getY() + player.getOriginY() + shakeY;
 
         /*if (animateCamera) {
             camY -= Gdx.graphics.getDeltaTime() * CAM_PPS;

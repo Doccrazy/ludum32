@@ -5,4 +5,5 @@ public enum AnimDir {
     RIGHT,
     UP,
     DOWN,
+    DEAD,
 }

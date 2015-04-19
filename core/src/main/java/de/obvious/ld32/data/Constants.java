@@ -11,4 +11,5 @@ public class Constants {
     public static final int MAP_HEIGHT = 100;
 
     public static final float PIXEL_SCALE = 1f/50f;
+    public static final float SCREEN_SHAKE = 0.3f;
 }

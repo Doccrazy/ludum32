@@ -13,6 +13,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Action;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 
+import de.obvious.ld32.game.actor.EnemyActor;
 import de.obvious.ld32.game.ai.AiUtils;
 import de.obvious.ld32.game.ai.Box2dRaycastCollisionDetector;
 import de.obvious.ld32.game.ai.Box2dSteeringEntity;
@@ -80,7 +81,7 @@ public class AiAction extends Action {
 
     @Override
     public boolean act(float delta) {
-        if (AiUtils.getPlayer(getActor()).isDead()) {
+        if (AiUtils.getPlayer(getActor()).isDead() || ((EnemyActor)getActor()).isKilled()) {
             return true;
         }
         stateMachine.update();

@@ -7,6 +7,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
+import com.badlogic.gdx.graphics.g2d.ParticleEffectPool;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
@@ -15,7 +16,7 @@ import de.obvious.ld32.data.Emotion;
 import de.obvious.shared.core.ResourcesBase;
 
 public class GfxResources extends ResourcesBase {
-	//Left, Right, Up, Down
+	//Left, Right, Up, Down, Dead
     public Animation[] player = new Animation[] {
         new Animation(0.025f, atlas.findRegions("player/tLinks")),
         flip(new Animation(0.025f, atlas.findRegions("player/tLinks")), true, false),
@@ -73,18 +74,21 @@ public class GfxResources extends ResourcesBase {
 	        new Animation(0.1f, atlas.findRegions("enemy/Pilzgegner/tPilzGegnerRechts")),
 	        new Animation(0.1f, atlas.findRegions("enemy/Pilzgegner/tPilzGegnerHinten")),
 	        new Animation(0.1f, atlas.findRegions("enemy/Pilzgegner/tPilzGegner")),
+	        new Animation(0.1f, atlas.findRegions("enemy/Pilzgegner/tPilzGegner")),  //TODO
 	};
     public Animation[] enemySpiky = new Animation[] {
             new Animation(0.1f, atlas.findRegions("enemy/Stachelmonster/tStachelmonsterLinks")),
             new Animation(0.1f, atlas.findRegions("enemy/Stachelmonster/tStachelmonsterRechts")),
             new Animation(0.1f, atlas.findRegions("enemy/Stachelmonster/tStachelmonsterHinten")),
             new Animation(0.1f, atlas.findRegions("enemy/Stachelmonster/tStachelmonster")),
+            new Animation(0.1f, atlas.findRegions("enemy/Stachelmonster/tStachelmonster")),  //TODO
     };
     public Animation[] enemyInsect = new Animation[] {
             flip(new Animation(0.1f, atlas.findRegions("enemy/Insekt/tInsektRight")), true, false),
             new Animation(0.1f, atlas.findRegions("enemy/Insekt/tInsektRight")),
             new Animation(0.1f, atlas.findRegions("enemy/Insekt/tInsektBack")),
             new Animation(0.1f, atlas.findRegions("enemy/Insekt/tInsektVor")),
+            new Animation(0.1f, atlas.findRegions("enemy/Insekt/tInsektDead")),
     };
 	public Pixmap crosshair = new Pixmap(Gdx.files.internal("crosshair.png"));
 	public Texture lifeBar = new Texture(Gdx.files.internal("Grafiken/lifebar.png"));
@@ -95,6 +99,8 @@ public class GfxResources extends ResourcesBase {
 	public Texture shroomWeapon = new Texture(Gdx.files.internal("Grafiken/tPilzwaffe.png"));
 	public Texture startWeaponBullet = new Texture(Gdx.files.internal("Grafiken/Waffeneffekte/tSchussStandard.png"));
 	public TextureRegion startWeaponBulletR = new TextureRegion(startWeaponBullet);
+
+	public ParticleEffectPool shroomWeaponAttack = particle("particles/shroomWeaponAttack.p", 0.01f);
 
 	public TiledMap LEVEL1 = new TmxMapLoader().load("RaumschiffEbene1.tmx");
 
