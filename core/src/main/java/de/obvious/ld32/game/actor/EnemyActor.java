@@ -8,6 +8,8 @@ import com.badlogic.gdx.physics.box2d.Body;
 
 import de.obvious.ld32.core.Resource;
 import de.obvious.ld32.game.abilities.Ability;
+import de.obvious.ld32.game.actor.action.AiAction;
+import de.obvious.ld32.game.actor.action.MeleeState;
 import de.obvious.ld32.game.world.GameWorld;
 import de.obvious.shared.game.actor.ShapeActor;
 import de.obvious.shared.game.base.CollisionListener;
@@ -16,7 +18,7 @@ import de.obvious.shared.game.world.ShapeBuilder;
 
 public class EnemyActor extends ShapeActor implements CollisionListener {
 
-	protected float radius = 0.5f;
+	protected static final float RADIUS = 0.5f;
 	protected int lives = 100;
 	protected Map<Integer, Ability> abilities = new HashMap<Integer, Ability>();
 
@@ -32,7 +34,17 @@ public class EnemyActor extends ShapeActor implements CollisionListener {
 
 	@Override
 	public void endContact(Body other) {
+	}
 
+	@Override
+    protected void init() {
+	    super.init();
+	    addAction(new AiAction(MeleeState.IDLE));
+	}
+
+	@Override
+	protected BodyBuilder createBody(Vector2 spawn) {
+		return BodyBuilder.forDynamic(spawn).fixShape(ShapeBuilder.circle(RADIUS)).damping(0.99f, 0.9f);
 	}
 
 	@Override
@@ -43,11 +55,6 @@ public class EnemyActor extends ShapeActor implements CollisionListener {
 			((GameWorld) world).getPlayer().setAbility(1, abilities.get(0));
 			kill();
 		}
-	}
-
-	@Override
-	protected BodyBuilder createBody(Vector2 spawn) {
-		return BodyBuilder.forStatic(spawn).fixShape(ShapeBuilder.circle(radius));
 	}
 
 	@Override

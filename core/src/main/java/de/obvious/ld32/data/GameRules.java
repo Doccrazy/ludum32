@@ -9,7 +9,8 @@ public class GameRules {
     public static final float LEVEL_HEIGHT = 14.4f;
     public static final float WALL_WIDTH = 0.3f;
 
-    public static final float PLAYER_HEATH = 2000;
+    public static final float PLAYER_HEALTH = 100;
+    public static final float PLAYER_HEALTH_WOUNDED = 100;
     public static final float REGEN_DELAY = 1.5f;
     public static final float REGEN_PER_SEC = 100f;
     public static final float STAGGER_TIME = 0.75f;

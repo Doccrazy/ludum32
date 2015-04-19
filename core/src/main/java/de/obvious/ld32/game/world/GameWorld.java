@@ -7,6 +7,7 @@ import box2dLight.RayHandler;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.math.Vector2;
 
+import de.obvious.ld32.core.Resource;
 import de.obvious.ld32.data.GameRules;
 import de.obvious.ld32.data.GamepadActions;
 import de.obvious.ld32.game.abilities.StartAbility;
@@ -24,6 +25,7 @@ public class GameWorld extends Box2dWorld {
 	private boolean partInit;
 	private GamepadMovementListener moveListener;
     private PlayerActor player;
+    private TiledMapActor level;
 
 	public GameWorld() {
         super(GameRules.GRAVITY);
@@ -38,7 +40,8 @@ public class GameWorld extends Box2dWorld {
             player.setAbility(0, new StartAbility(this, new Color(1f, 1f, 0f, 1f)));  //TODO
             player.setAbility(1, new StartAbility(this, new Color(1f, 0f, 0f, 1f)));  //TODO
             player.setupKeyboardControl();
-            addActor(new TiledMapActor(this));
+            level = new TiledMapActor(this, Resource.GFX.LEVEL1);
+            addActor(level);
             addActor(player);
             addActor(new InsectActor(this, new Vector2(100, 55), true));
             addActor(new ShroomActor(this, new Vector2(100, 60), true));
@@ -73,4 +76,7 @@ public class GameWorld extends Box2dWorld {
         return player;
     }
 
+    public TiledMapActor getLevel() {
+        return level;
+    }
 }

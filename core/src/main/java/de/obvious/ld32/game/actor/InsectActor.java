@@ -6,6 +6,8 @@ import com.badlogic.gdx.physics.box2d.Body;
 
 import de.obvious.ld32.core.Resource;
 import de.obvious.ld32.game.abilities.InsectAbility;
+import de.obvious.ld32.game.actor.action.AiAction;
+import de.obvious.ld32.game.actor.action.MeleeState;
 import de.obvious.ld32.game.world.GameWorld;
 import de.obvious.shared.game.world.BodyBuilder;
 import de.obvious.shared.game.world.ShapeBuilder;
@@ -19,8 +21,14 @@ public class InsectActor extends EnemyActor {
 	}
 
 	@Override
+	protected void init() {
+	    super.init();
+	    addAction(new AiAction(MeleeState.IDLE));
+	}
+
+	@Override
 	protected BodyBuilder createBody(Vector2 spawn) {
-		return BodyBuilder.forStatic(spawn).fixShape(ShapeBuilder.circle(radius));
+		return BodyBuilder.forDynamic(spawn).fixShape(ShapeBuilder.circle(RADIUS)).damping(0.99f, 0.9f);
 	}
 
 

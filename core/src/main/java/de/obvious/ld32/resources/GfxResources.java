@@ -1,5 +1,8 @@
 package de.obvious.ld32.resources;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
@@ -7,6 +10,7 @@ import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 
+import de.obvious.ld32.data.Emotion;
 import de.obvious.shared.core.ResourcesBase;
 
 public class GfxResources extends ResourcesBase {
@@ -17,16 +21,42 @@ public class GfxResources extends ResourcesBase {
         new Animation(0.05f, atlas.findRegions("player/tBack")),
         new Animation(0.05f, atlas.findRegions("player/tVor"))
     };
-	public Animation[] playerHead = new Animation[] {
-    	new Animation(0.025f, atlas.findRegions("player/tHeadLeft")),
-    	flip(new Animation(0.025f, atlas.findRegions("player/tHeadLeft")), true, false),
-    	new Animation(0.025f, atlas.findRegions("player/tHeadBack")),
-    	new Animation(0.025f, atlas.findRegions("player/tHeadVor"))
+	public Map<Emotion, Animation[]> playerHead = new HashMap<Emotion, Animation[]>() {{
+	    put(Emotion.NEUTRAL, new Animation[] {
+            new Animation(0.025f, atlas.findRegions("player/head/tHeadLeft")),
+            flip(new Animation(0.025f, atlas.findRegions("player/head/tHeadLeft")), true, false),
+            new Animation(0.025f, atlas.findRegions("player/head/tHeadRueck")),
+            new Animation(0.025f, atlas.findRegions("player/head/tHeadVor"))
+        });
+	    put(Emotion.ANGRY, new Animation[] {
+	            new Animation(0.025f, atlas.findRegions("player/head/tHeadAngryLeft")),
+	            flip(new Animation(0.025f, atlas.findRegions("player/head/tHeadAngryLeft")), true, false),
+	            new Animation(0.025f, atlas.findRegions("player/head/tHeadRueck")),
+	            new Animation(0.025f, atlas.findRegions("player/head/tHeadAngryVor"))
+	    });
+	    put(Emotion.JOYFUL, new Animation[] {
+	            new Animation(0.025f, atlas.findRegions("player/head/tHeadLeft")),  //TODO
+	            flip(new Animation(0.025f, atlas.findRegions("player/head/tHeadLeft")), true, false),
+	            new Animation(0.025f, atlas.findRegions("player/head/tHeadRueck")),
+	            new Animation(0.025f, atlas.findRegions("player/head/tHeadJoyVor"))
+	    });
+	    put(Emotion.TROUBLED, new Animation[] {
+	            new Animation(0.025f, atlas.findRegions("player/head/tHeadTroubleLeft")),
+	            flip(new Animation(0.025f, atlas.findRegions("player/head/tHeadTroubleLeft")), true, false),
+	            new Animation(0.025f, atlas.findRegions("player/head/tHeadRueck")),
+	            new Animation(0.025f, atlas.findRegions("player/head/tHeadTroubleVor"))
+	    });
+	}};
+	public Animation[] playerHeadWounded = new Animation[] {
+        new Animation(0.025f, atlas.findRegions("player/head/tHeadWoundedLeft")),
+        new Animation(0.025f, atlas.findRegions("player/head/tHeadWoundedRight")),
+        new Animation(0.025f, atlas.findRegions("player/head/tHeadWoundedRueck")),
+        new Animation(0.025f, atlas.findRegions("player/head/tHeadWoundedVor"))
 	};
 
 	public Animation[] weaponStart = new Animation[] {
-        new Animation(0.1f, atlas.findRegions("weapon/tWeaponBeginn")),
-        new Animation(0.1f, atlas.findRegions("weapon/tWeaponBeginn")),  //TODO
+        new Animation(0.1f, atlas.findRegions("weapon/tWeaponBeg")),
+        new Animation(0.1f, atlas.findRegions("weapon/tWeaponBegFire")),
 	};
 	public Animation[] weaponInsect = new Animation[] {
 	        new Animation(0.1f, atlas.findRegions("weapon/tWeaponInsekt")),

@@ -12,9 +12,12 @@ import com.badlogic.gdx.math.Vector2;
 import de.obvious.ld32.core.Resource;
 import de.obvious.ld32.data.AnimDir;
 import de.obvious.ld32.data.Constants;
+import de.obvious.ld32.data.Emotion;
 import de.obvious.ld32.data.GameRules;
 import de.obvious.ld32.game.abilities.Ability;
 import de.obvious.ld32.game.abilities.FireMode;
+import de.obvious.ld32.game.actor.action.RageAction;
+import de.obvious.ld32.game.ai.Box2dSteeringEntity;
 import de.obvious.shared.game.actor.ShapeActor;
 import de.obvious.shared.game.world.BodyBuilder;
 import de.obvious.shared.game.world.Box2dWorld;
@@ -22,8 +25,6 @@ import de.obvious.shared.game.world.ShapeBuilder;
 
 public class PlayerActor extends ShapeActor {
     private static final float RADIUS = 0.5f;
-    private static final float REF_WIDTH = 50;
-    private static final float REF_HEIGHT = 70;
 
 	private KeyboardMovementListener movement;
     private boolean moving;
@@ -32,10 +33,21 @@ public class PlayerActor extends ShapeActor {
     private Map<Integer, Ability> abilities = new HashMap<Integer, Ability>();
     private float animTime = 0f;
     private Float triggerTime;
+    private Box2dSteeringEntity steering;
+    private float health = GameRules.PLAYER_HEALTH;
+    private Emotion emotion = Emotion.NEUTRAL;
+    private RageAction rage;
 
     public PlayerActor(Box2dWorld world, Vector2 spawn, boolean spawnIsLeftBottom) {
 		super(world, spawn, spawnIsLeftBottom);
 	}
+
+    @Override
+    protected void init() {
+        super.init();
+        steering = new Box2dSteeringEntity(body, true, RADIUS);
+        addAction(rage = new RageAction());
+    }
 
 	@Override
 	protected BodyBuilder createBody(Vector2 spawn) {
@@ -63,10 +75,12 @@ public class PlayerActor extends ShapeActor {
                 triggerTime = null;
             }
         }
+        emotion = rage.isEnraged() ? Emotion.ANGRY : Emotion.NEUTRAL;
         super.doAct(delta);
     }
 
     private Vector2 _aimTmp = new Vector2();
+
     private Vector2 aimDirection() {
         _aimTmp.set(crosshair);
         return _aimTmp.sub(body.getPosition()).nor();
@@ -103,7 +117,10 @@ public class PlayerActor extends ShapeActor {
 
         drawTorso(batch, direction, reverse);
         drawWeapon(batch);
-        drawHead(batch, direction, reverse);
+        drawHead(batch, direction, reverse, false);
+        if (health < GameRules.PLAYER_HEALTH_WOUNDED) {
+            drawHead(batch, direction, reverse, true);
+        }
 	    /*if (world.getGameState() == GameState.GAME) {
 	        batch.draw(Resource.GFX.crosshair, crosshair.x - 0.25f, crosshair.y - 0.25f, 0.25f, 0.25f, 0.5f, 0.5f, 1f, 1f, 0f);
 	    }*/
@@ -120,9 +137,9 @@ public class PlayerActor extends ShapeActor {
                 frame.getRegionWidth() * Constants.PIXEL_SCALE, frame.getRegionHeight() * Constants.PIXEL_SCALE, getScaleX(), getScaleY(), 0f);
     }
 
-    private void drawHead(Batch batch, AnimDir direction, boolean reverse) {
+    private void drawHead(Batch batch, AnimDir direction, boolean reverse, boolean wounded) {
         TextureRegion frame;
-        Animation anim = Resource.GFX.playerHead[direction.ordinal()];
+        Animation anim = wounded ? Resource.GFX.playerHeadWounded[direction.ordinal()] : Resource.GFX.playerHead.get(emotion)[direction.ordinal()];
         anim.setPlayMode(reverse ? PlayMode.REVERSED : PlayMode.NORMAL);
         frame = anim.getKeyFrame(animTime, true);
 
@@ -156,6 +173,7 @@ public class PlayerActor extends ShapeActor {
             ability.trigger(crosshair, mode);
         }
         triggerTime = 0f;
+        rage.fight();
         System.out.println("Fire " + slotNumber + " " + x + " " + y);
     }
 
@@ -169,6 +187,26 @@ public class PlayerActor extends ShapeActor {
 
     private Ability getWeaponAbility() {
         return abilities.get(0);
+    }
+
+    public Box2dSteeringEntity getSteering() {
+        return steering;
+    }
+
+    public void damage(float amount) {
+        health -= amount;
+        System.out.println(health);
+        if (health <= 0) {
+            kill();
+        }
+    }
+
+    public Emotion getEmotion() {
+        return emotion;
+    }
+
+    public void setEmotion(Emotion emotion) {
+        this.emotion = emotion;
     }
 }
 
