@@ -31,7 +31,6 @@ public class StartAbility implements Ability {
 			world.addActor(new BulletActor(world, new Vector2(world.getPlayer().getBody().getPosition().x, world.getPlayer().getBody().getPosition().y + PlayerActor.RADIUS/2) , d, color));
 		}
 
-
 	}
 
 	@Override
@@ -45,5 +44,10 @@ public class StartAbility implements Ability {
 	@Override
 	public Animation getWeaponAnimation(boolean fire) {
 		return Resource.GFX.weaponStart[fire ? 1 : 0];
+	}
+
+	@Override
+	public float getCooldown(FireMode mode) {
+	    return mode == FireMode.PRIMARY ? 0.33f : Float.MAX_VALUE;
 	}
 }

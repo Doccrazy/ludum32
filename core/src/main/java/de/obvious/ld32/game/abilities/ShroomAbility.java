@@ -18,7 +18,6 @@ public class ShroomAbility implements Ability {
 
 	@Override
 	public void trigger(Vector2 position, FireMode mode) {
-
 	}
 
 	@Override
@@ -29,5 +28,10 @@ public class ShroomAbility implements Ability {
 	@Override
 	public Animation getWeaponAnimation(boolean fire) {
 		return Resource.GFX.weaponShroom[fire ? 1 : 0];
+	}
+
+	@Override
+	public float getCooldown(FireMode mode) {
+	    return mode == FireMode.PRIMARY ? 1f : Float.MAX_VALUE;
 	}
 }

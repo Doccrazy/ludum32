@@ -20,7 +20,7 @@ public class Healthbar extends Widget {
 		super.draw(batch, parentAlpha);
 		boolean dead = root.getWorld().getPlayer().getHealth() <= 0;
 		float fill = MathUtils.clamp(getPlayer().getHealth() / GameRules.PLAYER_HEALTH, 0, 1);
-		int w = (int) (getWidth()*(1-fill));
+		int w = (int) (getWidth()*fill);
 		batch.draw(Resource.GFX.healthbarEmpty,
 				getX(), getY(), getWidth(), getHeight(), 0, 0, (int)(getWidth()), (int)getHeight(), false, false);
 		batch.draw(Resource.GFX.healthbarFull,

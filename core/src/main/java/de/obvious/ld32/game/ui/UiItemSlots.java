@@ -36,9 +36,13 @@ public class UiItemSlots extends Widget {
 	public void draw(Batch batch, float parentAlpha) {
 
 		batch.draw(Resource.GFX.itemSlot, Constants.SCREEN_WIDTH/2 -120, Constants.SCREEN_HEIGHT -120, 100,100);
+		batch.setColor(1, 1, 1, player.isCooldown(0, FireMode.PRIMARY) ? 0.5f : 1);
 		batch.draw(player.getAbility(0).getTexture(FireMode.PRIMARY),Constants.SCREEN_WIDTH/2 -120 , Constants.SCREEN_HEIGHT -120, 100, 100 );
+		batch.setColor(1, 1, 1, 1);
 		batch.draw(Resource.GFX.itemSlot, Constants.SCREEN_WIDTH/2 +20, Constants.SCREEN_HEIGHT -120, 100,100);
+		batch.setColor(1, 1, 1, player.isCooldown(1, FireMode.ALTERNATE) ? 0.5f : 1);
 		batch.draw(player.getAbility(1).getTexture(FireMode.ALTERNATE), Constants.SCREEN_WIDTH/2 +20, Constants.SCREEN_HEIGHT -120, 100,100);
+		batch.setColor(1, 1, 1, 1);
 		super.draw(batch, parentAlpha);
 
 	}

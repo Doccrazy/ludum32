@@ -12,4 +12,6 @@ public interface Ability {
 
     Animation getWeaponAnimation(boolean fire);
 
+    float getCooldown(FireMode mode);
+
 }

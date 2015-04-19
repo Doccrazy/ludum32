@@ -12,6 +12,7 @@ import de.obvious.shared.game.world.GameState;
 public class UiInputListener extends InputListener {
 	private UiRoot root;
 	private Vector2 mousePos = new Vector2();
+	private boolean[] buttonDown = new boolean[2];
 
     public UiInputListener(UiRoot root) {
         this.root = root;
@@ -25,10 +26,20 @@ public class UiInputListener extends InputListener {
         if (button == 0 || button == 1) {
             mousePos.set(x, y);
             setCrosshair();
-            root.getWorld().getPlayer().fire(root.getWorld().getPlayer().getCrosshair().x,
-                    root.getWorld().getPlayer().getCrosshair().y, button, getFireMode(button));
+            buttonDown[button] = true;
+            root.getWorld().getPlayer().fire(button, getFireMode(button));
         }
         return true;
+    }
+
+    @Override
+    public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
+        if (root.getWorld().getGameState() != GameState.GAME) {
+            return;
+        }
+        if (button == 0 || button == 1) {
+            buttonDown[button] = false;
+        }
     }
 
     private FireMode getFireMode(int button) {
@@ -89,6 +100,12 @@ public class UiInputListener extends InputListener {
 	public void act(float delta) {
 	    if (root.getWorld().getGameState() == GameState.GAME) {
             setCrosshair();
+            if (buttonDown[0]) {
+                root.getWorld().getPlayer().fire(0, getFireMode(0));
+            }
+            if (buttonDown[1]) {
+                root.getWorld().getPlayer().fire(1, getFireMode(1));
+            }
         }
 	}
 }

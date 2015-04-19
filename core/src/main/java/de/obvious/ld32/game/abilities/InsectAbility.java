@@ -35,4 +35,9 @@ public class InsectAbility implements Ability {
     public Animation getWeaponAnimation(boolean fire) {
         return Resource.GFX.weaponInsect[fire ? 1 : 0];
     }
+
+    @Override
+    public float getCooldown(FireMode mode) {
+        return mode == FireMode.PRIMARY ? 1f : Float.MAX_VALUE;
+    }
 }
