@@ -33,7 +33,7 @@ public class InsectActor extends EnemyActor {
 
 	@Override
 	public void draw(Batch batch, float parentAlpha) {
-		if (world.rayHandler.pointAtLight(getX(), getY())||world.rayHandler.pointAtLight(getX() + 2*radius, getY() + 2*radius)) {
+		if (world.rayHandler.pointAtLight(getX(), getY())||world.rayHandler.pointAtLight(getX() + 2*RADIUS, getY() + 2*RADIUS)) {
 			batch.draw(Resource.GFX.insect, getX(), getY(), getWidth(), getHeight() * 1.5f);
 			super.draw(batch, parentAlpha);
 		}
