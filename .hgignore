@@ -8,3 +8,4 @@ syntax: glob
 bin
 build
 local.properties
+thumbs.db
