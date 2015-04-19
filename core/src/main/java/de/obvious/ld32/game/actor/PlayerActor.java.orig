@@ -43,7 +43,6 @@ public class PlayerActor extends ShapeActor {
     private Emotion emotion = Emotion.NEUTRAL;
     private RageAction rage;
     private boolean allowMovement = true;
-    private float lastFireTime;
 
 
     public PlayerActor(Box2dWorld world, Vector2 spawn, boolean spawnIsLeftBottom) {
@@ -183,16 +182,14 @@ public class PlayerActor extends ShapeActor {
         this.crosshair.set(x, y);
     }
 
-    public void fire(int slotNumber, FireMode mode) {
+    public void fire(float x, float y, int slotNumber, FireMode mode) {
         Ability ability = abilities.get(slotNumber);
-        if (ability == null || isCooldown(slotNumber, mode)) {
-            return;
+        if (ability != null) {
+            ability.trigger(crosshair, mode);
         }
-        ability.trigger(crosshair, mode);
-        lastFireTime = stateTime;
         triggerTime = 0f;
         rage.fight();
-        System.out.println("Fire " + slotNumber + " " + crosshair.x + " " + crosshair.y);
+        System.out.println("Fire " + slotNumber + " " + x + " " + y);
     }
 
     public Ability getAbility(int slot) {
@@ -245,14 +242,6 @@ public class PlayerActor extends ShapeActor {
 
     public void destroyMe(Body body, float time){
     	task.in(time, (Void) -> world.box2dWorld.destroyBody(body));
-    }
-
-    public boolean isCooldown(int slotNumber, FireMode mode) {
-        Ability ability = abilities.get(slotNumber);
-        if (ability == null) {
-            return true;
-        }
-        return lastFireTime + ability.getCooldown(mode) > stateTime;
     }
 
 }

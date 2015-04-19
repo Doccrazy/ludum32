@@ -114,4 +114,8 @@ public abstract class EnemyActor extends ShapeActor implements CollisionListener
         return killed;
     }
 
+    public void damage(int amount){
+    	lives -= amount;
+    }
+
 }
