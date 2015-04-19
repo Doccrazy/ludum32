@@ -64,6 +64,10 @@ public class GameWorld extends Box2dWorld {
                 transition(GameState.GAME);
             }
             break;
+        case GAME:
+            if (player.isDead()) {
+                transition(GameState.DEFEAT);
+            }
         default:
         }
     }
