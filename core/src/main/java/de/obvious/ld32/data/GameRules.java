@@ -18,5 +18,6 @@ public class GameRules {
     public static final int ROUNDS_TO_WIN = 3;
 
     public static final float PLAYER_VELOCITY = 5f;  //m/s
+    public static final float CORPSE_DESPAWN = 60;
 
 }

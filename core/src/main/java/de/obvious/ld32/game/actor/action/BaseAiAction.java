@@ -4,9 +4,9 @@ import com.badlogic.gdx.ai.steer.utils.paths.LinePath;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Action;
 
+import de.obvious.ld32.game.actor.EnemyActor;
 import de.obvious.ld32.game.actor.PlayerActor;
 import de.obvious.ld32.game.world.GameWorld;
-import de.obvious.shared.game.actor.Box2dActor;
 import de.obvious.shared.game.actor.Tasker;
 import de.obvious.shared.game.world.Box2dWorld;
 
@@ -21,7 +21,7 @@ public abstract class BaseAiAction extends Action {
     public final boolean act(float delta) {
         stateTime += delta;
         task.update(delta);
-        if (getPlayer() == null || getPlayer().isDead() || getActor() == null || getActor().isDead()) {
+        if (getPlayer() == null || getPlayer().isDead() || getActor() == null || getActor().isDead() || getActor().isKilled()) {
             return true;
         }
         return doAct(delta);
@@ -78,8 +78,8 @@ public abstract class BaseAiAction extends Action {
     }
 
     @Override
-    public Box2dActor getActor() {
-        return (Box2dActor) super.getActor();
+    public EnemyActor getActor() {
+        return (EnemyActor) super.getActor();
     }
 
     protected PlayerActor getPlayer() {

@@ -10,6 +10,7 @@ import com.badlogic.gdx.math.Vector2;
 import de.obvious.ld32.core.Resource;
 import de.obvious.ld32.data.AnimDir;
 import de.obvious.ld32.data.DamageType;
+import de.obvious.ld32.data.GameRules;
 import de.obvious.ld32.game.abilities.Ability;
 import de.obvious.ld32.game.actor.action.AiAction;
 import de.obvious.ld32.game.actor.action.MeleeState;
@@ -48,7 +49,7 @@ public abstract class EnemyActor extends ShapeActor {
 		if (lives <= 0 && !isKilled()) {
 			((GameWorld) world).getPlayer().setAbility(1, abilities.get(0));
 			killme();
-			task.in(5, (Void) -> kill());
+			task.in(GameRules.CORPSE_DESPAWN, (Void) -> kill());
 		}
 	}
 
@@ -92,6 +93,8 @@ public abstract class EnemyActor extends ShapeActor {
 	protected void killme() {
 	    killed = true;
 	    stateTime = 0;
+	    body.setLinearVelocity(0, 0);
+	    body.setActive(false);
 	}
 
     public boolean isKilled() {

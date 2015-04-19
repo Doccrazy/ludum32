@@ -36,7 +36,7 @@ public class InsectActor extends EnemyActor {
 
 	@Override
 	void drawBody(Batch batch) {
-        Animation anim = attacking ? Resource.GFX.enemyInsectAttack[animationDir().ordinal()] : Resource.GFX.enemyInsect[animationDir().ordinal()];
+        Animation anim = attacking && !killed ? Resource.GFX.enemyInsectAttack[animationDir().ordinal()] : Resource.GFX.enemyInsect[animationDir().ordinal()];
         TextureRegion frame = anim.getKeyFrame(killed ? Math.min(stateTime, anim.getAnimationDuration()) : (isMoving() ? stateTime : 0), !killed);
 		batch.draw(frame, getX(), getY(), getWidth(), getHeight() * 1.5f);
 
@@ -44,9 +44,10 @@ public class InsectActor extends EnemyActor {
 
 	public void attack(float radius, float damage) {
 	    attacking = true;
+	    body.setActive(false);
 	    stateTime = 0;
 	    task.in(0.2f, (Void) -> {
-	        if (((GameWorld)world).getPlayer().isDead()) {
+	        if (((GameWorld)world).getPlayer().isDead() || killed) {
 	            return;
 	        }
 	        float dist = ((GameWorld)world).getPlayer().getBody().getPosition().cpy().sub(body.getPosition()).len();
@@ -54,13 +55,12 @@ public class InsectActor extends EnemyActor {
 	            ((GameWorld)world).getPlayer().damage(damage, DamageType.MELEE);
 	        }
 	    });
-	    task.in(Resource.GFX.enemyInsectAttack[0].getAnimationDuration(), (Void) -> attacking = false);
-	}
-
-	@Override
-	protected void doAct(float delta) {
-		super.doAct(delta);
-		body.setActive(!attacking);
+	    task.in(Resource.GFX.enemyInsectAttack[0].getAnimationDuration(), (Void) -> {
+	        attacking = false;
+	        if (!killed) {
+	            body.setActive(true);
+	        }
+	    });
 	}
 
 	public boolean isAttacking() {
