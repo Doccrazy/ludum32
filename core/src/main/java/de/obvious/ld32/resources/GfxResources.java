@@ -7,7 +7,6 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
-import com.badlogic.gdx.graphics.g2d.ParticleEffectPool;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
@@ -99,8 +98,6 @@ public class GfxResources extends ResourcesBase {
 	public Texture shroomWeapon = new Texture(Gdx.files.internal("Grafiken/tPilzwaffe.png"));
 	public Texture startWeaponBullet = new Texture(Gdx.files.internal("Grafiken/Waffeneffekte/tSchussStandard.png"));
 	public TextureRegion startWeaponBulletR = new TextureRegion(startWeaponBullet);
-
-	public ParticleEffectPool shroomWeaponAttack = particle("particles/shroomWeaponAttack.p", 0.01f);
 
 	public TiledMap LEVEL1 = new TmxMapLoader().load("RaumschiffEbene1.tmx");
 
