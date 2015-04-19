@@ -46,7 +46,7 @@ public class Tasker {
         return in(secs, Void -> {});
     }
 
-    void update(float delta) {
+    public void update(float delta) {
         for (TaskDef task : tasks) {
             task.update(delta);
         }

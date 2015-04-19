@@ -13,7 +13,6 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.maps.MapProperties;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTile;
@@ -98,7 +97,7 @@ public class TiledMapActor extends WorldActor {
 		renderer.setView((OrthographicCamera) world.stage.getCamera());
 		renderer.render(renderedLayers);
 
-		shapeRenderer.begin(ShapeType.Filled);
+		/*shapeRenderer.begin(ShapeType.Filled);
 		shapeRenderer.setProjectionMatrix(world.stage.getCamera().combined);
 		shapeRenderer.setColor(Color.RED);
 		int nodeCount = path.getCount();
@@ -119,7 +118,7 @@ public class TiledMapActor extends WorldActor {
 				prevNode = node;
 			}
 		}
-		shapeRenderer.end();
+		shapeRenderer.end();*/
 
 		batch.begin();
 	}

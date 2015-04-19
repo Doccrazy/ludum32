@@ -19,7 +19,7 @@ public class TiledRaycastCollisionDetector<N extends TiledNode<N>> implements Ra
 
 	@Override
 	public boolean collides (Ray<Vector2> ray) {
-	    return collidesLineWidth((int)ray.start.x, (int)ray.start.y, (int)ray.end.x, (int)ray.end.y, 1.5f);
+	    return collidesLineWidth((int)ray.start.x, (int)ray.start.y, (int)ray.end.x, (int)ray.end.y, 1.1f);
 	}
 
 	// See http://members.chello.at/~easyfilter/bresenham.html
