@@ -6,7 +6,8 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 
 import de.obvious.ld32.core.Resource;
-import de.obvious.ld32.game.actor.InsectActor;
+import de.obvious.ld32.data.DamageType;
+import de.obvious.ld32.game.actor.EnemyActor;
 import de.obvious.ld32.game.world.GameWorld;
 import de.obvious.shared.game.actor.ShapeActor;
 import de.obvious.shared.game.actor.WorldActor;
@@ -69,8 +70,8 @@ class InsectAbilityActor extends ShapeActor implements CollisionListener{
 	}
 	@Override
 	public boolean beginContact(Body me, Body other, Vector2 normal, Vector2 contactPoint) {
-		if(other.getUserData() instanceof InsectActor){
-			((InsectActor) other.getUserData()).damage(50);
+		if(other.getUserData() instanceof EnemyActor){
+			((EnemyActor) other.getUserData()).damage(50, DamageType.MELEE);
 		}
 		return false;
 	}

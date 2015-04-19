@@ -4,6 +4,7 @@ import com.badlogic.gdx.ai.fsm.State;
 import com.badlogic.gdx.ai.msg.Telegram;
 import com.badlogic.gdx.scenes.scene2d.Action;
 
+import de.obvious.ld32.data.DamageType;
 import de.obvious.ld32.game.actor.PlayerActor;
 import de.obvious.ld32.game.ai.AiUtils;
 import de.obvious.ld32.game.world.GameWorld;
@@ -118,7 +119,7 @@ class AttackAction extends Action {
     }
 
     private void hit() {
-        getPlayer().damage(50f);
+        getPlayer().damage(50f, DamageType.MELEE);
     }
 
     private PlayerActor getPlayer() {

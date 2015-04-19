@@ -16,6 +16,7 @@ import com.badlogic.gdx.physics.box2d.Body;
 import de.obvious.ld32.core.Resource;
 import de.obvious.ld32.data.AnimDir;
 import de.obvious.ld32.data.Constants;
+import de.obvious.ld32.data.DamageType;
 import de.obvious.ld32.data.Emotion;
 import de.obvious.ld32.data.GameRules;
 import de.obvious.ld32.game.abilities.Ability;
@@ -211,7 +212,7 @@ public class PlayerActor extends ShapeActor {
         return steering;
     }
 
-    public void damage(float amount) {
+    public void damage(float amount, DamageType type) {
         health -= amount;
         System.out.println(health);
         if (health <= 0) {

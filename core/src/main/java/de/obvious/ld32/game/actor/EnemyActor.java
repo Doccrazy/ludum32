@@ -6,20 +6,19 @@ import java.util.Map;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.physics.box2d.Body;
 
 import de.obvious.ld32.core.Resource;
 import de.obvious.ld32.data.AnimDir;
+import de.obvious.ld32.data.DamageType;
 import de.obvious.ld32.game.abilities.Ability;
 import de.obvious.ld32.game.actor.action.AiAction;
 import de.obvious.ld32.game.actor.action.MeleeState;
 import de.obvious.ld32.game.world.GameWorld;
 import de.obvious.shared.game.actor.ShapeActor;
-import de.obvious.shared.game.base.CollisionListener;
 import de.obvious.shared.game.world.BodyBuilder;
 import de.obvious.shared.game.world.ShapeBuilder;
 
-public abstract class EnemyActor extends ShapeActor implements CollisionListener {
+public abstract class EnemyActor extends ShapeActor {
 
 	protected float radius = 0.49f;
 	protected int lives = 100;
@@ -29,16 +28,6 @@ public abstract class EnemyActor extends ShapeActor implements CollisionListener
 
 	public EnemyActor(GameWorld world, Vector2 spawn, boolean spawnIsLeftBottom) {
 		super(world, spawn, spawnIsLeftBottom);
-	}
-
-	@Override
-	public boolean beginContact(Body me, Body other, Vector2 normal, Vector2 contactPoint) {
-		return false;
-
-	}
-
-	@Override
-	public void endContact(Body other) {
 	}
 
 	@Override
@@ -70,17 +59,12 @@ public abstract class EnemyActor extends ShapeActor implements CollisionListener
 
 	    batch.setColor(1, 1, 1, alpha);
 		if (lives < 100 && lives > 0)
-			batch.draw(Resource.GFX.lifeBar, getX(), getY() + 1.6f, getWidth() * lives / 100f, getWidth() / 10f);
+			batch.draw(Resource.GFX.lifeBar, getX(), getY() + 3.25f*radius, getWidth() * lives / 100f, getWidth() / 10f);
 		drawBody(batch);
 		batch.setColor(1, 1, 1, 1);
 	}
 
 	abstract void drawBody(Batch batch);
-
-	@Override
-	public void hit(float force) {
-
-	}
 
 	protected AnimDir animationDir() {
 	    if (killed) {
@@ -114,7 +98,7 @@ public abstract class EnemyActor extends ShapeActor implements CollisionListener
         return killed;
     }
 
-    public void damage(int amount){
+    public void damage(int amount, DamageType type){
     	lives -= amount;
     }
 

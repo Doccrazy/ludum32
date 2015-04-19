@@ -5,14 +5,18 @@ import box2dLight.PointLight;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.physics.box2d.Body;
 
 import de.obvious.ld32.core.Resource;
+import de.obvious.ld32.data.DamageType;
+import de.obvious.ld32.game.world.GameWorld;
 import de.obvious.shared.game.actor.ShapeActor;
+import de.obvious.shared.game.base.CollisionListener;
 import de.obvious.shared.game.world.BodyBuilder;
 import de.obvious.shared.game.world.Box2dWorld;
 import de.obvious.shared.game.world.ShapeBuilder;
 
-public class BulletActor extends ShapeActor {
+public class BulletActor extends ShapeActor implements CollisionListener {
 
 	private Vector2 velocity;
 	private Color color;
@@ -49,4 +53,22 @@ public class BulletActor extends ShapeActor {
 		batch.draw(Resource.GFX.startWeaponBulletR, getX(), getY(), getOriginX(), getOriginY(), 1f / 8, 1f, 1f, 1f, velocity.angle() + 90, true);
 		super.draw(batch, parentAlpha);
 	}
+
+    @Override
+    public boolean beginContact(Body me, Body other, Vector2 normal, Vector2 contactPoint) {
+        if (other.getUserData() instanceof EnemyActor) {
+            ((EnemyActor) other.getUserData()).damage(10, DamageType.NORMAL);
+            kill();
+            ((GameWorld)world).addShake(0.25f);
+        }
+        return false;
+    }
+
+    @Override
+    public void endContact(Body other) {
+    }
+
+    @Override
+    public void hit(float force) {
+    }
 }

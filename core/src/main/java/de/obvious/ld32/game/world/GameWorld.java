@@ -14,6 +14,7 @@ import de.obvious.ld32.game.abilities.StartAbility;
 import de.obvious.ld32.game.actor.InsectActor;
 import de.obvious.ld32.game.actor.PlayerActor;
 import de.obvious.ld32.game.actor.ShroomActor;
+import de.obvious.ld32.game.actor.SpikyActor;
 import de.obvious.ld32.game.actor.TiledMapActor;
 import de.obvious.shared.game.base.GamepadMovementListener;
 import de.obvious.shared.game.world.Box2dWorld;
@@ -47,6 +48,7 @@ public class GameWorld extends Box2dWorld {
             addActor(new InsectActor(this, new Vector2(100, 107), true));
             addActor(new InsectActor(this, new Vector2(107, 107), true));
             addActor(new ShroomActor(this, new Vector2(100, 60), true));
+            addActor(new SpikyActor(this, new Vector2(100, 90), true));
             break;
         case GAME:
             stage.setKeyboardFocus(player);
