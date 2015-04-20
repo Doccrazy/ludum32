@@ -1,9 +1,9 @@
 package de.obvious.ld32.game.actor.action;
 
+import de.obvious.ld32.data.GameRules;
 import de.obvious.ld32.game.actor.InsectActor;
 
 public class InsectAiAction extends BaseAiAction {
-    private static final float FOLLOW_DIST = 10f;
     private static final float CHARGE_DELAY = 5f;
     private static final float CHARGE_DIST = 5f;
     private static final float CHARGE_DURATION = 0.25f;
@@ -17,7 +17,7 @@ public class InsectAiAction extends BaseAiAction {
 
     @Override
     protected boolean doAct(float delta) {
-        if (distToPlayer() < FOLLOW_DIST) {
+        if (distToPlayer() < GameRules.AGGRO_RANGE) {
             pathToPlayer();
             if (playerLos() && distToPlayer() < CHARGE_DIST && stateTime - lastCharge > CHARGE_DELAY) {
                 speed = 20.0f;

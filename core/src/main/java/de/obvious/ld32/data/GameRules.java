@@ -21,4 +21,6 @@ public class GameRules {
     public static final float PLAYER_HALF_FOV = 40f;  //deg
     public static final float CORPSE_DESPAWN = 60;
 
+    public static final float AGGRO_RANGE = 10f;
+
 }

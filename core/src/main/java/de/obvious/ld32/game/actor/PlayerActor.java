@@ -23,6 +23,7 @@ import de.obvious.ld32.game.abilities.Ability;
 import de.obvious.ld32.game.abilities.FireMode;
 import de.obvious.ld32.game.actor.action.RageAction;
 import de.obvious.ld32.game.ai.Box2dSteeringEntity;
+import de.obvious.ld32.game.world.GameWorld;
 import de.obvious.shared.game.actor.ShapeActor;
 import de.obvious.shared.game.world.BodyBuilder;
 import de.obvious.shared.game.world.Box2dWorld;
@@ -217,7 +218,7 @@ public class PlayerActor extends ShapeActor {
 
     public void damage(float amount, DamageType type) {
         health -= amount;
-        System.out.println(health);
+        ((GameWorld)world).addShake(Math.min(amount, 50f) / 50f);
         if (health <= 0) {
             kill();
         }

@@ -22,6 +22,7 @@ public class UiRoot extends UiBase<GameWorld, GameRenderer, GameInputListener> {
 		padInput = new UiGamepadListener(this);
 		Controllers.addListener(padInput);
 
+		stage.addActor(new LowHealthOverlay(this, world));
 		stage.addActor(new ControllerLabel(this));
 		stage.addActor(new UiItemSlots(this, world));
 		add(new Healthbar(this)).expand().bottom().left().pad(5);

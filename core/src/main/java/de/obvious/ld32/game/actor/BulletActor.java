@@ -9,7 +9,6 @@ import com.badlogic.gdx.physics.box2d.Body;
 
 import de.obvious.ld32.core.Resource;
 import de.obvious.ld32.data.DamageType;
-import de.obvious.ld32.game.world.GameWorld;
 import de.obvious.shared.game.actor.ShapeActor;
 import de.obvious.shared.game.base.CollisionListener;
 import de.obvious.shared.game.world.BodyBuilder;
@@ -60,8 +59,6 @@ public class BulletActor extends ShapeActor implements CollisionListener {
     public boolean beginContact(Body me, Body other, Vector2 normal, Vector2 contactPoint) {
         if (other.getUserData() instanceof EnemyActor) {
             ((EnemyActor) other.getUserData()).damage(10, DamageType.NORMAL);
-
-            ((GameWorld)world).addShake(0.25f);
         }
 
         if(!other.isBullet() && !(other.getUserData() instanceof PlayerActor))
