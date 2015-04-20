@@ -22,10 +22,10 @@ public class GameInputListener extends InputListener {
 
     @Override
     public boolean keyUp(InputEvent event, int keycode) {
-    	if(keycode == Keys.SPACE){
+    	if(keycode == Keys.TAB){
     		world.getPlayer().switchAbilities();
     	}
-    	if(keycode == Keys.ENTER){
+    	if(keycode == Keys.SPACE){
     		world.getPlayer().changeUiText();
     	}
 

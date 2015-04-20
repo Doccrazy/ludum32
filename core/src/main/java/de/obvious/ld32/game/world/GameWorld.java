@@ -4,6 +4,7 @@ import java.util.Map;
 
 import box2dLight.RayHandler;
 
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.math.Vector2;
 
@@ -49,6 +50,7 @@ public class GameWorld extends Box2dWorld {
             //addActor(new ShroomActor(this, new Vector2(95, 95), true));
             //addActor(new SpikyActor(this, new Vector2(100, 90), true));
             addActor(new RootActor(this, new Vector2(90, 90), true));
+            startMusic(Resource.MUSIC.gameShortSlow2);
             break;
         case GAME:
             stage.setKeyboardFocus(player);
@@ -87,6 +89,10 @@ public class GameWorld extends Box2dWorld {
 
     public TiledMapActor getLevel() {
         return level;
+    }
+
+    public void startMusic(Music music){
+
     }
 
     public void addShake(float percent) {
