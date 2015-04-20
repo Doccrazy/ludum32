@@ -8,6 +8,7 @@ import com.badlogic.gdx.physics.box2d.Body;
 
 import de.obvious.ld32.core.Resource;
 import de.obvious.ld32.data.DamageType;
+import de.obvious.ld32.data.GameRules;
 import de.obvious.ld32.game.actor.EnemyActor;
 import de.obvious.ld32.game.actor.PlayerActor;
 import de.obvious.ld32.game.world.GameWorld;
@@ -49,7 +50,7 @@ public class SpikeAbility implements Ability {
 
 	@Override
 	public float getCooldown(FireMode mode) {
-		return mode == FireMode.PRIMARY ? 3f : Float.MAX_VALUE;
+		return GameRules.COOLDOWN_SPIKE[mode.ordinal()];
 	}
 
 	@Override

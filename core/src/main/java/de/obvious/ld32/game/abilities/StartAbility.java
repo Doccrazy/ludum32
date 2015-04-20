@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.math.Vector2;
 
 import de.obvious.ld32.core.Resource;
+import de.obvious.ld32.data.GameRules;
 import de.obvious.ld32.game.actor.BulletActor;
 import de.obvious.ld32.game.actor.PlayerActor;
 import de.obvious.ld32.game.world.GameWorld;
@@ -48,7 +49,7 @@ public class StartAbility implements Ability {
 
 	@Override
 	public float getCooldown(FireMode mode) {
-	    return mode == FireMode.PRIMARY ? 0.33f : Float.MAX_VALUE;
+        return GameRules.COOLDOWN_START[mode.ordinal()];
 	}
 
 	@Override

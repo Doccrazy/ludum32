@@ -8,6 +8,7 @@ import com.badlogic.gdx.physics.box2d.Body;
 
 import de.obvious.ld32.core.Resource;
 import de.obvious.ld32.data.DamageType;
+import de.obvious.ld32.data.GameRules;
 import de.obvious.ld32.game.actor.EnemyActor;
 import de.obvious.ld32.game.world.GameWorld;
 import de.obvious.shared.game.actor.ShapeActor;
@@ -56,7 +57,7 @@ public class RootAbility implements Ability {
 
 	@Override
 	public float getCooldown(FireMode mode) {
-		return mode == FireMode.PRIMARY ? 1f : 5f;
+        return GameRules.COOLDOWN_ROOT[mode.ordinal()];
 	}
 
 	@Override

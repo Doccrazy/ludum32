@@ -1,5 +1,6 @@
 package de.obvious.ld32.game.actor;
 
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -19,7 +20,7 @@ public class InsectActor extends EnemyActor {
     public InsectActor(GameWorld world, Vector2 spawn, boolean spawnIsLeftBottom) {
 		super(world, spawn, spawnIsLeftBottom);
 		ability = new InsectAbility(world);
-
+		bloodColor = Color.GREEN;
 	}
 
     @Override

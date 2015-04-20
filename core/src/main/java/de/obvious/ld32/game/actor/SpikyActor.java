@@ -1,5 +1,6 @@
 package de.obvious.ld32.game.actor;
 
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -20,6 +21,7 @@ public class SpikyActor extends EnemyActor {
         super(world, spawn, spawnIsLeftBottom);
         ability = new SpikeAbility(world);
         radius = 0.75f;
+        bloodColor = Color.valueOf("3114AE");
     }
 
     @Override

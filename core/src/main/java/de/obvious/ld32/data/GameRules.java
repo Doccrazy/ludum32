@@ -27,4 +27,10 @@ public class GameRules {
     public static final float SHROOMLING_BLINK_TIME = 1f;
     public static final float SHROOMLING_DPS = 50f;
     public static final float SHROOMLING_DMG_TIME = 2f;
+
+    public static final float[] COOLDOWN_START = new float[]{0.33f, Float.MAX_VALUE};
+    public static final float[] COOLDOWN_SHROOM = new float[]{2f, 10f};
+    public static final float[] COOLDOWN_INSECT = new float[]{1f, Float.MAX_VALUE};
+    public static final float[] COOLDOWN_ROOT = new float[]{1f, 5f};
+    public static final float[] COOLDOWN_SPIKE = new float[]{3f, Float.MAX_VALUE};
 }

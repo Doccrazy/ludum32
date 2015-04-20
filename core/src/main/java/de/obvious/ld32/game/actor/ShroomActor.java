@@ -1,5 +1,6 @@
 package de.obvious.ld32.game.actor;
 
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -20,7 +21,7 @@ public class ShroomActor extends EnemyActor{
 	public ShroomActor(GameWorld world, Vector2 spawn, boolean spawnIsLeftBottom) {
 		super(world, spawn, spawnIsLeftBottom);
 		ability = new ShroomAbility(world);
-
+        bloodColor = Color.PINK;
 	}
 
     @Override

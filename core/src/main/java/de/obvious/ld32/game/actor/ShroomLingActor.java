@@ -23,6 +23,7 @@ public class ShroomLingActor extends EnemyActor {
         addAction(friendly ? new FriendlyShroomLingAiAction() : new ShroomLingAiAction());
         radius = 0.25f;
         initialLives = 20;
+        bloodColor = Color.PURPLE;
     }
 
     @Override

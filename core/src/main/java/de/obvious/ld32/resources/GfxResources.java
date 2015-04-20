@@ -125,6 +125,12 @@ public class GfxResources extends ResourcesBase {
     public Animation spikeExplosion = new Animation(0.1f, atlas.findRegions("projectiles/tExplosionDorne"));
     public Animation smoke = new Animation(0.1f, atlas.findRegions("particles/tRauch"));
     public Animation playerRoot = new Animation(0.2f, atlas.findRegions("secondary/tRankeSekundaer"));
+    public Sprite[] blood = new Sprite[]{
+        atlas.createSprite("particles/tBlut1"),
+        atlas.createSprite("particles/tBlut2"),
+        atlas.createSprite("particles/tBlut3"),
+        atlas.createSprite("particles/tBlut4"),
+    };
 
 	public Pixmap crosshair = new Pixmap(Gdx.files.internal("crosshair.png"));
 	public Texture lifeBar = new Texture(Gdx.files.internal("Grafiken/lifebar.png"));

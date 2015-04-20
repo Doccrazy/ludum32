@@ -1,5 +1,6 @@
 package de.obvious.ld32.game.actor;
 
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
@@ -24,6 +25,7 @@ public abstract class EnemyActor extends ShapeActor implements Damageable {
 	protected Ability ability;
 	protected float alpha = 0;
 	protected boolean killed;
+	protected Color bloodColor = Color.GREEN;
 
 	public EnemyActor(GameWorld world, Vector2 spawn, boolean spawnIsLeftBottom) {
 		super(world, spawn, spawnIsLeftBottom);
@@ -72,7 +74,7 @@ public abstract class EnemyActor extends ShapeActor implements Damageable {
 	    //player FOV
 	    Vector2 toOpp = body.getPosition().cpy().sub(playerBody.getPosition());
 	    Vector2 sight = new Vector2(1, 0).rotateRad(playerBody.getAngle());
-	    if (Math.abs(toOpp.angle(sight)) > GameRules.PLAYER_HALF_FOV) {
+	    if (Math.abs(toOpp.angle(sight)) > ((GameWorld)world).getPlayer().getFlashlightConeDegree()) {
 	        return false;
 	    }
 
@@ -142,6 +144,7 @@ public abstract class EnemyActor extends ShapeActor implements Damageable {
     public void damage(float amount, DamageType type) {
 	    if (lives > 0) {
 	        lives -= amount;
+	        world.addActor(new BloodActor(world, body.getPosition(), bloodColor, amount));
 	    }
 
         if (lives <= 0 && !isKilled()) {

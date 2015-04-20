@@ -9,6 +9,7 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
+import com.badlogic.gdx.scenes.scene2d.Action;
 
 import de.obvious.ld32.core.Resource;
 import de.obvious.ld32.data.AnimDir;
@@ -18,6 +19,7 @@ import de.obvious.ld32.data.Emotion;
 import de.obvious.ld32.data.GameRules;
 import de.obvious.ld32.game.abilities.Ability;
 import de.obvious.ld32.game.abilities.FireMode;
+import de.obvious.ld32.game.actor.action.DrawableAction;
 import de.obvious.ld32.game.actor.action.RageAction;
 import de.obvious.ld32.game.ai.Box2dSteeringEntity;
 import de.obvious.ld32.game.world.GameWorld;
@@ -140,6 +142,11 @@ public class PlayerActor extends ShapeActor implements Damageable {
 		if (health < GameRules.PLAYER_HEALTH_WOUNDED) {
 			drawHead(batch, direction, reverse, true);
 		}
+		for (Action a : getActions()) {
+		    if (a instanceof DrawableAction) {
+		        ((DrawableAction) a).draw(batch);
+		    }
+		}
 
 		flashlight.setDirection(aimDirection().angle());
 		flashlight.setPosition(body.getPosition());
@@ -210,9 +217,11 @@ public class PlayerActor extends ShapeActor implements Damageable {
 		}
 		ability.trigger(crosshair, mode);
 		lastFireTime[slotNumber] = stateTime;
-		triggerTime = 0f;
-		rage.fight();
-		System.out.println("Fire " + slotNumber + " " + crosshair.x + " " + crosshair.y);
+		if (mode == FireMode.PRIMARY) {
+		    triggerTime = 0f;
+		    rage.fight();
+		}
+		//System.out.println("Fire " + slotNumber + " " + crosshair.x + " " + crosshair.y);
 	}
 
 	public Ability getAbility(int slot) {
@@ -248,6 +257,7 @@ public class PlayerActor extends ShapeActor implements Damageable {
     public void damage(float amount, DamageType type) {
         health -= amount;
         ((GameWorld)world).addShake(Math.min(amount, 50f) / 50f);
+        world.addActor(new BloodActor(world, body.getPosition(), Color.valueOf("dd0000"), amount));
         if (health <= 0) {
             kill();
         }
@@ -256,6 +266,10 @@ public class PlayerActor extends ShapeActor implements Damageable {
     public float getHealth() {
 		return health;
 	}
+
+    public void setHealth(float health) {
+        this.health = health;
+    }
 
 	public Emotion getEmotion() {
 		return emotion;
@@ -290,6 +304,10 @@ public class PlayerActor extends ShapeActor implements Damageable {
 			return lastFireTime[slotNumber] + ability.getCooldown(mode)/2f > stateTime;
 		return lastFireTime[slotNumber] + ability.getCooldown(mode) > stateTime;
 
+	}
+
+	public float getFlashlightConeDegree() {
+	    return flashlight.getConeDegree();
 	}
 
 	public void setFlashlightConeDegree(float degree) {
