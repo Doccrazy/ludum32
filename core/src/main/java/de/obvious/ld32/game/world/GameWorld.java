@@ -10,7 +10,7 @@ import com.badlogic.gdx.math.Vector2;
 import de.obvious.ld32.core.Resource;
 import de.obvious.ld32.data.GameRules;
 import de.obvious.ld32.data.GamepadActions;
-import de.obvious.ld32.game.abilities.SpikeAbility;
+import de.obvious.ld32.game.abilities.RootAbility;
 import de.obvious.ld32.game.abilities.StartAbility;
 import de.obvious.ld32.game.actor.InsectActor;
 import de.obvious.ld32.game.actor.PlayerActor;
@@ -41,7 +41,7 @@ public class GameWorld extends Box2dWorld {
         case INIT:
             player = new PlayerActor(this, new Vector2(100, 100), true);
             player.setAbility(0, new StartAbility(this, new Color(1f, 1f, 0f, 1f)));  //TODO
-            player.setAbility(1, new SpikeAbility(this));  //TODO
+            player.setAbility(1, new RootAbility(this));  //TODO
             player.setupKeyboardControl();
             level = new TiledMapActor(this, Resource.GFX.LEVEL1);
             addActor(level);

@@ -29,6 +29,7 @@ import de.obvious.ld32.game.ai.TiledManhattanDistance;
 import de.obvious.ld32.game.ai.TiledRaycastCollisionDetector;
 import de.obvious.ld32.game.ai.TiledSmoothableGraphPath;
 import de.obvious.ld32.game.misc.AlarmLight;
+import de.obvious.ld32.game.misc.NotTheBestMapRenderer;
 import de.obvious.ld32.game.world.GameWorld;
 import de.obvious.shared.game.actor.WorldActor;
 import de.obvious.shared.game.world.BodyBuilder;
@@ -56,7 +57,7 @@ public class TiledMapActor extends WorldActor {
 	public TiledMapActor(Box2dWorld world, TiledMap map) {
 		super(world);
 		this.map = map;
-		renderer = new OrthogonalTiledMapRenderer(map, 1f / 50f);
+		renderer = new NotTheBestMapRenderer(map, 1f / 50f);
 		bodies = new HashMap<Point, Body>();
 		lights = new HashMap<Point, Light>();
 		player = ((GameWorld) world).getPlayer();

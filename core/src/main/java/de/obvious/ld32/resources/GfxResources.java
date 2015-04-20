@@ -72,6 +72,11 @@ public class GfxResources extends ResourcesBase {
 	        new Animation(0.1f, atlas.findRegions("weapon/tWeaponStachelFire")),
 	};
 
+	public Animation[] weaponRoot = new Animation[] {
+			new Animation(0.1f, atlas.findRegions("weapon/tWeaponRanke")),
+			new Animation(0.1f, atlas.findRegions("weapon/tWeaponRankeFire")),
+	};
+
 	public Animation[] enemyShroom = new Animation[] {
 	        new Animation(0.1f, atlas.findRegions("enemy/Pilzgegner/tPilzGegnerLinks")),
 	        new Animation(0.1f, atlas.findRegions("enemy/Pilzgegner/tPilzGegnerRechts")),
@@ -102,9 +107,11 @@ public class GfxResources extends ResourcesBase {
     };
 
     public Animation spikeBigProjectile = new Animation(0.1f, atlas.findRegions("projectiles/tSchussDorne"));
+    public Animation RootProjectile = new Animation(0.1f, atlas.findRegions("projectiles/Wurzelangriff"));
     public Animation spikeLittleProjectile = new Animation(0.1f, atlas.findRegions("projectiles/tSchussDorneSplitter"));
     public Animation spikeExplosion = new Animation(0.1f, atlas.findRegions("projectiles/tExplosionDorne"));
     public Animation smoke = new Animation(0.1f, atlas.findRegions("particles/tRauch"));
+    public Animation playerRoot = new Animation(0.2f, atlas.findRegions("secondary/tRankeSekundaer"));
 
 	public Pixmap crosshair = new Pixmap(Gdx.files.internal("crosshair.png"));
 	public Texture lifeBar = new Texture(Gdx.files.internal("Grafiken/lifebar.png"));
@@ -114,6 +121,7 @@ public class GfxResources extends ResourcesBase {
 	public Texture insectWeapon = new Texture(Gdx.files.internal("Grafiken/tInsektenwaffe.png"));
 	public Texture shroomWeapon = new Texture(Gdx.files.internal("Grafiken/tPilzwaffe.png"));
 	public Texture spikeWeapon = new Texture(Gdx.files.internal("Grafiken/tStachelwaffe.png"));
+	public Texture rootWeapon = new Texture(Gdx.files.internal("Grafiken/tRankenwaffe.png"));
 	public Texture startWeaponBullet = new Texture(Gdx.files.internal("Grafiken/Waffeneffekte/tSchussStandard.png"));
 	public TextureRegion startWeaponBulletR = new TextureRegion(startWeaponBullet);
 
