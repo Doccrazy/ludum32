@@ -80,9 +80,9 @@ public class TiledMapActor extends WorldActor {
 
 	@Override
 	protected void init() {
-	    super.init();
+		super.init();
 
-        createQuestItems(4);
+		createQuestItems(4);
 	}
 
 	public LinePath<Vector2> searchPath(Vector2 start, Vector2 end) {
@@ -136,15 +136,17 @@ public class TiledMapActor extends WorldActor {
 		if (lastPosition.x == playerX && lastPosition.y == playerY)
 			return;
 
-		checkBodys(1);
-		checkBodys(4);
+		if (((GameWorld) world).isGameStarted()) {
+			checkBodys(1);
+			checkBodys(4);
+			checkTextes(4);
+			lastPosition.x = playerX;
+			lastPosition.y = playerY;
+		}
 
-		checkTextes(4);
-		lastPosition.x = playerX;
-		lastPosition.y = playerY;
 	}
 
-	private void checkTextes(int layer){
+	private void checkTextes(int layer) {
 		TiledMapTileLayer mapLayer = (TiledMapTileLayer) map.getLayers().get(layer);
 		Vector2 playerPosition = player.getBody().getPosition();
 		int playerX = (int) playerPosition.x;
@@ -156,30 +158,29 @@ public class TiledMapActor extends WorldActor {
 
 				TiledMapTile tile = mapLayer.getCell(x, y).getTile();
 				MapProperties props = tile.getProperties();
-				Iterator iter =props.getKeys();
+				Iterator iter = props.getKeys();
 				String quest;
 				ArrayList<StoryText> bla = new ArrayList<StoryText>();
 				HashMap<Integer, StoryText> tmpMap = new HashMap<Integer, StoryText>();
-				while(iter.hasNext()){
-					String string = (String)iter.next();
-					if(string.startsWith("Quest")){
-						world.postEvent(new QuestEvent((String)props.get(string), QuestEvent.Status.valueOf(string.substring(5).toUpperCase())));
+				while (iter.hasNext()) {
+					String string = (String) iter.next();
+					if (string.startsWith("Quest")) {
+						world.postEvent(new QuestEvent((String) props.get(string), QuestEvent.Status.valueOf(string.substring(5).toUpperCase())));
 					}
-					if(string.startsWith("Text")){
+					if (string.startsWith("Text")) {
 						int positionTmp = Integer.parseInt(string.charAt(4) + "");
 						positionTmp--;
-						tmpMap.put(positionTmp, new StoryText((String)props.get(string), string.substring(5)));
+						tmpMap.put(positionTmp, new StoryText((String) props.get(string), string.substring(5)));
 					}
 				}
 
 				int i = 0;
-				while(tmpMap.get(i) != null){
+				while (tmpMap.get(i) != null) {
 					bla.add(tmpMap.get(i));
 					i++;
 				}
 
-
-				if(bla.size() > 0){
+				if (bla.size() > 0) {
 					world.postEvent(new UiTextEvent(bla, true));
 				}
 			}
@@ -187,20 +188,20 @@ public class TiledMapActor extends WorldActor {
 	}
 
 	private void createQuestItems(int layer) {
-        TiledMapTileLayer mapLayer = (TiledMapTileLayer) map.getLayers().get(layer);
-        for (int x = 0; x < mapLayer.getWidth(); x++) {
-            for (int y = 0; y < mapLayer.getHeight(); y++) {
-                Cell cell = mapLayer.getCell(x, y);
-                if (cell == null)
-                    continue;
-                TiledMapTile tile = cell.getTile();
-                MapProperties props = tile.getProperties();
-                String item = (String)props.get("QuestItem");
-                if (item != null) {
-                    world.addActor(new QuestItemActor(world, new Vector2(x, y), item));
-                }
-            }
-        }
+		TiledMapTileLayer mapLayer = (TiledMapTileLayer) map.getLayers().get(layer);
+		for (int x = 0; x < mapLayer.getWidth(); x++) {
+			for (int y = 0; y < mapLayer.getHeight(); y++) {
+				Cell cell = mapLayer.getCell(x, y);
+				if (cell == null)
+					continue;
+				TiledMapTile tile = cell.getTile();
+				MapProperties props = tile.getProperties();
+				String item = (String) props.get("QuestItem");
+				if (item != null) {
+					world.addActor(new QuestItemActor(world, new Vector2(x, y), item));
+				}
+			}
+		}
 	}
 
 	private void checkBodys(int layer) {
@@ -226,28 +227,28 @@ public class TiledMapActor extends WorldActor {
 						}
 					}
 
-					if(enemies.get(new Point(x,y)) == null){
+					if (enemies.get(new Point(x, y)) == null) {
 						TiledMapTile tile = mapLayer.getCell(x, y).getTile();
 						MapProperties props = tile.getProperties();
-						if(props.containsKey("Insekt")){
-							InsectActor actor =new InsectActor((GameWorld)world, new Vector2(x,y ), true);
-							enemies.put(new Point(x,y), actor);
+						if (props.containsKey("Insekt")) {
+							InsectActor actor = new InsectActor((GameWorld) world, new Vector2(x, y), true);
+							enemies.put(new Point(x, y), actor);
 							world.addActor(actor);
 						}
-						if(props.containsKey("Pilz")){
-							ShroomActor actor = new ShroomActor((GameWorld)world, new Vector2(x,y ), true);
-							enemies.put(new Point(x,y), actor);
+						if (props.containsKey("Pilz")) {
+							ShroomActor actor = new ShroomActor((GameWorld) world, new Vector2(x, y), true);
+							enemies.put(new Point(x, y), actor);
 							world.addActor(actor);
 						}
-						if(props.containsKey("Wurzel")){
-							RootActor actor = new RootActor((GameWorld)world, new Vector2(x,y ), true);
-							enemies.put(new Point(x,y), actor);
+						if (props.containsKey("Wurzel")) {
+							RootActor actor = new RootActor((GameWorld) world, new Vector2(x, y), true);
+							enemies.put(new Point(x, y), actor);
 							world.addActor(actor);
 
 						}
-						if(props.containsKey("Stachel")){
-							SpikyActor actor = new SpikyActor((GameWorld)world, new Vector2(x,y ), true);
-							enemies.put(new Point(x,y), actor);
+						if (props.containsKey("Stachel")) {
+							SpikyActor actor = new SpikyActor((GameWorld) world, new Vector2(x, y), true);
+							enemies.put(new Point(x, y), actor);
 							world.addActor(actor);
 						}
 					}
