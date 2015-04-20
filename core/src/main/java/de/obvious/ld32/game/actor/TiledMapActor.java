@@ -33,6 +33,8 @@ import de.obvious.ld32.game.ai.TiledRaycastCollisionDetector;
 import de.obvious.ld32.game.ai.TiledSmoothableGraphPath;
 import de.obvious.ld32.game.misc.AlarmLight;
 import de.obvious.ld32.game.misc.NotTheBestMapRenderer;
+import de.obvious.ld32.game.misc.StoryText;
+import de.obvious.ld32.game.misc.UiTextEvent;
 import de.obvious.ld32.game.world.GameWorld;
 import de.obvious.shared.game.actor.WorldActor;
 import de.obvious.shared.game.world.BodyBuilder;
@@ -148,22 +150,30 @@ public class TiledMapActor extends WorldActor {
 				MapProperties props = tile.getProperties();
 				Iterator iter =props.getKeys();
 				String quest;
-				ArrayList<String> bla = new ArrayList<String>();
+				ArrayList<StoryText> bla = new ArrayList<StoryText>();
+				HashMap<Integer, StoryText> tmpMap = new HashMap<Integer, StoryText>();
 				while(iter.hasNext()){
 					String string = (String)iter.next();
-					if(string.equals("TextWeapon"))
-						System.out.println();
+					if(string.startsWith("Quest")){
+						//TODO
+					}
+					if(string.startsWith("Text")){
+						int positionTmp = Integer.parseInt(string.charAt(4) + "");
+						positionTmp--;
+						tmpMap.put(positionTmp, new StoryText((String)props.get(string), string.substring(5)));
+					}
+				}
+
+				int i = 0;
+				while(tmpMap.get(i) != null){
+					bla.add(tmpMap.get(i));
+					i++;
 				}
 
 
-				if(props.get("Text") != null){
-
-
-//					world.postEvent(new UiTextEvent((String)props.get("Text"), true, true));
+				if(bla.size() > 0){
+					world.postEvent(new UiTextEvent(bla, true));
 				}
-
-
-
 			}
 		}
 	}

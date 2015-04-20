@@ -1,5 +1,7 @@
 package de.obvious.ld32.game.actor;
 
+import java.util.function.Consumer;
+
 import box2dLight.ConeLight;
 
 import com.badlogic.gdx.graphics.Color;
@@ -22,6 +24,7 @@ import de.obvious.ld32.game.abilities.FireMode;
 import de.obvious.ld32.game.actor.action.DrawableAction;
 import de.obvious.ld32.game.actor.action.RageAction;
 import de.obvious.ld32.game.ai.Box2dSteeringEntity;
+import de.obvious.ld32.game.ui.UiText;
 import de.obvious.ld32.game.world.GameWorld;
 import de.obvious.shared.game.actor.ShapeActor;
 import de.obvious.shared.game.world.BodyBuilder;
@@ -48,6 +51,7 @@ public class PlayerActor extends ShapeActor implements Damageable {
 	private boolean allowMovement = true;
 	private float playerSpeed = GameRules.PLAYER_VELOCITY;
 	private Boolean rooted = null;
+	private UiText uiText;
 
 	public PlayerActor(Box2dWorld world, Vector2 spawn, boolean spawnIsLeftBottom) {
 		super(world, spawn, spawnIsLeftBottom);
@@ -330,6 +334,14 @@ public class PlayerActor extends ShapeActor implements Damageable {
 
 	public Boolean isRooted(){
 		return rooted;
+	}
+
+	public void doSomethingForMe(Consumer<Void> something, float time){
+		task.in(time, something);
+	}
+
+	public void setUiText(UiText uiText){
+		this.uiText = uiText;
 	}
 
 }

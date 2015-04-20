@@ -1,44 +1,28 @@
 package de.obvious.ld32.game.misc;
 
+import java.util.ArrayList;
+
 public class UiTextEvent extends de.obvious.shared.game.event.Event {
-	private String textPlayer;
-	private String textWeapon;
 	private boolean story;
-	private boolean player;
-	private String textOther;
+	private ArrayList<StoryText> texts;
 
-	public UiTextEvent(String textPlayer, String textWeapon, String textOther, boolean story, boolean playerFirst) {
+
+	public UiTextEvent(ArrayList<StoryText> texts, boolean story) {
 		super(0, 0);
-		this.textPlayer = textPlayer;
-		this.textWeapon = textWeapon;
-		this.textOther = textOther;
+		this.texts = texts;
 		this.story = story;
-		this.player = player;
 	}
 
-	public String getTextOther() {
-		return textOther;
+
+	public ArrayList<StoryText> getTexts() {
+		return texts;
 	}
 
-	public void setTextOther(String textOther) {
-		this.textOther = textOther;
+
+	public void setTexts(ArrayList<StoryText> texts) {
+		this.texts = texts;
 	}
 
-	public String getTextPlayer() {
-		return textPlayer;
-	}
-
-	public void setTextPlayer(String textPlayer) {
-		this.textPlayer = textPlayer;
-	}
-
-	public String getTextWeapon() {
-		return textWeapon;
-	}
-
-	public void setTextWeapon(String textWeapon) {
-		this.textWeapon = textWeapon;
-	}
 
 	public boolean isStory() {
 		return story;
@@ -47,13 +31,4 @@ public class UiTextEvent extends de.obvious.shared.game.event.Event {
 	public void setStory(boolean show) {
 		this.story = show;
 	}
-
-	public boolean isPlayer() {
-		return player;
-	}
-
-	public void setPlayer(boolean player) {
-		this.player = player;
-	}
-
 }
