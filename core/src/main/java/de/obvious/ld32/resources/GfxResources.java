@@ -160,6 +160,11 @@ public class GfxResources extends ResourcesBase {
 	public Texture quest = texture("quest.png");
 	public Texture questDone = texture("questDone.png");
 
+    public Map<String, Sprite> questItem = new HashMap<String, Sprite>() {{
+        put("Fuel", atlas.createSprite("items/tFuel"));
+        put("Med", atlas.createSprite("items/Medizin"));
+    }};
+
 	public TiledMap LEVEL1 = new TmxMapLoader().load("RaumschiffEbene1.tmx");
 
     public GfxResources() {

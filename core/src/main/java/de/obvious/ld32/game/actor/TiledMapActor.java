@@ -19,6 +19,7 @@ import com.badlogic.gdx.maps.MapProperties;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTile;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
+import com.badlogic.gdx.maps.tiled.TiledMapTileLayer.Cell;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
@@ -75,6 +76,13 @@ public class TiledMapActor extends WorldActor {
 		pathFinder = new IndexedAStarPathFinder<FlatTiledNode>(graph, true);
 		pathSmoother = new PathSmoother<FlatTiledNode, Vector2>(new TiledRaycastCollisionDetector<FlatTiledNode>(graph));
 		setzOrder(ZOrder.LEVEL);
+	}
+
+	@Override
+	protected void init() {
+	    super.init();
+
+        createQuestItems(4);
 	}
 
 	public LinePath<Vector2> searchPath(Vector2 start, Vector2 end) {
@@ -134,7 +142,6 @@ public class TiledMapActor extends WorldActor {
 		checkTextes(4);
 		lastPosition.x = playerX;
 		lastPosition.y = playerY;
-
 	}
 
 	private void checkTextes(int layer){
@@ -177,6 +184,23 @@ public class TiledMapActor extends WorldActor {
 				}
 			}
 		}
+	}
+
+	private void createQuestItems(int layer) {
+        TiledMapTileLayer mapLayer = (TiledMapTileLayer) map.getLayers().get(layer);
+        for (int x = 0; x < mapLayer.getWidth(); x++) {
+            for (int y = 0; y < mapLayer.getHeight(); y++) {
+                Cell cell = mapLayer.getCell(x, y);
+                if (cell == null)
+                    continue;
+                TiledMapTile tile = cell.getTile();
+                MapProperties props = tile.getProperties();
+                String item = (String)props.get("QuestItem");
+                if (item != null) {
+                    world.addActor(new QuestItemActor(world, new Vector2(x, y), item));
+                }
+            }
+        }
 	}
 
 	private void checkBodys(int layer) {

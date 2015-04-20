@@ -33,6 +33,7 @@ public class QuestLogTable extends Table {
     public void act(float delta) {
         super.act(delta);
         root.getWorld().pollEvents(QuestEvent.class, (QuestEvent event) -> {
+            if (!quests.containsKey(event.getQuest()) || quests.get(event.getQuest()).getStatus().ordinal() < event.getStatus().ordinal())
             quests.put(event.getQuest(), event);
             refreshQuests();
         });
