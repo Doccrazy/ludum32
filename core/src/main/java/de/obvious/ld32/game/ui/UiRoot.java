@@ -25,6 +25,8 @@ public class UiRoot extends UiBase<GameWorld, GameRenderer, GameInputListener> {
 		stage.addActor(new LowHealthOverlay(this, world));
 		stage.addActor(new ControllerLabel(this));
 		stage.addActor(new UiItemSlots(this, world));
+		stage.addActor(new UiText(this));
+
 		add(new Healthbar(this)).expand().bottom().left().pad(5);
 
 		Gdx.input.setCursorImage(Resource.GFX.crosshair, 16, 16);

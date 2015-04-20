@@ -31,7 +31,7 @@ public class InsectAbility implements Ability {
 	@Override
 	public void trigger(Vector2 position, FireMode mode) {
 		if(mode == FireMode.PRIMARY){
-			if(Boolean.FALSE.equals(world.getPlayer().isRooted())){
+			if(Boolean.FALSE.equals(world.getPlayer().isRooted())|| world.getPlayer().isRooted() == null){
 				world.getPlayer().stopMovement();
 				world.getPlayer().getBody().setLinearVelocity(world.getPlayer().aimDirection().nor().scl(30));
 			}

@@ -1,7 +1,9 @@
 package de.obvious.ld32.game.actor;
 
 import java.awt.Point;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 
 import box2dLight.Light;
 import box2dLight.PointLight;
@@ -126,9 +128,44 @@ public class TiledMapActor extends WorldActor {
 		checkBodys(1);
 		checkBodys(4);
 
+		checkTextes(4);
 		lastPosition.x = playerX;
 		lastPosition.y = playerY;
 
+	}
+
+	private void checkTextes(int layer){
+		TiledMapTileLayer mapLayer = (TiledMapTileLayer) map.getLayers().get(layer);
+		Vector2 playerPosition = player.getBody().getPosition();
+		int playerX = (int) playerPosition.x;
+		int playerY = (int) playerPosition.y;
+		for (int y = playerY - 1; y <= playerY + 1; y++) {
+			for (int x = playerX - 1; x <= playerX + 1; x++) {
+				if (mapLayer.getCell(x, y) == null)
+					continue;
+
+				TiledMapTile tile = mapLayer.getCell(x, y).getTile();
+				MapProperties props = tile.getProperties();
+				Iterator iter =props.getKeys();
+				String quest;
+				ArrayList<String> bla = new ArrayList<String>();
+				while(iter.hasNext()){
+					String string = (String)iter.next();
+					if(string.equals("TextWeapon"))
+						System.out.println();
+				}
+
+
+				if(props.get("Text") != null){
+
+
+//					world.postEvent(new UiTextEvent((String)props.get("Text"), true, true));
+				}
+
+
+
+			}
+		}
 	}
 
 	private void checkBodys(int layer) {
