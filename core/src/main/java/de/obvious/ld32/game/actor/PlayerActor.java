@@ -49,7 +49,7 @@ public class PlayerActor extends ShapeActor {
 
     public PlayerActor(Box2dWorld world, Vector2 spawn, boolean spawnIsLeftBottom) {
 		super(world, spawn, spawnIsLeftBottom);
-		flashlight = new ConeLight(world.rayHandler, 200, Color.WHITE, 10, getX(), getY(), 0, 40);
+		flashlight = new ConeLight(world.rayHandler, 200, Color.WHITE, 10, getX(), getY(), 0, GameRules.PLAYER_HALF_FOV);
 		flashlight.setContactFilter((short)1,(short)0,(short)2);
 		flashlight.setSoftnessLength(1f);
 		lights.add(flashlight);

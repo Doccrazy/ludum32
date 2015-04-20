@@ -25,7 +25,6 @@ public class InsectActor extends EnemyActor {
     @Override
     protected void init() {
         super.init();
-        removeAction(getActions().first());
         addAction(new InsectAiAction());
     }
 
@@ -37,7 +36,7 @@ public class InsectActor extends EnemyActor {
 	@Override
 	void drawBody(Batch batch) {
         Animation anim = attacking && !killed ? Resource.GFX.enemyInsectAttack[animationDir().ordinal()] : Resource.GFX.enemyInsect[animationDir().ordinal()];
-        TextureRegion frame = anim.getKeyFrame(killed ? Math.min(stateTime, anim.getAnimationDuration()) : (isMoving() ? stateTime : 0), !killed);
+        TextureRegion frame = anim.getKeyFrame(killed ? Math.min(stateTime, anim.getAnimationDuration()) : (isMoving() || attacking ? stateTime : 0), !killed);
 		batch.draw(frame, getX(), getY(), getWidth(), getHeight() * 1.5f);
 
 	}

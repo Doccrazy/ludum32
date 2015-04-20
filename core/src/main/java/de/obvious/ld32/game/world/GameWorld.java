@@ -12,6 +12,7 @@ import de.obvious.ld32.data.GameRules;
 import de.obvious.ld32.data.GamepadActions;
 import de.obvious.ld32.game.abilities.SpikeAbility;
 import de.obvious.ld32.game.abilities.StartAbility;
+import de.obvious.ld32.game.actor.InsectActor;
 import de.obvious.ld32.game.actor.PlayerActor;
 import de.obvious.ld32.game.actor.ShroomActor;
 import de.obvious.ld32.game.actor.SpikyActor;
@@ -45,8 +46,8 @@ public class GameWorld extends Box2dWorld {
             level = new TiledMapActor(this, Resource.GFX.LEVEL1);
             addActor(level);
             addActor(player);
-//            addActor(new InsectActor(this, new Vector2(100, 107), true));
-//            addActor(new InsectActor(this, new Vector2(107, 107), true));
+            addActor(new InsectActor(this, new Vector2(100, 107), true));
+            addActor(new InsectActor(this, new Vector2(107, 107), true));
             addActor(new ShroomActor(this, new Vector2(100, 60), true));
             addActor(new SpikyActor(this, new Vector2(100, 90), true));
             break;

@@ -44,7 +44,7 @@ public class SpikeAbility implements Ability {
 
 	@Override
 	public Animation getWeaponAnimation(boolean fire) {
-		return Resource.GFX.weaponStart[fire ? 1 : 0];
+		return Resource.GFX.weaponSpike[fire ? 1 : 0];
 	}
 
 	@Override

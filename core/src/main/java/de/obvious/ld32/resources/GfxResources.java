@@ -67,6 +67,10 @@ public class GfxResources extends ResourcesBase {
 	        new Animation(0.1f, atlas.findRegions("weapon/tWeaponPilz")),
 	        new Animation(0.1f, atlas.findRegions("weapon/tWeaponPilzFire")),
 	};
+	public Animation[] weaponSpike = new Animation[] {
+	        new Animation(0.1f, atlas.findRegions("weapon/tWeaponStachel")),
+	        new Animation(0.1f, atlas.findRegions("weapon/tWeaponStachelFire")),
+	};
 
 	public Animation[] enemyShroom = new Animation[] {
 	        new Animation(0.1f, atlas.findRegions("enemy/Pilzgegner/tPilzGegnerLinks")),
