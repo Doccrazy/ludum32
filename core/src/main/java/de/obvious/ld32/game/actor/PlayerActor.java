@@ -48,7 +48,7 @@ public class PlayerActor extends ShapeActor implements Damageable {
 	private boolean allowMovement = true;
 	private float lastFireTime;
 	private float playerSpeed = GameRules.PLAYER_VELOCITY;
-	private boolean rooted;
+	private Boolean rooted = null;
 
 	public PlayerActor(Box2dWorld world, Vector2 spawn, boolean spawnIsLeftBottom) {
 		super(world, spawn, spawnIsLeftBottom);
@@ -162,6 +162,8 @@ public class PlayerActor extends ShapeActor implements Damageable {
 	}
 
 	private void drawSecondary(Batch batch) {
+		if(rooted == null)
+			return;
 		Animation anim = Resource.GFX.playerRoot;
 		anim.setPlayMode(rooted ? PlayMode.NORMAL : PlayMode.REVERSED);
 		TextureRegion frame;
@@ -228,6 +230,16 @@ public class PlayerActor extends ShapeActor implements Damageable {
 		return abilities.get(0);
 	}
 
+	public void switchAbilities(){
+		if(Boolean.FALSE.equals(rooted) || rooted == null){
+			Ability tmp = abilities.get(0);
+			abilities.get(1).end();
+			abilities.put(0, abilities.get(1));
+			abilities.put(1, tmp);
+
+		}
+	}
+
 	public Box2dSteeringEntity getSteering() {
 		return steering;
 	}
@@ -274,7 +286,10 @@ public class PlayerActor extends ShapeActor implements Damageable {
 		if (ability == null) {
 			return true;
 		}
+		if(Boolean.TRUE.equals(rooted))
+			return lastFireTime + ability.getCooldown(mode)/2f > stateTime;
 		return lastFireTime + ability.getCooldown(mode) > stateTime;
+
 	}
 
 	public void setFlashlightConeDegree(float degree) {
@@ -291,9 +306,12 @@ public class PlayerActor extends ShapeActor implements Damageable {
 	}
 
 	public void setRooted(boolean rooted) {
-
 		rootTime = 0f;
 		this.rooted = rooted;
+	}
+
+	public Boolean isRooted(){
+		return rooted;
 	}
 
 }

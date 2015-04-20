@@ -24,9 +24,7 @@ public class GameInputListener extends InputListener {
     @Override
     public boolean keyUp(InputEvent event, int keycode) {
     	if(keycode == Keys.SPACE){
-    		Ability tmp = world.getPlayer().getAbility(0);
-    		world.getPlayer().setAbility(0, world.getPlayer().getAbility(1));
-    		world.getPlayer().setAbility(1, tmp);
+    		world.getPlayer().switchAbilities();
     	}
 
     	return true;
