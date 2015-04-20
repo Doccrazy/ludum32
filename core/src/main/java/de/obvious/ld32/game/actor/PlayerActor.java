@@ -74,6 +74,7 @@ public class PlayerActor extends ShapeActor {
 
     @Override
     protected void doAct(float delta) {
+    	abilities.get(1).update(delta);
         if (movement != null && allowMovement) {
             move(delta);
         }
@@ -256,6 +257,10 @@ public class PlayerActor extends ShapeActor {
             return true;
         }
         return lastFireTime + ability.getCooldown(mode) > stateTime;
+    }
+
+    public void setFlashlightConeDegree(float degree){
+    	flashlight.setConeDegree(degree);
     }
 
 }

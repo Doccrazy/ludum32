@@ -104,6 +104,7 @@ public class GfxResources extends ResourcesBase {
     public Animation spikeBigProjectile = new Animation(0.1f, atlas.findRegions("projectiles/tSchussDorne"));
     public Animation spikeLittleProjectile = new Animation(0.1f, atlas.findRegions("projectiles/tSchussDorneSplitter"));
     public Animation spikeExplosion = new Animation(0.1f, atlas.findRegions("projectiles/tExplosionDorne"));
+    public Animation smoke = new Animation(0.1f, atlas.findRegions("particles/tRauch"));
 
 	public Pixmap crosshair = new Pixmap(Gdx.files.internal("crosshair.png"));
 	public Texture lifeBar = new Texture(Gdx.files.internal("Grafiken/lifebar.png"));

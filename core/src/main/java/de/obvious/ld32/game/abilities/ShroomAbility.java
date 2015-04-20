@@ -34,4 +34,18 @@ public class ShroomAbility implements Ability {
 	public float getCooldown(FireMode mode) {
 	    return mode == FireMode.PRIMARY ? 1f : Float.MAX_VALUE;
 	}
+
+	@Override
+	public void update(float delta) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void end() {
+		// TODO Auto-generated method stub
+
+	}
+
+
 }

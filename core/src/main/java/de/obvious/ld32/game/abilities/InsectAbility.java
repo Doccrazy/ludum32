@@ -35,7 +35,6 @@ public class InsectAbility implements Ability {
 
 			InsectAbilityActor actor = new InsectAbilityActor(world, world.getPlayer().getWeaponMuzzle(), false);
 			world.addActor(actor);
-
 		}
 	}
 
@@ -53,6 +52,18 @@ public class InsectAbility implements Ability {
     public float getCooldown(FireMode mode) {
         return mode == FireMode.PRIMARY ? 1f : Float.MAX_VALUE;
     }
+
+	@Override
+	public void update(float delta) {
+		world.getPlayer().setFlashlightConeDegree(70);
+	}
+
+	@Override
+	public void end() {
+		world.getPlayer().setFlashlightConeDegree(40);
+	}
+
+
 }
 
 class InsectAbilityActor extends ShapeActor implements CollisionListener{

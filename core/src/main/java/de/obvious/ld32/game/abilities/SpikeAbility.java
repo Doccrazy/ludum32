@@ -52,6 +52,18 @@ public class SpikeAbility implements Ability {
 		return mode == FireMode.PRIMARY ? 3f : Float.MAX_VALUE;
 	}
 
+	@Override
+	public void update(float delta) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void end() {
+		// TODO Auto-generated method stub
+
+	}
+
 }
 
 class SpikeAbilityActor extends ShapeActor implements CollisionListener {
@@ -142,11 +154,13 @@ class SpikeAbilityActor extends ShapeActor implements CollisionListener {
 class LittleSpikeAbilityActor extends ShapeActor implements CollisionListener {
 
 	private Vector2 velocity;
+	private int speed = 7;
+	private int hitCounter;
 
 	public LittleSpikeAbilityActor(Box2dWorld world, Vector2 spawn, Vector2 velocity) {
 		super(world, spawn, false);
 		this.velocity = velocity;
-		task.in(5f, (Void) -> kill());
+		task.in(10f, (Void) -> kill());
 	}
 
 	@Override
@@ -155,7 +169,17 @@ class LittleSpikeAbilityActor extends ShapeActor implements CollisionListener {
 			((EnemyActor) other.getUserData()).damage(10, DamageType.NORMAL);
 		}
 
-		if (!other.isBullet())
+		if(other.getUserData() instanceof PlayerActor){
+			((PlayerActor) other.getUserData()).damage(10, DamageType.NORMAL);
+		}
+
+		if(other.getUserData() == null && hitCounter < 2){
+			velocity.rotate(180);
+			body.setLinearVelocity(velocity);
+			hitCounter++;
+		}
+
+		if (!other.isBullet() && (other.getUserData() != null || hitCounter >= 2))
 			kill();
 
 		return false;
@@ -176,7 +200,7 @@ class LittleSpikeAbilityActor extends ShapeActor implements CollisionListener {
 
 	@Override
 	protected BodyBuilder createBody(Vector2 spawn) {
-		return BodyBuilder.forDynamic(spawn).asBullet().velocity(velocity.cpy().scl(5)).fixShape(ShapeBuilder.circle(0.1f)).fixSensor();
+		return BodyBuilder.forDynamic(spawn).asBullet().velocity(velocity.scl(speed)).fixShape(ShapeBuilder.circle(0.1f)).fixSensor();
 	}
 
 }

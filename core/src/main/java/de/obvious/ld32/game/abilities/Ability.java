@@ -14,4 +14,8 @@ public interface Ability {
 
     float getCooldown(FireMode mode);
 
+    void update(float delta);
+
+    void end();
+
 }
