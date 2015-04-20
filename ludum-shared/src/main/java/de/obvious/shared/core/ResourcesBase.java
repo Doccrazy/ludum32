@@ -13,6 +13,7 @@ import com.badlogic.gdx.graphics.g2d.ParticleEffectPool;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.utils.Array;
 
 public abstract class ResourcesBase {
     protected final TextureAtlas atlas;
@@ -22,7 +23,32 @@ public abstract class ResourcesBase {
     }
 
     public ResourcesBase(String atlasFile) {
-        atlas = new TextureAtlas(Gdx.files.internal(atlasFile));
+        atlas = new TextureAtlas(Gdx.files.internal(atlasFile)) {
+            @Override
+            public Sprite createSprite(String name) {
+                Sprite result = super.createSprite(name);
+                if (result == null) {
+                    throw new IllegalArgumentException("Sprite " + name + " not found");
+                }
+                return result;
+            }
+            @Override
+            public Sprite createSprite(String name, int index) {
+                Sprite result = super.createSprite(name, index);
+                if (result == null) {
+                    throw new IllegalArgumentException("Sprite " + name + " not found at " + index);
+                }
+                return result;
+            }
+            @Override
+            public Array<AtlasRegion> findRegions(String name) {
+                Array<AtlasRegion> result = super.findRegions(name);
+                if (result.size == 0) {
+                    throw new IllegalArgumentException("Regions " + name + " not found");
+                }
+                return result;
+            }
+        };
     }
 
     protected Texture texture(String filename) {
