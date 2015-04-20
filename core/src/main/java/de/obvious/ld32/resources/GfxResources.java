@@ -156,6 +156,8 @@ public class GfxResources extends ResourcesBase {
 	public Texture healthbarEmpty = texture("Grafiken/tLebensanzeige.png");
 	public Texture healthbarFull = texture("Grafiken/tLebensanzeigeVoll.png");
 	public Texture lowHealthOverlay = texture("lowHealthOverlay.png");
+	public Texture quest = texture("quest.png");
+	public Texture questDone = texture("questDone.png");
 
 	public TiledMap LEVEL1 = new TmxMapLoader().load("RaumschiffEbene1.tmx");
 
