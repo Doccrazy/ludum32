@@ -23,6 +23,7 @@ import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.TimeUtils;
 
+import de.obvious.ld32.data.ZOrder;
 import de.obvious.ld32.game.ai.FlatTiledGraph;
 import de.obvious.ld32.game.ai.FlatTiledNode;
 import de.obvious.ld32.game.ai.TiledManhattanDistance;
@@ -68,7 +69,7 @@ public class TiledMapActor extends WorldActor {
 		heuristic = new TiledManhattanDistance<FlatTiledNode>();
 		pathFinder = new IndexedAStarPathFinder<FlatTiledNode>(graph, true);
 		pathSmoother = new PathSmoother<FlatTiledNode, Vector2>(new TiledRaycastCollisionDetector<FlatTiledNode>(graph));
-
+		setzOrder(ZOrder.LEVEL);
 	}
 
 	public LinePath<Vector2> searchPath(Vector2 start, Vector2 end) {

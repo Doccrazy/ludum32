@@ -9,6 +9,7 @@ import com.badlogic.gdx.math.Vector2;
 
 import de.obvious.ld32.core.Resource;
 import de.obvious.ld32.data.Constants;
+import de.obvious.ld32.data.ZOrder;
 import de.obvious.shared.game.actor.WorldActor;
 import de.obvious.shared.game.world.Box2dWorld;
 
@@ -27,6 +28,7 @@ public class BloodActor extends WorldActor {
         effectIdx = MathUtils.random(Resource.GFX.blood.length-1);
         setRotation(MathUtils.random(360f));
         setScale(Math.min(1f, 0.25f + damage / 25));
+        setzOrder(ZOrder.BLOOD);
     }
 
     @Override

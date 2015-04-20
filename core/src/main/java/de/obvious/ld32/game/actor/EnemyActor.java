@@ -12,6 +12,7 @@ import de.obvious.ld32.core.Resource;
 import de.obvious.ld32.data.AnimDir;
 import de.obvious.ld32.data.DamageType;
 import de.obvious.ld32.data.GameRules;
+import de.obvious.ld32.data.ZOrder;
 import de.obvious.ld32.game.abilities.Ability;
 import de.obvious.ld32.game.world.GameWorld;
 import de.obvious.shared.game.actor.ShapeActor;
@@ -134,6 +135,7 @@ public abstract class EnemyActor extends ShapeActor implements Damageable {
 
 		BodyBuilder builder = createBody(pos).velocity(v).fixSensor().fixFilter((short)1, (short)0);
 		body = builder.build(world);
+        setzOrder(ZOrder.CORPSE);
 	}
 
 	public boolean isKilled() {
