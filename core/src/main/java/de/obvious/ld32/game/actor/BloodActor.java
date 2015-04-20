@@ -24,7 +24,7 @@ public class BloodActor extends WorldActor {
         super(world);
         this.spawn = spawn.cpy();
         this.color = color;
-        this.dir = new Vector2(1, 0).rotateRad((float) (Math.random() * Math.PI * 2));
+        this.dir = new Vector2(1, 0).rotateRad((float) (Math.random() * Math.PI * 2)).scl((float) (0.5f + Math.random() * 0.5f));
         effectIdx = MathUtils.random(Resource.GFX.blood.length-1);
         setRotation(MathUtils.random(360f));
         setScale(Math.min(1f, 0.25f + damage / 25));
@@ -41,8 +41,10 @@ public class BloodActor extends WorldActor {
     public void draw(Batch batch, float parentAlpha) {
         Sprite frame = Resource.GFX.blood[effectIdx];
         batch.setColor(color);
-        batch.draw(frame, getX(), getY(), (frame.getWidth() * Constants.PIXEL_SCALE)/2f, (frame.getHeight() * Constants.PIXEL_SCALE)/2f,
-                frame.getWidth() * Constants.PIXEL_SCALE, frame.getHeight() * Constants.PIXEL_SCALE,
+        float scaledW = frame.getWidth() * Constants.PIXEL_SCALE;
+        float scaledH = frame.getHeight() * Constants.PIXEL_SCALE;
+        batch.draw(frame, getX() - scaledW/2f, getY() - scaledH/2f, scaledW/2f, scaledH/2f,
+                scaledW, scaledH,
                 getScaleX() * percent, getScaleY() * percent, getRotation());
         batch.setColor(Color.WHITE);
     }

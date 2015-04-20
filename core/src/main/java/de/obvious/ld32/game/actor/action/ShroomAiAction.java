@@ -8,10 +8,6 @@ import de.obvious.ld32.game.actor.ShroomLingActor;
 
 
 public class ShroomAiAction extends BaseAiAction {
-    private static final float ATTACK_DELAY = 1f;
-    private static final float ATTACK_DIST = 1.5f;
-
-    private float lastAttack = -ATTACK_DELAY;
     private float speed = 0.5f;
 
     public ShroomAiAction() {

@@ -12,6 +12,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 
+import de.obvious.ld32.data.Constants;
 import de.obvious.ld32.data.DamageType;
 import de.obvious.shared.game.actor.ShapeActor;
 import de.obvious.shared.game.base.CollisionListener;
@@ -19,7 +20,7 @@ import de.obvious.shared.game.world.BodyBuilder;
 import de.obvious.shared.game.world.Box2dWorld;
 import de.obvious.shared.game.world.ShapeBuilder;
 
-class AoeDamageActor extends ShapeActor implements CollisionListener {
+public class AoeDamageActor extends ShapeActor implements CollisionListener {
     private float radius;
     private float damagePerSec;
     public boolean hitting;
@@ -28,6 +29,8 @@ class AoeDamageActor extends ShapeActor implements CollisionListener {
     private Animation animation;
     private Color lightColor;
     private boolean friendly;
+    private float warningTime;
+    private boolean enlarge;
     private Set<Damageable> actorsInArea = new HashSet<>();
 
     public AoeDamageActor(Box2dWorld world, Vector2 spawn, float radius, float damagePerSec, float duration,
@@ -55,11 +58,13 @@ class AoeDamageActor extends ShapeActor implements CollisionListener {
     @Override
     protected void doAct(float delta) {
         super.doAct(delta);
-        if (stateTime > duration) {
+        if (stateTime - warningTime > duration) {
             kill();
         }
-        for (Damageable a : actorsInArea) {
-            a.damage(damagePerSec * delta, type);
+        if (stateTime > warningTime) {
+            for (Damageable a : actorsInArea) {
+                a.damage(damagePerSec * delta, type);
+            }
         }
     }
 
@@ -70,9 +75,18 @@ class AoeDamageActor extends ShapeActor implements CollisionListener {
 
     @Override
     public void draw(Batch batch, float parentAlpha) {
-        TextureRegion frame = animation.getKeyFrame(stateTime, true);
-        batch.draw(frame, getX() - radius*0.25f, getY() - radius*0.25f, getOriginX() + radius*0.25f, getOriginY() + radius*0.25f,
-                getWidth() + radius*0.5f, getHeight() + radius*0.5f, getScaleX(), getScaleY(), 0);
+        if (stateTime > warningTime) {
+            TextureRegion frame = animation.getKeyFrame(stateTime - warningTime, true);
+            if (enlarge) {
+                float addition = radius*0.25f;
+                batch.draw(frame, getX() - addition, getY() - addition, getOriginX() + addition, getOriginY() + addition,
+                        getWidth() + addition*2, getHeight() + addition*2, getScaleX(), getScaleY(), 0);
+            } else {
+                float originX = (frame.getRegionWidth() * Constants.PIXEL_SCALE) / 2f;
+                batch.draw(frame, getX() + getOriginX() - originX, getY(), originX, getOriginY(), frame.getRegionWidth() * Constants.PIXEL_SCALE, frame.getRegionHeight() * Constants.PIXEL_SCALE, getScaleX(),
+                        getScaleY(), 0f);
+            }
+        }
     }
 
     @Override
@@ -95,5 +109,13 @@ class AoeDamageActor extends ShapeActor implements CollisionListener {
 
     public void setFriendly(boolean friendly) {
         this.friendly = friendly;
+    }
+
+    public void setWarningTime(float warningTime) {
+        this.warningTime = warningTime;
+    }
+
+    public void setEnlarge(boolean enlarge) {
+        this.enlarge = enlarge;
     }
 }

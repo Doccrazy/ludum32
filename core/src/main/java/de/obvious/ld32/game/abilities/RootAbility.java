@@ -1,21 +1,15 @@
 package de.obvious.ld32.game.abilities;
 
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
-import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.physics.box2d.Body;
 
 import de.obvious.ld32.core.Resource;
 import de.obvious.ld32.data.DamageType;
 import de.obvious.ld32.data.GameRules;
-import de.obvious.ld32.game.actor.EnemyActor;
+import de.obvious.ld32.game.actor.AoeDamageActor;
 import de.obvious.ld32.game.world.GameWorld;
-import de.obvious.shared.game.actor.ShapeActor;
-import de.obvious.shared.game.base.CollisionListener;
-import de.obvious.shared.game.world.BodyBuilder;
-import de.obvious.shared.game.world.Box2dWorld;
-import de.obvious.shared.game.world.ShapeBuilder;
 
 public class RootAbility implements Ability {
 	private GameWorld world;
@@ -30,8 +24,10 @@ public class RootAbility implements Ability {
 	@Override
 	public void trigger(Vector2 position, FireMode mode) {
 		if (mode == FireMode.PRIMARY) {
-			RootAbilityActor actor = new RootAbilityActor(world, world.getPlayer().getCrosshair());
-			world.addActor(actor);
+            AoeDamageActor aoe = new AoeDamageActor(world, world.getPlayer().getCrosshair(),
+                    0.5f, 50, 1f, DamageType.DOT, Resource.GFX.rootAoe, Color.RED);
+            aoe.setFriendly(true);
+			world.addActor(aoe);
 		} else {
 			if (isRooted) {
 				world.getPlayer().allowMovement(!isRooted);
@@ -72,47 +68,6 @@ public class RootAbility implements Ability {
 		world.getPlayer().allowMovement(!isRooted);
 		world.getPlayer().setRooted(isRooted);
 		isRooted = true;
-	}
-
-}
-
-class RootAbilityActor extends ShapeActor implements CollisionListener {
-
-	private GameWorld world;
-
-	public RootAbilityActor(Box2dWorld world, Vector2 spawn) {
-		super(world, spawn, false);
-		this.world = (GameWorld) world;
-		task.in(1, (Void) -> kill());
-	}
-
-	@Override
-	public void draw(Batch batch, float parentAlpha) {
-		batch.draw(Resource.GFX.RootProjectile.getKeyFrame(stateTime), getX(), getY(), 0, 0, 50 / 50f, 55 / 50f, 1, 1, 0);
-	}
-
-	@Override
-	public boolean beginContact(Body me, Body other, Vector2 normal, Vector2 contactPoint) {
-		if (other.getUserData() instanceof EnemyActor) {
-			((EnemyActor) other.getUserData()).damage(50, DamageType.NORMAL);
-		}
-
-		return false;
-	}
-
-	@Override
-	public void endContact(Body other) {
-
-	}
-
-	@Override
-	public void hit(float force) {
-
-	}
-
-	@Override
-	protected BodyBuilder createBody(Vector2 spawn) {
-		return BodyBuilder.forDynamic(spawn).fixShape(ShapeBuilder.circle(0.5f)).fixSensor();
 	}
 
 }

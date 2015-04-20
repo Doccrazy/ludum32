@@ -118,6 +118,15 @@ public class GfxResources extends ResourcesBase {
             new Animation(0.1f, atlas.findRegions("enemy/Insekt/tInsektBackAttack")),
             new Animation(0.1f, atlas.findRegions("enemy/Insekt/tInsektFrontAttack")),
     };
+    public Animation[] enemyRoot = new Animation[] {
+            flip(new Animation(0.1f, atlas.findRegions("enemy/Wurzelgegner/tWurzelgegnerRechts")), true, false),
+            new Animation(0.1f, atlas.findRegions("enemy/Wurzelgegner/tWurzelgegnerRechts")),
+            new Animation(0.1f, atlas.findRegions("enemy/Wurzelgegner/tWurzelgegnerRueck")),
+            new Animation(0.1f, atlas.findRegions("enemy/Wurzelgegner/tWurzelgegnerVor")),
+            new Animation(0.1f, atlas.findRegions("enemy/Wurzelgegner/tWurzelgegnerTod")),
+    };
+    public Animation enemyRootAttack = new Animation(0.075f, atlas.findRegions("enemy/Wurzelgegner/tWurzelgegnerAttacke"));
+    public Animation rootAoe = new Animation(0.1f, atlas.findRegions("enemy/Wurzelgegner/Wurzelangriff"));
 
     public Animation spikeBigProjectile = new Animation(0.1f, atlas.findRegions("projectiles/tSchussDorne"));
     public Animation RootProjectile = new Animation(0.1f, atlas.findRegions("projectiles/Wurzelangriff"));
