@@ -8,7 +8,6 @@ import de.obvious.ld32.game.actor.EnemyActor;
 import de.obvious.ld32.game.actor.PlayerActor;
 import de.obvious.ld32.game.world.GameWorld;
 import de.obvious.shared.game.actor.Tasker;
-import de.obvious.shared.game.world.Box2dWorld;
 
 public abstract class BaseAiAction extends Action {
     protected float stateTime;
@@ -44,10 +43,9 @@ public abstract class BaseAiAction extends Action {
         if (getActor() == null) {
             return null;
         }
-        Box2dWorld world = getActor().getWorld();
 
         Vector2 pp = new Vector2();
-        pp.set(((GameWorld) world).getPlayer().getBody().getPosition());
+        pp.set(getWorld().getPlayer().getBody().getPosition());
         pp.x = (int)(pp.x);
         pp.y = (int)(pp.y);
 
@@ -57,7 +55,7 @@ public abstract class BaseAiAction extends Action {
         ap.y = (int)(ap.y);
 
         if (!lastPlayerPos.equals(pp) || !lastActorPos.equals(ap)) {
-            cachedPath = ((GameWorld) world).getLevel().searchPath(getActor().getBody().getPosition(), pp);
+            cachedPath = getWorld().getLevel().searchPath(getActor().getBody().getPosition(), pp);
             lastPlayerPos.set(pp);
             lastActorPos.set(ap);
         }
@@ -65,12 +63,19 @@ public abstract class BaseAiAction extends Action {
     }
 
     protected float distToPlayer() {
-        if (getActor() == null) {
+        Vector2 v = vecToPlayer();
+        if (v == null) {
             return 0;
         }
-        Box2dWorld world = getActor().getWorld();
-        Vector2 pp = new Vector2(((GameWorld) world).getPlayer().getBody().getPosition());
-        return pp.sub(getActor().getBody().getPosition()).len();
+        return v.len();
+    }
+
+    protected Vector2 vecToPlayer() {
+        if (getActor() == null) {
+            return null;
+        }
+        Vector2 pp = new Vector2(getWorld().getPlayer().getBody().getPosition());
+        return pp.sub(getActor().getBody().getPosition());
     }
 
     protected boolean playerLos() {
@@ -84,8 +89,12 @@ public abstract class BaseAiAction extends Action {
 
     protected PlayerActor getPlayer() {
         if (getActor() != null) {
-            return ((GameWorld)getActor().getWorld()).getPlayer();
+            return getWorld().getPlayer();
         }
         return null;
+    }
+
+    protected GameWorld getWorld() {
+        return getActor() == null ? null : (GameWorld)getActor().getWorld();
     }
 }

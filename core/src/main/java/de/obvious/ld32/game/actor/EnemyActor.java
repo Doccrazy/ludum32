@@ -1,8 +1,5 @@
 package de.obvious.ld32.game.actor;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
@@ -23,13 +20,19 @@ import de.obvious.shared.game.world.ShapeBuilder;
 public abstract class EnemyActor extends ShapeActor {
 
 	protected float radius = 0.49f;
-	protected int lives = 100;
-	protected Map<Integer, Ability> abilities = new HashMap<Integer, Ability>();
+	protected float lives, initialLives = 100;
+	protected Ability ability;
 	protected float alpha = 0;
 	protected boolean killed;
 
 	public EnemyActor(GameWorld world, Vector2 spawn, boolean spawnIsLeftBottom) {
 		super(world, spawn, spawnIsLeftBottom);
+	}
+
+	@Override
+	protected void init() {
+	    super.init();
+	    lives = initialLives;
 	}
 
 	@Override
@@ -40,12 +43,6 @@ public abstract class EnemyActor extends ShapeActor {
 	@Override
 	protected void doAct(float delta) {
 		super.doAct(delta);
-
-		if (lives <= 0 && !isKilled()) {
-			((GameWorld) world).getPlayer().setAbility(1, abilities.get(0));
-			killme();
-			task.in(GameRules.CORPSE_DESPAWN, (Void) -> kill());
-		}
 	}
 
 	@Override
@@ -54,8 +51,8 @@ public abstract class EnemyActor extends ShapeActor {
 	    alpha = MathUtils.clamp(alpha + (litUp ? 0.05f : -0.05f), 0f, 1f);
 
 		batch.setColor(1, 1, 1, alpha);
-		if (lives < 100 && lives > 0)
-			batch.draw(Resource.GFX.lifeBar, getX(), getY() + 3.25f * radius, getWidth() * lives / 100f, getWidth() / 10f);
+		if (lives < initialLives && lives > 0 && !killed)
+			batch.draw(Resource.GFX.lifeBar, getX(), getY() + 3.25f * radius, getWidth() * lives / initialLives, getWidth() / 10f);
 		drawBody(batch);
 
 		batch.setColor(1, 1, 1, 1);
@@ -92,8 +89,11 @@ public abstract class EnemyActor extends ShapeActor {
             if (fixture.getBody() == body) {
                 return -1f;
             }
-            hit = true;
-            return 0f;
+            if (fixture.getBody().getUserData() == null && !fixture.isSensor()) {
+                hit = true;
+                return 0f;
+            }
+            return 1f;
         }
 	}
 
@@ -130,7 +130,7 @@ public abstract class EnemyActor extends ShapeActor {
 		v.limit(1f);
 		world.box2dWorld.destroyBody(body);
 
-		BodyBuilder builder = createBody(pos).velocity(v).fixSensor();
+		BodyBuilder builder = createBody(pos).velocity(v).fixSensor().fixFilter((short)1, (short)0);
 		body = builder.build(world);
 	}
 
@@ -139,7 +139,23 @@ public abstract class EnemyActor extends ShapeActor {
 	}
 
 	public void damage(int amount, DamageType type) {
-		lives -= amount;
+	    if (lives > 0) {
+	        lives -= amount;
+	    }
+
+        if (lives <= 0 && !isKilled()) {
+            task.in(0, (Void) -> {
+                doKillme(type);
+            });
+        }
 	}
+
+    protected void doKillme(DamageType type) {
+        if (ability != null) {
+            ((GameWorld) world).getPlayer().setAbility(1, ability);
+        }
+        killme();
+        task.in(GameRules.CORPSE_DESPAWN, (Void) -> kill());
+    }
 
 }

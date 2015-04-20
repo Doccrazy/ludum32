@@ -23,4 +23,8 @@ public class GameRules {
 
     public static final float AGGRO_RANGE = 10f;
 
+    public static final float SHROOM_HEAL_PS = 15f;
+    public static final float SHROOMLING_BLINK_TIME = 1f;
+    public static final float SHROOMLING_DPS = 50f;
+    public static final float SHROOMLING_DMG_TIME = 2f;
 }

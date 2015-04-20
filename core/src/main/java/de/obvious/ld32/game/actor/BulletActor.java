@@ -61,7 +61,7 @@ public class BulletActor extends ShapeActor implements CollisionListener {
             ((EnemyActor) other.getUserData()).damage(10, DamageType.NORMAL);
         }
 
-        if(!other.isBullet() && !(other.getUserData() instanceof PlayerActor))
+        if(!other.isBullet() && !other.getFixtureList().first().isSensor() && !(other.getUserData() instanceof PlayerActor))
         	kill();
         return false;
     }

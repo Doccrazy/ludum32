@@ -18,7 +18,7 @@ public class SpikyActor extends EnemyActor {
 
     public SpikyActor(GameWorld world, Vector2 spawn, boolean spawnIsLeftBottom) {
         super(world, spawn, spawnIsLeftBottom);
-        abilities.put(0, new SpikeAbility(world));
+        ability = new SpikeAbility(world);
         radius = 0.75f;
     }
 

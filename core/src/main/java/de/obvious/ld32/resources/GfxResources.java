@@ -7,6 +7,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
@@ -82,8 +83,20 @@ public class GfxResources extends ResourcesBase {
 	        new Animation(0.1f, atlas.findRegions("enemy/Pilzgegner/tPilzGegnerRechts")),
 	        new Animation(0.1f, atlas.findRegions("enemy/Pilzgegner/tPilzGegnerHinten")),
 	        new Animation(0.1f, atlas.findRegions("enemy/Pilzgegner/tPilzGegner")),
-	        new Animation(0.1f, atlas.findRegions("enemy/Pilzgegner/tPilzGegner")),  //TODO
+	        new Animation(0.1f, atlas.findRegions("enemy/Pilzgegner/tPilzGegnerTod")),
 	};
+	public Sprite[] enemyShroomParts = new Sprite[] {
+	        atlas.createSprite("enemy/Pilzgegner/tPilzGegnerTodTile", 1),
+	        atlas.createSprite("enemy/Pilzgegner/tPilzGegnerTodTile", 2),
+	        atlas.createSprite("enemy/Pilzgegner/tPilzGegnerTodTile", 3),
+	        atlas.createSprite("enemy/Pilzgegner/tPilzGegnerTodTile", 4),
+	        atlas.createSprite("enemy/Pilzgegner/tPilzGegnerTodTile", 5),
+	};
+	public Animation enemyShroomStunned = new Animation(0.1f, atlas.findRegions("enemy/Pilzgegner/tPilzGegnerTaub"));
+	public Animation enemyShroomShake = new Animation(0.1f, atlas.findRegions("enemy/Pilzgegner/tPilzGegnerWackeln"));
+	public Animation enemyShroomCloud = new Animation(0.33f, atlas.findRegions("enemy/Pilzgegner/tPilzRauch"));
+	public Animation enemyShroomHeal = new Animation(0.1f, atlas.findRegions("enemy/Pilzgegner/tPilzHeilung"));
+
     public Animation[] enemySpiky = new Animation[] {
             new Animation(0.1f, atlas.findRegions("enemy/Stachelmonster/tStachelmonsterLinks")),
             new Animation(0.1f, atlas.findRegions("enemy/Stachelmonster/tStachelmonsterRechts")),
