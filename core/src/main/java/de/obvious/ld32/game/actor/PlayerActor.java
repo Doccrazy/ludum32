@@ -323,6 +323,7 @@ public class PlayerActor extends ShapeActor implements Damageable {
 	public void allowMovement(boolean allowIt){
 		allowMovement = allowIt;
 		body.setLinearVelocity(0, 0);
+		moving = false;
 	}
 
 	public void setRooted(boolean rooted) {

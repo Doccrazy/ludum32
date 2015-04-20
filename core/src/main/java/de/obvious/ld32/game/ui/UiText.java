@@ -54,14 +54,17 @@ public class UiText extends Label {
 				allTexts.add(storyText);
 			}
 		}
-		if (allTexts.size() > 0 && !showBubble)
+		if (allTexts.size() > 0 && !showBubble){
 			changeText();
+			root.getWorld().getPlayer().allowMovement(false);
+		}
 	}
 
 	public void changeText() {
 		if (allTexts.size() == 0) {
 			setText("");
 			showBubble = false;
+			root.getWorld().getPlayer().allowMovement(true);
 			return;
 		}
 		showBubble = true;
