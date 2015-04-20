@@ -1,7 +1,5 @@
 package de.obvious.ld32.game.actor;
 
-import java.util.function.Consumer;
-
 import box2dLight.ConeLight;
 
 import com.badlogic.gdx.graphics.Color;
@@ -336,10 +334,9 @@ public class PlayerActor extends ShapeActor implements Damageable {
 		return rooted;
 	}
 
-	public void doSomethingForMe(Consumer<Void> something, float time){
-		task.in(time, something);
+	public void changeUiText(){
+		uiText.changeText();
 	}
-
 	public void setUiText(UiText uiText){
 		this.uiText = uiText;
 	}

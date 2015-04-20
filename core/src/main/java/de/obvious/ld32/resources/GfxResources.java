@@ -96,6 +96,7 @@ public class GfxResources extends ResourcesBase {
 	public Animation enemyShroomShake = new Animation(0.1f, atlas.findRegions("enemy/Pilzgegner/tPilzGegnerWackeln"));
 	public Animation enemyShroomCloud = new Animation(0.33f, atlas.findRegions("enemy/Pilzgegner/tPilzRauch"));
 	public Animation enemyShroomHeal = new Animation(0.1f, atlas.findRegions("enemy/Pilzgegner/tPilzHeilung"));
+	public Animation bubble = new Animation(0.4f, atlas.findRegions("ui/tSprechblase"));
 
     public Animation[] enemySpiky = new Animation[] {
             new Animation(0.1f, atlas.findRegions("enemy/Stachelmonster/tStachelmonsterLinks")),

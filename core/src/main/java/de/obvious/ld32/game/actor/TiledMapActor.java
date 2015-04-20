@@ -33,6 +33,7 @@ import de.obvious.ld32.game.ai.TiledRaycastCollisionDetector;
 import de.obvious.ld32.game.ai.TiledSmoothableGraphPath;
 import de.obvious.ld32.game.misc.AlarmLight;
 import de.obvious.ld32.game.misc.NotTheBestMapRenderer;
+import de.obvious.ld32.game.misc.QuestEvent;
 import de.obvious.ld32.game.misc.StoryText;
 import de.obvious.ld32.game.misc.UiTextEvent;
 import de.obvious.ld32.game.world.GameWorld;
@@ -155,7 +156,7 @@ public class TiledMapActor extends WorldActor {
 				while(iter.hasNext()){
 					String string = (String)iter.next();
 					if(string.startsWith("Quest")){
-						//TODO
+						world.postEvent(new QuestEvent((String)props.get(string), QuestEvent.Status.valueOf(string.substring(5).toUpperCase())));
 					}
 					if(string.startsWith("Text")){
 						int positionTmp = Integer.parseInt(string.charAt(4) + "");
@@ -205,16 +206,25 @@ public class TiledMapActor extends WorldActor {
 						TiledMapTile tile = mapLayer.getCell(x, y).getTile();
 						MapProperties props = tile.getProperties();
 						if(props.containsKey("Insekt")){
-							enemies.put(new Point(x,y), new InsectActor((GameWorld)world, new Vector2(x,y ), true));
+							InsectActor actor =new InsectActor((GameWorld)world, new Vector2(x,y ), true);
+							enemies.put(new Point(x,y), actor);
+							world.addActor(actor);
 						}
 						if(props.containsKey("Pilz")){
-							enemies.put(new Point(x,y), new ShroomActor((GameWorld)world, new Vector2(x,y ), true));
+							ShroomActor actor = new ShroomActor((GameWorld)world, new Vector2(x,y ), true);
+							enemies.put(new Point(x,y), actor);
+							world.addActor(actor);
 						}
 						if(props.containsKey("Wurzel")){
+							RootActor actor = new RootActor((GameWorld)world, new Vector2(x,y ), true);
+							enemies.put(new Point(x,y), actor);
+							world.addActor(actor);
 
 						}
 						if(props.containsKey("Stachel")){
-							enemies.put(new Point(x,y), new SpikyActor((GameWorld)world, new Vector2(x,y ), true));
+							SpikyActor actor = new SpikyActor((GameWorld)world, new Vector2(x,y ), true);
+							enemies.put(new Point(x,y), actor);
+							world.addActor(actor);
 						}
 					}
 

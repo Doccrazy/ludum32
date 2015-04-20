@@ -19,10 +19,10 @@ public class QuestLogTable extends Table {
     private UiRoot root;
     private SortedMap<String, QuestEvent> quests = new TreeMap<>();
     private Map<QuestEvent, String> texts = new HashMap<QuestEvent, String>() {{
-        put(new QuestEvent("fuel", QuestEvent.Status.START), "Find fuel to power the engines");
-        put(new QuestEvent("fuel", QuestEvent.Status.ITEM), "Return the fuel canister to your ship");
-        put(new QuestEvent("med", QuestEvent.Status.START), "Find medicine for your wounded crewmember");
-        put(new QuestEvent("med", QuestEvent.Status.ITEM), "Take the medicine to your shipmate");
+        put(new QuestEvent("Fuel", QuestEvent.Status.START), "Find fuel to power the engines");
+        put(new QuestEvent("Fuel", QuestEvent.Status.ITEM), "Return the fuel canister to your ship");
+        put(new QuestEvent("Med", QuestEvent.Status.START), "Find medicine for your wounded crewmember");
+        put(new QuestEvent("Med", QuestEvent.Status.ITEM), "Take the medicine to your shipmate");
     }};
 
     public QuestLogTable(UiRoot root) {
