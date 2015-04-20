@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.math.Vector2;
 
 import de.obvious.ld32.core.Resource;
+import de.obvious.ld32.game.actor.ShroomLingActor;
 import de.obvious.ld32.game.world.GameWorld;
 
 public class ShroomAbility implements Ability {
@@ -18,6 +19,7 @@ public class ShroomAbility implements Ability {
 
 	@Override
 	public void trigger(Vector2 position, FireMode mode) {
+	    world.addActor(new ShroomLingActor(world, position, true));
 	}
 
 	@Override
@@ -32,7 +34,7 @@ public class ShroomAbility implements Ability {
 
 	@Override
 	public float getCooldown(FireMode mode) {
-	    return mode == FireMode.PRIMARY ? 1f : Float.MAX_VALUE;
+	    return mode == FireMode.PRIMARY ? 2f : Float.MAX_VALUE;
 	}
 
 	@Override

@@ -29,7 +29,7 @@ import de.obvious.shared.game.world.BodyBuilder;
 import de.obvious.shared.game.world.Box2dWorld;
 import de.obvious.shared.game.world.ShapeBuilder;
 
-public class PlayerActor extends ShapeActor {
+public class PlayerActor extends ShapeActor implements Damageable {
 	public static final float RADIUS = 0.49f;
 
 	private KeyboardMovementListener movement;
@@ -232,6 +232,7 @@ public class PlayerActor extends ShapeActor {
 		return steering;
 	}
 
+    @Override
     public void damage(float amount, DamageType type) {
         health -= amount;
         ((GameWorld)world).addShake(Math.min(amount, 50f) / 50f);

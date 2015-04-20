@@ -9,15 +9,18 @@ import com.badlogic.gdx.math.Vector2;
 import de.obvious.ld32.core.Resource;
 import de.obvious.ld32.data.DamageType;
 import de.obvious.ld32.data.GameRules;
+import de.obvious.ld32.game.actor.action.FriendlyShroomLingAiAction;
 import de.obvious.ld32.game.actor.action.ShroomLingAiAction;
 import de.obvious.ld32.game.world.GameWorld;
 
 public class ShroomLingActor extends EnemyActor {
     private boolean blowing;
+    private boolean friendly;
 
-    public ShroomLingActor(GameWorld world, Vector2 spawn, boolean spawnIsLeftBottom) {
-        super(world, spawn, spawnIsLeftBottom);
-        addAction(new ShroomLingAiAction());
+    public ShroomLingActor(GameWorld world, Vector2 spawn, boolean friendly) {
+        super(world, spawn, false);
+        this.friendly = friendly;
+        addAction(friendly ? new FriendlyShroomLingAiAction() : new ShroomLingAiAction());
         radius = 0.25f;
         initialLives = 20;
     }
@@ -38,10 +41,15 @@ public class ShroomLingActor extends EnemyActor {
         blowing = true;
         stateTime = 0;
         task.in(GameRules.SHROOMLING_BLINK_TIME, (Void) -> {
-            world.addActor(new AoeDamageActor(world, body.getPosition(), 1.75f, GameRules.SHROOMLING_DPS, GameRules.SHROOMLING_DMG_TIME, DamageType.DOT,
-                    Resource.GFX.enemyShroomCloud,  new Color(0, 1, 0.25f, 0.75f)));
+            AoeDamageActor aoe = new AoeDamageActor(world, body.getPosition(), 1.75f, GameRules.SHROOMLING_DPS, GameRules.SHROOMLING_DMG_TIME, DamageType.DOT,
+                    Resource.GFX.enemyShroomCloud,  new Color(0, 1, 0.25f, 0.75f));
+            aoe.setFriendly(friendly);
+            world.addActor(aoe);
             killme();
         });
     }
 
+    public boolean isFriendly() {
+        return friendly;
+    }
 }

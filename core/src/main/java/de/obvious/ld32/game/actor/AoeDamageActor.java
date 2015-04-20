@@ -1,5 +1,8 @@
 package de.obvious.ld32.game.actor;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import box2dLight.PointLight;
 
 import com.badlogic.gdx.graphics.Color;
@@ -10,7 +13,6 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 
 import de.obvious.ld32.data.DamageType;
-import de.obvious.ld32.game.world.GameWorld;
 import de.obvious.shared.game.actor.ShapeActor;
 import de.obvious.shared.game.base.CollisionListener;
 import de.obvious.shared.game.world.BodyBuilder;
@@ -25,6 +27,8 @@ class AoeDamageActor extends ShapeActor implements CollisionListener {
     private DamageType type;
     private Animation animation;
     private Color lightColor;
+    private boolean friendly;
+    private Set<Damageable> actorsInArea = new HashSet<>();
 
     public AoeDamageActor(Box2dWorld world, Vector2 spawn, float radius, float damagePerSec, float duration,
             DamageType type, Animation animation, Color lightColor) {
@@ -54,8 +58,8 @@ class AoeDamageActor extends ShapeActor implements CollisionListener {
         if (stateTime > duration) {
             kill();
         }
-        if (hitting) {
-            ((GameWorld)world).getPlayer().damage(damagePerSec * delta, type);
+        for (Damageable a : actorsInArea) {
+            a.damage(damagePerSec * delta, type);
         }
     }
 
@@ -73,21 +77,23 @@ class AoeDamageActor extends ShapeActor implements CollisionListener {
 
     @Override
     public boolean beginContact(Body me, Body other, Vector2 normal, Vector2 contactPoint) {
-        if (other.getUserData() instanceof PlayerActor) {
-            hitting = true;
+        if ((friendly && other.getUserData() instanceof EnemyActor)
+                || other.getUserData() instanceof PlayerActor) {
+            actorsInArea.add((Damageable)other.getUserData());
         }
         return false;
     }
 
     @Override
     public void endContact(Body other) {
-        if (other.getUserData() instanceof PlayerActor) {
-            hitting = false;
-        }
+        actorsInArea.remove(other.getUserData());
     }
 
     @Override
     public void hit(float force) {
     }
 
+    public void setFriendly(boolean friendly) {
+        this.friendly = friendly;
+    }
 }

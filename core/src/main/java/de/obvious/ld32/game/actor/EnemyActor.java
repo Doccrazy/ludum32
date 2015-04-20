@@ -17,7 +17,7 @@ import de.obvious.shared.game.actor.ShapeActor;
 import de.obvious.shared.game.world.BodyBuilder;
 import de.obvious.shared.game.world.ShapeBuilder;
 
-public abstract class EnemyActor extends ShapeActor {
+public abstract class EnemyActor extends ShapeActor implements Damageable {
 
 	protected float radius = 0.49f;
 	protected float lives, initialLives = 100;
@@ -138,7 +138,8 @@ public abstract class EnemyActor extends ShapeActor {
 		return killed;
 	}
 
-	public void damage(int amount, DamageType type) {
+	@Override
+    public void damage(float amount, DamageType type) {
 	    if (lives > 0) {
 	        lives -= amount;
 	    }
