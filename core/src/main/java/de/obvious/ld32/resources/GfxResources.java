@@ -141,6 +141,10 @@ public class GfxResources extends ResourcesBase {
         atlas.createSprite("particles/tBlut3"),
         atlas.createSprite("particles/tBlut4"),
     };
+    public Animation[] door = new Animation[]{
+        new Animation(0.1f, atlas.findRegions("door/tDoor")),
+        new Animation(0.1f, atlas.findRegions("door/tDoorBird")),
+    };
 
 	public Pixmap crosshair = new Pixmap(Gdx.files.internal("crosshair.png"));
 	public Texture lifeBar = new Texture(Gdx.files.internal("Grafiken/lifebar.png"));

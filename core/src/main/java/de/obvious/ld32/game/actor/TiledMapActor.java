@@ -83,6 +83,7 @@ public class TiledMapActor extends WorldActor {
 	    super.init();
 
         createQuestItems(4);
+        createDoors(2);
 	}
 
 	public LinePath<Vector2> searchPath(Vector2 start, Vector2 end) {
@@ -201,6 +202,28 @@ public class TiledMapActor extends WorldActor {
                 }
             }
         }
+	}
+
+	private void createDoors(int layer) {
+	    TiledMapTileLayer mapLayer = (TiledMapTileLayer) map.getLayers().get(layer);
+	    for (int x = 0; x < mapLayer.getWidth(); x++) {
+	        for (int y = 0; y < mapLayer.getHeight(); y++) {
+	            Cell cell = mapLayer.getCell(x, y);
+	            if (cell == null)
+	                continue;
+	            TiledMapTile tile = cell.getTile();
+	            MapProperties props = tile.getProperties();
+
+	            if (props.containsKey("TuerHor")) {
+	                mapLayer.setCell(x, y, null);
+	                world.addActor(new DoorActor(world, new Vector2(x, y), false));
+	            }
+	            if (props.containsKey("TuerVert")) {
+	                mapLayer.setCell(x, y, null);
+	                world.addActor(new DoorActor(world, new Vector2(x, y), true));
+	            }
+	        }
+	    }
 	}
 
 	private void checkBodys(int layer) {
