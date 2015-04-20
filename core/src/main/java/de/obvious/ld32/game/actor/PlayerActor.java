@@ -1,5 +1,7 @@
 package de.obvious.ld32.game.actor;
 
+import java.util.ArrayList;
+
 import box2dLight.ConeLight;
 
 import com.badlogic.gdx.graphics.Color;
@@ -22,6 +24,8 @@ import de.obvious.ld32.game.abilities.FireMode;
 import de.obvious.ld32.game.actor.action.DrawableAction;
 import de.obvious.ld32.game.actor.action.RageAction;
 import de.obvious.ld32.game.ai.Box2dSteeringEntity;
+import de.obvious.ld32.game.misc.StoryText;
+import de.obvious.ld32.game.misc.UiTextEvent;
 import de.obvious.ld32.game.ui.UiText;
 import de.obvious.ld32.game.world.GameWorld;
 import de.obvious.shared.game.actor.ShapeActor;
@@ -261,7 +265,14 @@ public class PlayerActor extends ShapeActor implements Damageable {
         ((GameWorld)world).addShake(Math.min(amount, 50f) / 50f);
         world.addActor(new BloodActor(world, body.getPosition(), Color.valueOf("dd0000"), amount));
         if (health <= 0) {
-            kill();
+        	((GameWorld)world).startMusic(Resource.MUSIC.gameOver);
+            getBody().setTransform(106, 84, 0);
+            ArrayList<StoryText> tmp = new ArrayList<StoryText>();
+            tmp.add(new StoryText("Wow... What was that?", "Player"));
+            tmp.add(new StoryText(Resource.FONT.getRandomInsult(), "Weapon"));
+            world.postEvent(new UiTextEvent(tmp,false));
+            health = GameRules.PLAYER_HEALTH;
+            task.in(3f, (Void) -> ((GameWorld)world).startMusic(Resource.MUSIC.gameShortSlow2));
         }
     }
 

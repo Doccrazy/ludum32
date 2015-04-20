@@ -1,5 +1,7 @@
 package de.obvious.ld32.game.actor;
 
+import java.util.ArrayList;
+
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.math.MathUtils;
@@ -14,6 +16,8 @@ import de.obvious.ld32.data.DamageType;
 import de.obvious.ld32.data.GameRules;
 import de.obvious.ld32.data.ZOrder;
 import de.obvious.ld32.game.abilities.Ability;
+import de.obvious.ld32.game.misc.StoryText;
+import de.obvious.ld32.game.misc.UiTextEvent;
 import de.obvious.ld32.game.world.GameWorld;
 import de.obvious.shared.game.actor.ShapeActor;
 import de.obvious.shared.game.world.BodyBuilder;
@@ -133,6 +137,23 @@ public abstract class EnemyActor extends ShapeActor implements Damageable {
 		v.limit(1f);
 		world.box2dWorld.destroyBody(body);
 
+		ArrayList<StoryText> tmp = new ArrayList<StoryText>();
+		tmp.add(new StoryText("You killed this monster! NOMNOMNOM", "Weapon"));
+		tmp.add(new StoryText("I got a new ability, press TAB to change my passiv ability with my active ability.", "Weapon"));
+		if(this instanceof InsectActor){
+			tmp.add(new StoryText("Great! Now we can make a scarejump or get better sight and speed up.", "Weapon"));
+		}
+		if(this instanceof RootActor){
+			tmp.add(new StoryText("Oh yeah! Now we can either do a tentacle attack or make sure to stand still while shooting.", "Weapon"));
+		}
+		if(this instanceof ShroomActor){
+			tmp.add(new StoryText("Haha. Now we can either shoot little poison shrooms or heal you.", "Weapon"));
+		}
+		if(this instanceof SpikyActor){
+			tmp.add(new StoryText("Yeah! We can now shoot a spikegranate or have a thornarmor.", "Weapon"));
+		}
+
+		world.postEvent(new UiTextEvent(tmp, true));
 		BodyBuilder builder = createBody(pos).velocity(v).fixSensor().fixFilter((short)1, (short)0);
 		body = builder.build(world);
         setzOrder(ZOrder.CORPSE);

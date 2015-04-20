@@ -28,6 +28,7 @@ public class GameWorld extends Box2dWorld {
     private PlayerActor player;
     private TiledMapActor level;
     private float shakeLevel, shakeDegrade;
+    private Music currentMusic;
 
 	public GameWorld() {
         super(GameRules.GRAVITY);
@@ -92,6 +93,11 @@ public class GameWorld extends Box2dWorld {
     }
 
     public void startMusic(Music music){
+    	if(currentMusic != null)
+    	currentMusic.stop();
+    	currentMusic = music;
+    	currentMusic.setLooping(false);
+    	currentMusic.play();
 
     }
 

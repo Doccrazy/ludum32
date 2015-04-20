@@ -49,7 +49,7 @@ public class UiText extends Label {
 	private void setNewEvent(UiTextEvent event) {
 		ArrayList<StoryText> newTexts = event.getTexts();
 		for (StoryText storyText : newTexts) {
-			if (texts.get(storyText.getText()) == null) {
+			if (texts.get(storyText.getText()) == null || !event.isStory()) {
 				texts.put(storyText.getText(), true);
 				allTexts.add(storyText);
 			}
