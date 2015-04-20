@@ -1,8 +1,5 @@
 package de.obvious.ld32.game.actor;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import box2dLight.ConeLight;
 
 import com.badlogic.gdx.graphics.Color;
@@ -36,7 +33,8 @@ public class PlayerActor extends ShapeActor implements Damageable {
 	private boolean moving;
 	private Vector2 orientation = new Vector2(1, 1);
 	private Vector2 crosshair = new Vector2();
-	private Map<Integer, Ability> abilities = new HashMap<Integer, Ability>();
+	private Ability[] abilities = new Ability[2];
+	private float[] lastFireTime = new float[2];
 	private float animTime = 0f;
 	private Float triggerTime;
 	private float rootTime = 0;
@@ -46,7 +44,6 @@ public class PlayerActor extends ShapeActor implements Damageable {
 	private Emotion emotion = Emotion.NEUTRAL;
 	private RageAction rage;
 	private boolean allowMovement = true;
-	private float lastFireTime;
 	private float playerSpeed = GameRules.PLAYER_VELOCITY;
 	private Boolean rooted = null;
 
@@ -56,6 +53,8 @@ public class PlayerActor extends ShapeActor implements Damageable {
 		flashlight.setContactFilter((short) 1, (short) 0, (short) 2);
 		flashlight.setSoftnessLength(1f);
 		lights.add(flashlight);
+		lastFireTime[0] = -99;
+		lastFireTime[1] = -99;
 	}
 
 	@Override
@@ -78,7 +77,7 @@ public class PlayerActor extends ShapeActor implements Damageable {
 	@Override
 	protected void doAct(float delta) {
 		rootTime += delta;
-		abilities.get(1).update(delta);
+		abilities[1].update(delta);
 		if (movement != null && allowMovement) {
 			move(delta);
 		}
@@ -205,37 +204,38 @@ public class PlayerActor extends ShapeActor implements Damageable {
 	}
 
 	public void fire(int slotNumber, FireMode mode) {
-		Ability ability = abilities.get(slotNumber);
+		Ability ability = abilities[slotNumber];
 		if (ability == null || isCooldown(slotNumber, mode)) {
 			return;
 		}
 		ability.trigger(crosshair, mode);
-		lastFireTime = stateTime;
+		lastFireTime[slotNumber] = stateTime;
 		triggerTime = 0f;
 		rage.fight();
 		System.out.println("Fire " + slotNumber + " " + crosshair.x + " " + crosshair.y);
 	}
 
 	public Ability getAbility(int slot) {
-		return abilities.get(slot);
+		return abilities[slot];
 	}
 
 	public void setAbility(int slot, Ability ability) {
-		Ability tmp = abilities.put(slot, ability);
+		Ability tmp = abilities[slot];
+		abilities[slot] = ability;
 		if (tmp != null)
 			tmp.end();
 	}
 
 	private Ability getWeaponAbility() {
-		return abilities.get(0);
+		return abilities[0];
 	}
 
 	public void switchAbilities(){
 		if(Boolean.FALSE.equals(rooted) || rooted == null){
-			Ability tmp = abilities.get(0);
-			abilities.get(1).end();
-			abilities.put(0, abilities.get(1));
-			abilities.put(1, tmp);
+			Ability tmp = abilities[0];
+			abilities[1].end();
+			abilities[0] = abilities[1];
+			abilities[1] = tmp;
 
 		}
 	}
@@ -282,13 +282,13 @@ public class PlayerActor extends ShapeActor implements Damageable {
 	}
 
 	public boolean isCooldown(int slotNumber, FireMode mode) {
-		Ability ability = abilities.get(slotNumber);
+		Ability ability = abilities[slotNumber];
 		if (ability == null) {
 			return true;
 		}
 		if(Boolean.TRUE.equals(rooted))
-			return lastFireTime + ability.getCooldown(mode)/2f > stateTime;
-		return lastFireTime + ability.getCooldown(mode) > stateTime;
+			return lastFireTime[slotNumber] + ability.getCooldown(mode)/2f > stateTime;
+		return lastFireTime[slotNumber] + ability.getCooldown(mode) > stateTime;
 
 	}
 
