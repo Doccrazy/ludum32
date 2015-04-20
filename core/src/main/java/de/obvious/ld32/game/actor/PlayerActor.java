@@ -232,14 +232,6 @@ public class PlayerActor extends ShapeActor {
 		return steering;
 	}
 
-	public void damage(float amount, DamageType type) {
-		health -= amount;
-		System.out.println(health);
-		if (health <= 0) {
-			kill();
-		}
-	}
-
     public void damage(float amount, DamageType type) {
         health -= amount;
         ((GameWorld)world).addShake(Math.min(amount, 50f) / 50f);
@@ -247,6 +239,10 @@ public class PlayerActor extends ShapeActor {
             kill();
         }
     }
+
+    public float getHealth() {
+		return health;
+	}
 
 	public Emotion getEmotion() {
 		return emotion;
