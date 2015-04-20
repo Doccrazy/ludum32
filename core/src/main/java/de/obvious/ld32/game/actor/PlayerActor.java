@@ -57,10 +57,6 @@ public class PlayerActor extends ShapeActor implements Damageable {
 
 	public PlayerActor(Box2dWorld world, Vector2 spawn, boolean spawnIsLeftBottom) {
 		super(world, spawn, spawnIsLeftBottom);
-		flashlight = new ConeLight(world.rayHandler, 200, Color.WHITE, 10, getX(), getY(), 0, GameRules.PLAYER_HALF_FOV);
-		flashlight.setContactFilter((short) 1, (short) 0, (short) 2);
-		flashlight.setSoftnessLength(1f);
-		lights.add(flashlight);
 		lastFireTime[0] = -99;
 		lastFireTime[1] = -99;
 	}
@@ -75,6 +71,12 @@ public class PlayerActor extends ShapeActor implements Damageable {
 	@Override
 	protected BodyBuilder createBody(Vector2 spawn) {
 		return BodyBuilder.forDynamic(spawn).fixShape(ShapeBuilder.circle(RADIUS));
+	}
+	public void startFlashlight(){
+		flashlight = new ConeLight(world.rayHandler, 200, Color.WHITE, 10, getX(), getY(), 0, GameRules.PLAYER_HALF_FOV);
+		flashlight.setContactFilter((short) 1, (short) 0, (short) 2);
+		flashlight.setSoftnessLength(1f);
+		lights.add(flashlight);
 	}
 
 	public void setupKeyboardControl() {
@@ -153,9 +155,10 @@ public class PlayerActor extends ShapeActor implements Damageable {
 		        ((DrawableAction) a).draw(batch);
 		    }
 		}
-
-		flashlight.setDirection(aimDirection().angle());
-		flashlight.setPosition(body.getPosition());
+		if(((GameWorld)world).isGameStarted()){
+			flashlight.setDirection(aimDirection().angle());
+			flashlight.setPosition(body.getPosition());
+		}
 
 		/*
 		 * if (world.getGameState() == GameState.GAME) { batch.draw(Resource.GFX.crosshair, crosshair.x - 0.25f, crosshair.y - 0.25f, 0.25f, 0.25f, 0.5f, 0.5f, 1f, 1f, 0f); }

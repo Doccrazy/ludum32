@@ -35,13 +35,16 @@ public class UiText extends Label {
 		setWidth(Constants.SCREEN_WIDTH);
 		setY(70);
 		time += delta;
-
+		if(!root.getWorld().isGameStarted())
+			setColor(0, 0, 0, 0);
+		else
+			setColor(Color.BLUE);
 		super.act(delta);
 	}
 
 	@Override
 	public void draw(Batch batch, float parentAlpha) {
-		if (showBubble)
+		if (showBubble && root.getWorld().isGameStarted())
 			batch.draw(Resource.GFX.bubble.getKeyFrame(time,true), 240, 10);
 		super.draw(batch, parentAlpha);
 	}
