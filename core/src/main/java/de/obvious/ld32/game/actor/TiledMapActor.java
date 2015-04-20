@@ -142,7 +142,7 @@ public class TiledMapActor extends WorldActor {
 					continue;
 
 				if (layer == 4) {
-					if (lights.get(new Point(x, y)) != null) {
+					if (lights.get(new Point(x, y)) == null) {
 						TiledMapTile tile = mapLayer.getCell(x, y).getTile();
 						MapProperties props = tile.getProperties();
 						if (props.containsKey("Alarm")) {
@@ -153,7 +153,7 @@ public class TiledMapActor extends WorldActor {
 						}
 					}
 
-					if(enemies.get(new Point(x,y)) != null){
+					if(enemies.get(new Point(x,y)) == null){
 						TiledMapTile tile = mapLayer.getCell(x, y).getTile();
 						MapProperties props = tile.getProperties();
 						if(props.containsKey("Insekt")){
