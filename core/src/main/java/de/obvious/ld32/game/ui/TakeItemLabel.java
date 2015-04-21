@@ -15,7 +15,7 @@ public class TakeItemLabel extends Label {
         super("Press 1 or 2 to keep this ability", new LabelStyle(Resource.FONT.retroSmall, Color.WHITE));
         setAlignment(Align.center);
         setWidth(Constants.SCREEN_WIDTH);
-        setY(470);
+        setY(570);
         this.root = root;
     }
 

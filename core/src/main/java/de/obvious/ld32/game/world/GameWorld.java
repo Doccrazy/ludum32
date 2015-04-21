@@ -16,7 +16,6 @@ import de.obvious.ld32.data.QuestStatus;
 import de.obvious.ld32.data.QuestType;
 import de.obvious.ld32.game.abilities.StartAbility;
 import de.obvious.ld32.game.actor.PlayerActor;
-import de.obvious.ld32.game.actor.RootActor;
 import de.obvious.ld32.game.actor.TiledMapActor;
 import de.obvious.ld32.game.misc.UpdateQuestEvent;
 import de.obvious.shared.game.base.GamepadMovementListener;
@@ -54,7 +53,7 @@ public class GameWorld extends Box2dWorld {
 			// addActor(new InsectActor(this, new Vector2(107, 107), true));
 			// addActor(new ShroomActor(this, new Vector2(95, 95), true));
 			// addActor(new SpikyActor(this, new Vector2(100, 90), true));
-			addActor(new RootActor(this, new Vector2(90, 90), true));
+			//addActor(new RootActor(this, new Vector2(90, 90), true));
 
 			break;
 		case PRE_GAME:
