@@ -27,7 +27,7 @@ public class InsectAiAction extends BaseAiAction {
             followPlayer(1.2f, speed);
         }
         if (distToPlayer() < ATTACK_DIST && stateTime - lastAttack > ATTACK_DELAY) {
-            ((InsectActor)getActor()).attack(ATTACK_DIST, 50f);
+            ((InsectActor)getActor()).attack(ATTACK_DIST, 25f);
             lastAttack = stateTime;
         }
         return false;
