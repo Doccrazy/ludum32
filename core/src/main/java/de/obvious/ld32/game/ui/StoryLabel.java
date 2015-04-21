@@ -26,6 +26,6 @@ public class StoryLabel extends Label {
     @Override
     public void act(float delta) {
         super.act(delta);
-        setVisible(root.getWorld().getGameState() == GameState.INIT);
+        setVisible(root.getWorld().getGameState() == GameState.INIT && root.getWorld().getStateTime() > 3.6f);
     }
 }

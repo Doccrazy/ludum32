@@ -35,6 +35,9 @@ public class BloodActor extends WorldActor {
     protected void doAct(float delta) {
         percent = Interpolation.exp10Out.apply(Math.min(stateTime, 1));
         setPosition(spawn.x + dir.x * percent, spawn.y + dir.y * percent);
+        if (stateTime > 30) {
+            kill();
+        }
     }
 
     @Override

@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
@@ -12,6 +13,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 
+import de.obvious.ld32.data.Constants;
 import de.obvious.ld32.data.Emotion;
 import de.obvious.ld32.data.QuestType;
 import de.obvious.shared.core.ResourcesBase;
@@ -167,6 +169,9 @@ public class GfxResources extends ResourcesBase {
 	public Texture screenIntro = texture("intro.png");
 	public Texture screenVictory = texture("win.png");
 	public Texture tab = texture("tab.png");
+
+	public Animation obviousIndustries = new Animation(0.1f, atlas.findRegions("ObviousIndustries/ObviousIndustries"));
+	public Sprite white = colorSprite(Color.WHITE, Constants.SCREEN_WIDTH, Constants.SCREEN_HEIGHT);
 
     public Map<QuestType, Sprite> questItem = new HashMap<QuestType, Sprite>() {{
         put(QuestType.FUEL, atlas.createSprite("items/tFuel"));

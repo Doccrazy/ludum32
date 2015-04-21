@@ -7,6 +7,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Widget;
 import de.obvious.ld32.core.Resource;
 import de.obvious.ld32.data.GameRules;
 import de.obvious.ld32.game.actor.PlayerActor;
+import de.obvious.shared.game.world.GameState;
 
 public class Healthbar extends Widget {
 	private UiRoot root;
@@ -18,6 +19,9 @@ public class Healthbar extends Widget {
 	@Override
 	public void draw(Batch batch, float parentAlpha) {
 		super.draw(batch, parentAlpha);
+		if (root.getWorld().getGameState() != GameState.GAME) {
+		    return;
+		}
 		boolean dead = root.getWorld().getPlayer().getHealth() <= 0;
 		float fill = MathUtils.clamp(getPlayer().getHealth() / GameRules.PLAYER_HEALTH, 0, 1);
 		int w = (int) (getWidth()*fill);
