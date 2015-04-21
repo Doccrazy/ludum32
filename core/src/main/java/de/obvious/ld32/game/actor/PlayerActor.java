@@ -88,7 +88,7 @@ public class PlayerActor extends ShapeActor implements Damageable {
 	protected void doAct(float delta) {
 		rootTime += delta;
 		abilities[1].update(delta);
-		if (movement != null && allowMovement) {
+		if (movement != null && allowMovement && world.isGameInProgress()) {
 			move(delta);
 		}
 		Vector2 d = aimDirection();
@@ -155,7 +155,7 @@ public class PlayerActor extends ShapeActor implements Damageable {
 		        ((DrawableAction) a).draw(batch);
 		    }
 		}
-		if(((GameWorld)world).isGameStarted()){
+		if(((GameWorld)world).isGameInProgress()){
 			flashlight.setDirection(aimDirection().angle());
 			flashlight.setPosition(body.getPosition());
 		}

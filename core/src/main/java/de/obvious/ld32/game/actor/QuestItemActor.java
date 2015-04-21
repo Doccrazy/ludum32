@@ -6,14 +6,16 @@ import com.badlogic.gdx.math.Vector2;
 
 import de.obvious.ld32.core.Resource;
 import de.obvious.ld32.data.Constants;
-import de.obvious.ld32.game.misc.QuestEvent;
+import de.obvious.ld32.data.QuestStatus;
+import de.obvious.ld32.data.QuestType;
+import de.obvious.ld32.game.world.GameWorld;
 import de.obvious.shared.game.actor.WorldActor;
 import de.obvious.shared.game.world.Box2dWorld;
 
 public class QuestItemActor extends WorldActor {
-    private String quest;
+    private QuestType quest;
 
-    public QuestItemActor(Box2dWorld world, Vector2 spawn, String quest) {
+    public QuestItemActor(Box2dWorld world, Vector2 spawn, QuestType quest) {
         super(world);
         this.quest = quest;
         setPosition(spawn.x, spawn.y);
@@ -21,11 +23,9 @@ public class QuestItemActor extends WorldActor {
 
     @Override
     protected void doAct(float delta) {
-        world.pollEvents(QuestEvent.class, (QuestEvent event) -> {
-            if (event.getQuest().equals(quest) && event.getStatus() == QuestEvent.Status.ITEM) {
-                kill();
-            }
-        }, false);
+        if (((GameWorld)world).getQuests().get(quest) == QuestStatus.ITEM) {
+            kill();
+        }
     }
 
     @Override

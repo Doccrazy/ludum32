@@ -1,5 +1,6 @@
 package de.obvious.ld32.game.world;
 
+import java.util.HashMap;
 import java.util.Map;
 
 import box2dLight.RayHandler;
@@ -11,11 +12,14 @@ import com.badlogic.gdx.math.Vector2;
 import de.obvious.ld32.core.Resource;
 import de.obvious.ld32.data.GameRules;
 import de.obvious.ld32.data.GamepadActions;
+import de.obvious.ld32.data.QuestStatus;
+import de.obvious.ld32.data.QuestType;
 import de.obvious.ld32.game.abilities.ShroomAbility;
 import de.obvious.ld32.game.abilities.StartAbility;
 import de.obvious.ld32.game.actor.PlayerActor;
 import de.obvious.ld32.game.actor.RootActor;
 import de.obvious.ld32.game.actor.TiledMapActor;
+import de.obvious.ld32.game.misc.UpdateQuestEvent;
 import de.obvious.shared.game.base.GamepadMovementListener;
 import de.obvious.shared.game.world.Box2dWorld;
 import de.obvious.shared.game.world.GameState;
@@ -23,13 +27,13 @@ import de.obvious.shared.game.world.GameState;
 public class GameWorld extends Box2dWorld {
 
 	private Map<Integer, GamepadActions> actionMap;
-	private boolean partInit, gameStarted;
+	private boolean partInit;
 	private GamepadMovementListener moveListener;
 	private PlayerActor player;
 	private TiledMapActor level;
 	private float shakeLevel, shakeDegrade;
 	private Music currentMusic;
-	private float lightLevel;
+    private Map<QuestType, QuestStatus> quests = new HashMap<>();
 
 	public GameWorld() {
 		super(GameRules.GRAVITY);
@@ -55,6 +59,8 @@ public class GameWorld extends Box2dWorld {
 
 			break;
 		case GAME:
+            startMusic(Resource.MUSIC.gameShortSlow2);
+            player.startFlashlight();
 			stage.setKeyboardFocus(player);
 			break;
 		default:
@@ -63,30 +69,28 @@ public class GameWorld extends Box2dWorld {
 
 	@Override
 	protected void doUpdate(float delta) {
-		if (getGameState() == GameState.GAME)
-			if (lightLevel <= 0.2) {
-				System.out.println(lightLevel);
-				lightLevel += 0.001f;
-				rayHandler.setAmbientLight(lightLevel, lightLevel, lightLevel, 1);
-			} else {
-				if (!gameStarted) {
-					startMusic(Resource.MUSIC.gameShortSlow2);
-					player.startFlashlight();
-					gameStarted = true;
-				}
-			}
 		switch (getGameState()) {
 		case INIT:
-			transition(GameState.PRE_GAME);
 			break;
 		case PRE_GAME:
-			if (getStateTime() > 0.5f) {
+		    float lightLevel = Math.min(0.2f, 0.2f * (getStateTime() / 2f));
+            rayHandler.setAmbientLight(lightLevel, lightLevel, lightLevel, 1);
+			if (getStateTime() > 2f) {
 				transition(GameState.GAME);
 			}
 			break;
 		case GAME:
 			if (player.isDead()) {
 				transition(GameState.DEFEAT);
+			}
+			boolean allDone = true;
+			for (QuestType q : QuestType.values()) {
+			    if (quests.get(q) != QuestStatus.END) {
+			        allDone = false;
+			    }
+			}
+			if (allDone) {
+			    transition(GameState.VICTORY);
 			}
 		default:
 		}
@@ -123,7 +127,14 @@ public class GameWorld extends Box2dWorld {
 		return shakeLevel;
 	}
 
-	public boolean isGameStarted() {
-		return gameStarted;
-	}
+    public Map<QuestType, QuestStatus> getQuests() {
+        return quests;
+    }
+
+    public void progressQuest(QuestType type, QuestStatus status) {
+        if (quests.get(type) == null || quests.get(type).ordinal() < status.ordinal()) {
+            quests.put(type, status);
+            postEvent(new UpdateQuestEvent(type));
+        }
+    }
 }

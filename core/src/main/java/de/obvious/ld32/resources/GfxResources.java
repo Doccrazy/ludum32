@@ -13,6 +13,7 @@ import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 
 import de.obvious.ld32.data.Emotion;
+import de.obvious.ld32.data.QuestType;
 import de.obvious.shared.core.ResourcesBase;
 
 public class GfxResources extends ResourcesBase {
@@ -163,10 +164,13 @@ public class GfxResources extends ResourcesBase {
 	public Texture lowHealthOverlay = texture("lowHealthOverlay.png");
 	public Texture quest = texture("quest.png");
 	public Texture questDone = texture("questDone.png");
+	public Texture screenIntro = texture("intro.png");
+	public Texture screenVictory = texture("win.png");
 
-    public Map<String, Sprite> questItem = new HashMap<String, Sprite>() {{
-        put("Fuel", atlas.createSprite("items/tFuel"));
-        put("Med", atlas.createSprite("items/Medizin"));
+    public Map<QuestType, Sprite> questItem = new HashMap<QuestType, Sprite>() {{
+        put(QuestType.FUEL, atlas.createSprite("items/tFuel"));
+        put(QuestType.MED, atlas.createSprite("items/Medizin"));
+        put(QuestType.KRISTALL, atlas.createSprite("items/tSchutztrigger"));
     }};
 
 	public TiledMap LEVEL1 = new TmxMapLoader().load("RaumschiffEbene1.tmx");

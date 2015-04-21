@@ -26,6 +26,8 @@ import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.TimeUtils;
 
+import de.obvious.ld32.data.QuestStatus;
+import de.obvious.ld32.data.QuestType;
 import de.obvious.ld32.data.ZOrder;
 import de.obvious.ld32.game.ai.FlatTiledGraph;
 import de.obvious.ld32.game.ai.FlatTiledNode;
@@ -34,7 +36,6 @@ import de.obvious.ld32.game.ai.TiledRaycastCollisionDetector;
 import de.obvious.ld32.game.ai.TiledSmoothableGraphPath;
 import de.obvious.ld32.game.misc.AlarmLight;
 import de.obvious.ld32.game.misc.NotTheBestMapRenderer;
-import de.obvious.ld32.game.misc.QuestEvent;
 import de.obvious.ld32.game.misc.StoryText;
 import de.obvious.ld32.game.misc.UiTextEvent;
 import de.obvious.ld32.game.world.GameWorld;
@@ -137,7 +138,7 @@ public class TiledMapActor extends WorldActor {
 		if (lastPosition.x == playerX && lastPosition.y == playerY)
 			return;
 
-		if (((GameWorld) world).isGameStarted()) {
+		if (((GameWorld) world).isGameInProgress()) {
 			checkBodys(1);
 			checkBodys(4);
 			checkTextes(4);
@@ -166,7 +167,7 @@ public class TiledMapActor extends WorldActor {
 				while (iter.hasNext()) {
 					String string = (String) iter.next();
 					if (string.startsWith("Quest")) {
-						world.postEvent(new QuestEvent((String) props.get(string), QuestEvent.Status.valueOf(string.substring(5).toUpperCase())));
+					    ((GameWorld)world).progressQuest(QuestType.valueOf(((String) props.get(string)).toUpperCase()), QuestStatus.valueOf(string.substring(5).toUpperCase()));
 					}
 					if (string.startsWith("Text")) {
 						int positionTmp = Integer.parseInt(string.charAt(4) + "");
@@ -199,7 +200,7 @@ public class TiledMapActor extends WorldActor {
 				MapProperties props = tile.getProperties();
 				String item = (String) props.get("QuestItem");
 				if (item != null) {
-					world.addActor(new QuestItemActor(world, new Vector2(x, y), item));
+					world.addActor(new QuestItemActor(world, new Vector2(x, y), QuestType.valueOf(item.toUpperCase())));
 				}
 			}
 		}
@@ -219,7 +220,7 @@ public class TiledMapActor extends WorldActor {
 	                mapLayer.setCell(x, y, null);
 	                world.addActor(new DoorActor(world, new Vector2(x, y), false));
 	            }
-	            if (props.containsKey("TuerVert")) {
+	            if (props.containsKey("TuerVer")) {
 	                mapLayer.setCell(x, y, null);
 	                world.addActor(new DoorActor(world, new Vector2(x, y), true));
 	            }

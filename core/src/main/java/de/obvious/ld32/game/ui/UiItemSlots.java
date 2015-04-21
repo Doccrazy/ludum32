@@ -33,7 +33,7 @@ public class UiItemSlots extends Widget {
 	@Override
 	public void draw(Batch batch, float parentAlpha) {
 
-		if (world.isGameStarted()) {
+		if (world.isGameInProgress()) {
 			batch.draw(Resource.GFX.itemSlot, Constants.SCREEN_WIDTH / 2 - 120, Constants.SCREEN_HEIGHT - 120, 100, 100);
 			if (player.getAbility(0) != null) {
 				batch.setColor(1, 1, 1, player.isCooldown(0, FireMode.PRIMARY) ? 0.5f : 1);
