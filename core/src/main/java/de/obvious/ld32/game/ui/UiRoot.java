@@ -30,6 +30,7 @@ public class UiRoot extends UiBase<GameWorld, GameRenderer, GameInputListener> {
 		stage.addActor(new IntroScreen(this));
 		stage.addActor(new VictoryScreen(this));
 		stage.addActor(new TakeItemLabel(this));
+		stage.addActor(new StoryLabel(this));
 
 		add(new QuestLogTable(this)).expandX().left().pad(5);
 		row();
