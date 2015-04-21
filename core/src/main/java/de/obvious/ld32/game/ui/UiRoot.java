@@ -15,6 +15,7 @@ public class UiRoot extends UiBase<GameWorld, GameRenderer, GameInputListener> {
 	private UiGamepadListener padInput;
     private Stage uiStage;
     private UiInputListener uiInput;
+    private UiItemSlots itemSlots;
 
 	public UiRoot(Stage stage, GameWorld world, GameRenderer renderer) {
 		super(stage, world, renderer);
@@ -24,10 +25,11 @@ public class UiRoot extends UiBase<GameWorld, GameRenderer, GameInputListener> {
 
 		stage.addActor(new LowHealthOverlay(this, world));
 		stage.addActor(new ControllerLabel(this));
-		stage.addActor(new UiItemSlots(this, world));
+		stage.addActor(itemSlots = new UiItemSlots(this, world));
 		stage.addActor(new UiText(this));
 		stage.addActor(new IntroScreen(this));
 		stage.addActor(new VictoryScreen(this));
+		stage.addActor(new TakeItemLabel(this));
 
 		add(new QuestLogTable(this)).expandX().left().pad(5);
 		row();
@@ -62,4 +64,8 @@ public class UiRoot extends UiBase<GameWorld, GameRenderer, GameInputListener> {
 	public Stage getUiStage() {
 	    return uiStage;
 	}
+
+	public UiItemSlots getItemSlots() {
+        return itemSlots;
+    }
 }

@@ -79,6 +79,10 @@ public class UiInputListener extends InputListener {
 			root.getWorld().transition(GameState.INIT);
 			root.getWorld().transition(GameState.PRE_GAME);
 		}
+		if ((keycode == Keys.NUM_1 || keycode == Keys.NUM_2) && root.getItemSlots().getPendingAbility() != null) {
+		    root.getWorld().getPlayer().setAbility(keycode - Keys.NUM_1, root.getItemSlots().getPendingAbility());
+		    root.getItemSlots().clearPendingAbility();
+		}
 		if (Debug.ON) {
 			if (keycode == Keys.Z) {
 				root.getRenderer().setZoomDelta(1f);

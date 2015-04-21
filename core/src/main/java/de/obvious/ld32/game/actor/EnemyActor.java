@@ -16,6 +16,7 @@ import de.obvious.ld32.data.DamageType;
 import de.obvious.ld32.data.GameRules;
 import de.obvious.ld32.data.ZOrder;
 import de.obvious.ld32.game.abilities.Ability;
+import de.obvious.ld32.game.misc.NewAbilityEvent;
 import de.obvious.ld32.game.misc.StoryText;
 import de.obvious.ld32.game.misc.UiTextEvent;
 import de.obvious.ld32.game.world.GameWorld;
@@ -181,7 +182,7 @@ public abstract class EnemyActor extends ShapeActor implements Damageable {
 
     protected void doKillme(DamageType type) {
         if (ability != null) {
-            ((GameWorld) world).getPlayer().setAbility(1, ability);
+            world.postEvent(new NewAbilityEvent(ability));
         }
         killme();
         task.in(GameRules.CORPSE_DESPAWN, (Void) -> kill());

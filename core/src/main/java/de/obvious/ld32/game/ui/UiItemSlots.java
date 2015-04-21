@@ -12,6 +12,7 @@ import de.obvious.ld32.data.Constants;
 import de.obvious.ld32.game.abilities.Ability;
 import de.obvious.ld32.game.abilities.FireMode;
 import de.obvious.ld32.game.actor.PlayerActor;
+import de.obvious.ld32.game.misc.NewAbilityEvent;
 import de.obvious.ld32.game.world.GameWorld;
 
 public class UiItemSlots extends Widget {
@@ -21,6 +22,8 @@ public class UiItemSlots extends Widget {
 	private GameWorld world;
 	private Camera camera;
 	private PlayerActor player;
+    private Ability pendingAbility;
+    private float abilityTime;
 
 	public UiItemSlots(UiRoot root, GameWorld world) {
 		this.root = root;
@@ -28,6 +31,19 @@ public class UiItemSlots extends Widget {
 		camera = world.stage.getCamera();
 		player = world.getPlayer();
 
+	}
+
+	@Override
+	public void act(float delta) {
+	    super.act(delta);
+	    world.pollEvents(NewAbilityEvent.class, (NewAbilityEvent event) -> {
+	        pendingAbility = event.getAbility();
+	        abilityTime = 5f;
+	    });
+	    abilityTime = Math.max(0, abilityTime - delta);
+	    if (abilityTime <= 0) {
+	        pendingAbility = null;
+	    }
 	}
 
 	@Override
@@ -46,9 +62,23 @@ public class UiItemSlots extends Widget {
 				batch.draw(player.getAbility(1).getTexture(FireMode.ALTERNATE), Constants.SCREEN_WIDTH / 2 + 20, Constants.SCREEN_HEIGHT - 120, 100, 100);
 				batch.setColor(1, 1, 1, 1);
 			}
+
+			if (pendingAbility != null) {
+			    batch.setColor(1, 1, 1, abilityTime % 0.5f < 0.25f ? 1 : 0);
+	            batch.draw(Resource.GFX.itemSlot, Constants.SCREEN_WIDTH / 2 - 50, Constants.SCREEN_HEIGHT - 220, 100, 100);
+                batch.draw(pendingAbility.getTexture(FireMode.PRIMARY), Constants.SCREEN_WIDTH / 2 - 50, Constants.SCREEN_HEIGHT - 220, 100, 100);
+                batch.setColor(1, 1, 1, 1);
+			}
 		}
 		super.draw(batch, parentAlpha);
 
 	}
 
+	public Ability getPendingAbility() {
+	    return pendingAbility;
+	}
+
+    public void clearPendingAbility() {
+        pendingAbility = null;
+    }
 }
