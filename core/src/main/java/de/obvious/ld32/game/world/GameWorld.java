@@ -135,7 +135,8 @@ public class GameWorld extends Box2dWorld {
 	}
 
 	public void progressQuest(QuestType type, QuestStatus status) {
-		if (quests.get(type) == null || quests.get(type).ordinal() < status.ordinal()) {
+	    int ord = quests.get(type) == null ? -1 : quests.get(type).ordinal();
+		if (status.ordinal() == ord + 1) {
 			quests.put(type, status);
 			if(!currentMusic.equals(Resource.MUSIC.gamefastPiano)){
 				startMusic(Resource.MUSIC.gamefastPiano);

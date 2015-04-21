@@ -18,9 +18,11 @@ public class QuestLogTable extends Table {
     private UiRoot root;
     private Map<QuestTextDef, String> texts = new HashMap<QuestTextDef, String>() {{
         put(new QuestTextDef(QuestType.FUEL, QuestStatus.START), "Find fuel to power the engines");
-        put(new QuestTextDef(QuestType.FUEL, QuestStatus.ITEM), "Return the fuel canister to your ship");
+        put(new QuestTextDef(QuestType.FUEL, QuestStatus.ITEM), "Return the fuel canister to the machine room");
         put(new QuestTextDef(QuestType.MED, QuestStatus.START), "Find medicine for your wounded crewmember");
         put(new QuestTextDef(QuestType.MED, QuestStatus.ITEM), "Take the medicine to your shipmate");
+        put(new QuestTextDef(QuestType.KRISTALL, QuestStatus.START), "Find the energy crystal");
+        put(new QuestTextDef(QuestType.KRISTALL, QuestStatus.ITEM), "Return the energy crystal to your ship");
     }};
 
     public QuestLogTable(UiRoot root) {
