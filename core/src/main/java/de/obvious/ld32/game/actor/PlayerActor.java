@@ -326,7 +326,7 @@ public class PlayerActor extends ShapeActor implements Damageable {
 	}
 
 	public float getFlashlightConeDegree() {
-		return flashlight.getConeDegree();
+		return flashlight == null ? GameRules.PLAYER_HALF_FOV : flashlight.getConeDegree();
 	}
 
 	public void setFlashlightConeDegree(float degree) {
