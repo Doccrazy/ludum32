@@ -272,7 +272,7 @@ public class PlayerActor extends ShapeActor implements Damageable {
 		world.addActor(new BloodActor(world, body.getPosition(), Color.valueOf("dd0000"), amount));
 		if (health <= 0) {
 			((GameWorld) world).startMusic(Resource.MUSIC.gameOver);
-			getBody().setTransform(106, 84, 0);
+			task.in(0, (Void) -> getBody().setTransform(106, 84, 0));
 			ArrayList<StoryText> tmp = new ArrayList<StoryText>();
 			tmp.add(new StoryText("Wow... What was that?", "Player"));
 			tmp.add(new StoryText(Resource.FONT.getRandomInsult(), "Weapon"));
