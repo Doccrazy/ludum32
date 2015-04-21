@@ -275,7 +275,8 @@ public class PlayerActor extends ShapeActor implements Damageable {
 			task.in(0, (Void) -> getBody().setTransform(106, 84, 0));
 			ArrayList<StoryText> tmp = new ArrayList<StoryText>();
 			tmp.add(new StoryText("Wow... What was that?", "Player"));
-			tmp.add(new StoryText(Resource.FONT.getRandomInsult(), "Weapon"));
+			tmp.add(new StoryText("Looser", "Weapon"));
+//			tmp.add(new StoryText(Resource.FONT.getRandomInsult(), "Weapon"));
 			world.postEvent(new UiTextEvent(tmp, false));
 			health = GameRules.PLAYER_HEALTH;
 			task.in(3f, (Void) -> ((GameWorld) world).startMusic(Resource.MUSIC.gameShortSlow2));
