@@ -33,7 +33,7 @@ public class GameWorld extends Box2dWorld {
 	private TiledMapActor level;
 	private float shakeLevel, shakeDegrade;
 	private Music currentMusic;
-    private Map<QuestType, QuestStatus> quests = new HashMap<>();
+	private Map<QuestType, QuestStatus> quests = new HashMap<>();
 
 	public GameWorld() {
 		super(GameRules.GRAVITY);
@@ -58,11 +58,15 @@ public class GameWorld extends Box2dWorld {
 			addActor(new RootActor(this, new Vector2(90, 90), true));
 
 			break;
+		case PRE_GAME:
+			Resource.SOUND.shipDown.play();
+			break;
 		case GAME:
-            startMusic(Resource.MUSIC.gameShortSlow2);
-            player.startFlashlight();
+			startMusic(Resource.MUSIC.gameShortSlow2);
+			player.startFlashlight();
 			stage.setKeyboardFocus(player);
 			break;
+
 		default:
 		}
 	}
@@ -73,8 +77,8 @@ public class GameWorld extends Box2dWorld {
 		case INIT:
 			break;
 		case PRE_GAME:
-		    float lightLevel = Math.min(0.2f, 0.2f * (getStateTime() / 2f));
-            rayHandler.setAmbientLight(lightLevel, lightLevel, lightLevel, 1);
+			float lightLevel = Math.min(0.2f, 0.2f * (getStateTime() / 2f));
+			rayHandler.setAmbientLight(lightLevel, lightLevel, lightLevel, 1);
 			if (getStateTime() > 2f) {
 				transition(GameState.GAME);
 			}
@@ -85,12 +89,12 @@ public class GameWorld extends Box2dWorld {
 			}
 			boolean allDone = true;
 			for (QuestType q : QuestType.values()) {
-			    if (quests.get(q) != QuestStatus.END) {
-			        allDone = false;
-			    }
+				if (quests.get(q) != QuestStatus.END) {
+					allDone = false;
+				}
 			}
 			if (allDone) {
-			    transition(GameState.VICTORY);
+				transition(GameState.VICTORY);
 			}
 		default:
 		}
@@ -127,14 +131,14 @@ public class GameWorld extends Box2dWorld {
 		return shakeLevel;
 	}
 
-    public Map<QuestType, QuestStatus> getQuests() {
-        return quests;
-    }
+	public Map<QuestType, QuestStatus> getQuests() {
+		return quests;
+	}
 
-    public void progressQuest(QuestType type, QuestStatus status) {
-        if (quests.get(type) == null || quests.get(type).ordinal() < status.ordinal()) {
-            quests.put(type, status);
-            postEvent(new UpdateQuestEvent(type));
-        }
-    }
+	public void progressQuest(QuestType type, QuestStatus status) {
+		if (quests.get(type) == null || quests.get(type).ordinal() < status.ordinal()) {
+			quests.put(type, status);
+			postEvent(new UpdateQuestEvent(type));
+		}
+	}
 }

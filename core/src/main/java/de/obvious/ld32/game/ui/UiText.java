@@ -20,6 +20,7 @@ public class UiText extends Label {
 	private HashMap<String, Boolean> texts;
 	private ArrayList<StoryText> allTexts = new ArrayList<StoryText>();
 	boolean showBubble;
+	boolean gameStarted;
 
 	public UiText(UiRoot root) {
 		super(" ", new LabelStyle(Resource.FONT.retro, new Color(Color.WHITE)));
@@ -37,8 +38,13 @@ public class UiText extends Label {
 		time += delta;
 		if(!root.getWorld().isGameInProgress())
 			setColor(0, 0, 0, 0);
-		else
-			setColor(Color.BLUE);
+		else{
+			if(!gameStarted){
+				gameStarted = true;
+				setColor(Color.BLUE);
+
+			}
+		}
 		super.act(delta);
 	}
 

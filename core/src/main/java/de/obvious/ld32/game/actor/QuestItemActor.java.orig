@@ -23,10 +23,18 @@ public class QuestItemActor extends WorldActor {
 
     @Override
     protected void doAct(float delta) {
+<<<<<<< local
+        world.pollEvents(QuestEvent.class, (QuestEvent event) -> {
+            if (event.getQuest().equals(quest) && event.getStatus() == QuestEvent.Status.ITEM) {
+            	Resource.SOUND.itemPickup.play();
+                kill();
+            }
+        }, false);
+=======
         if (((GameWorld)world).getQuests().get(quest) == QuestStatus.ITEM) {
             kill();
-            	Resource.SOUND.itemPickup.play();
         }
+>>>>>>> other
     }
 
     @Override

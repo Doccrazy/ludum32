@@ -141,6 +141,7 @@ public abstract class EnemyActor extends ShapeActor implements Damageable {
 		tmp.add(new StoryText("You killed this monster! NOMNOMNOM", "Weapon"));
 		tmp.add(new StoryText("I got a new ability, press TAB to change my passiv ability with my active ability.", "Weapon"));
 		if(this instanceof InsectActor){
+			Resource.SOUND.insectDead.play();
 			tmp.add(new StoryText("Great! Now we can make a scarejump or get better sight and speed up.", "Weapon"));
 		}
 		if(this instanceof RootActor){

@@ -46,6 +46,7 @@ public class ShroomLingActor extends EnemyActor {
                     Resource.GFX.enemyShroomCloud,  new Color(0, 1, 0.25f, 0.75f));
             aoe.setFriendly(friendly);
             world.addActor(aoe);
+            Resource.SOUND.littleShroomExplode.play();
             killme();
         });
     }

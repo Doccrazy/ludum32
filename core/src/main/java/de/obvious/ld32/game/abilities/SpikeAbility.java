@@ -35,6 +35,7 @@ public class SpikeAbility implements Ability {
 			Vector2 distance = d.cpy();
 			d.nor();
 			world.addActor(new SpikeAbilityActor(world, new Vector2(world.getPlayer().getBody().getPosition().x, world.getPlayer().getBody().getPosition().y + PlayerActor.RADIUS / 2), false, d, distance));
+			Resource.SOUND.standardSchuss.play();
 		}
 	}
 
@@ -124,6 +125,8 @@ class SpikeAbilityActor extends ShapeActor implements CollisionListener {
 	private void createNewProjectiles(Vector2 position) {
 		bulletEx = true;
 		Vector2 d = new Vector2(1, 0);
+
+		Resource.SOUND.spikeExplode.play();
 
 		for (int i = 0; i <= 9; i++) {
 			world.addActor(new LittleSpikeAbilityActor(world, position.cpy().add(d.cpy().scl(0.2f)), d.cpy()));

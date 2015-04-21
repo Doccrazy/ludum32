@@ -72,7 +72,8 @@ public class PlayerActor extends ShapeActor implements Damageable {
 	protected BodyBuilder createBody(Vector2 spawn) {
 		return BodyBuilder.forDynamic(spawn).fixShape(ShapeBuilder.circle(RADIUS));
 	}
-	public void startFlashlight(){
+
+	public void startFlashlight() {
 		flashlight = new ConeLight(world.rayHandler, 200, Color.WHITE, 10, getX(), getY(), 0, GameRules.PLAYER_HALF_FOV);
 		flashlight.setContactFilter((short) 1, (short) 0, (short) 2);
 		flashlight.setSoftnessLength(1f);
@@ -151,11 +152,11 @@ public class PlayerActor extends ShapeActor implements Damageable {
 			drawHead(batch, direction, reverse, true);
 		}
 		for (Action a : getActions()) {
-		    if (a instanceof DrawableAction) {
-		        ((DrawableAction) a).draw(batch);
-		    }
+			if (a instanceof DrawableAction) {
+				((DrawableAction) a).draw(batch);
+			}
 		}
-		if(((GameWorld)world).isGameInProgress()){
+		if (((GameWorld) world).isGameInProgress()) {
 			flashlight.setDirection(aimDirection().angle());
 			flashlight.setPosition(body.getPosition());
 		}
@@ -177,7 +178,7 @@ public class PlayerActor extends ShapeActor implements Damageable {
 	}
 
 	private void drawSecondary(Batch batch) {
-		if(rooted == null)
+		if (rooted == null)
 			return;
 		Animation anim = Resource.GFX.playerRoot;
 		anim.setPlayMode(rooted ? PlayMode.NORMAL : PlayMode.REVERSED);
@@ -227,10 +228,10 @@ public class PlayerActor extends ShapeActor implements Damageable {
 		ability.trigger(crosshair, mode);
 		lastFireTime[slotNumber] = stateTime;
 		if (mode == FireMode.PRIMARY) {
-		    triggerTime = 0f;
-		    rage.fight();
+			triggerTime = 0f;
+			rage.fight();
 		}
-		//System.out.println("Fire " + slotNumber + " " + crosshair.x + " " + crosshair.y);
+		// System.out.println("Fire " + slotNumber + " " + crosshair.x + " " + crosshair.y);
 	}
 
 	public Ability getAbility(int slot) {
@@ -248,8 +249,8 @@ public class PlayerActor extends ShapeActor implements Damageable {
 		return abilities[0];
 	}
 
-	public void switchAbilities(){
-		if(Boolean.FALSE.equals(rooted) || rooted == null){
+	public void switchAbilities() {
+		if (Boolean.FALSE.equals(rooted) || rooted == null) {
 			Ability tmp = abilities[0];
 			abilities[1].end();
 			abilities[0] = abilities[1];
@@ -262,30 +263,32 @@ public class PlayerActor extends ShapeActor implements Damageable {
 		return steering;
 	}
 
-    @Override
-    public void damage(float amount, DamageType type) {
-        health -= amount;
-        ((GameWorld)world).addShake(Math.min(amount, 50f) / 50f);
-        world.addActor(new BloodActor(world, body.getPosition(), Color.valueOf("dd0000"), amount));
-        if (health <= 0) {
-        	((GameWorld)world).startMusic(Resource.MUSIC.gameOver);
-            getBody().setTransform(106, 84, 0);
-            ArrayList<StoryText> tmp = new ArrayList<StoryText>();
-            tmp.add(new StoryText("Wow... What was that?", "Player"));
-            tmp.add(new StoryText(Resource.FONT.getRandomInsult(), "Weapon"));
-            world.postEvent(new UiTextEvent(tmp,false));
-            health = GameRules.PLAYER_HEALTH;
-            task.in(3f, (Void) -> ((GameWorld)world).startMusic(Resource.MUSIC.gameShortSlow2));
-        }
-    }
+	@Override
+	public void damage(float amount, DamageType type) {
+		if (type != DamageType.DOT)
+			Resource.SOUND.hit.play();
+		health -= amount;
+		((GameWorld) world).addShake(Math.min(amount, 50f) / 50f);
+		world.addActor(new BloodActor(world, body.getPosition(), Color.valueOf("dd0000"), amount));
+		if (health <= 0) {
+			((GameWorld) world).startMusic(Resource.MUSIC.gameOver);
+			getBody().setTransform(106, 84, 0);
+			ArrayList<StoryText> tmp = new ArrayList<StoryText>();
+			tmp.add(new StoryText("Wow... What was that?", "Player"));
+			tmp.add(new StoryText(Resource.FONT.getRandomInsult(), "Weapon"));
+			world.postEvent(new UiTextEvent(tmp, false));
+			health = GameRules.PLAYER_HEALTH;
+			task.in(3f, (Void) -> ((GameWorld) world).startMusic(Resource.MUSIC.gameShortSlow2));
+		}
+	}
 
-    public float getHealth() {
+	public float getHealth() {
 		return health;
 	}
 
-    public void setHealth(float health) {
-        this.health = health;
-    }
+	public void setHealth(float health) {
+		this.health = health;
+	}
 
 	public Emotion getEmotion() {
 		return emotion;
@@ -316,14 +319,14 @@ public class PlayerActor extends ShapeActor implements Damageable {
 		if (ability == null) {
 			return true;
 		}
-		if(Boolean.TRUE.equals(rooted))
-			return lastFireTime[slotNumber] + ability.getCooldown(mode)/2f > stateTime;
+		if (Boolean.TRUE.equals(rooted))
+			return lastFireTime[slotNumber] + ability.getCooldown(mode) / 2f > stateTime;
 		return lastFireTime[slotNumber] + ability.getCooldown(mode) > stateTime;
 
 	}
 
 	public float getFlashlightConeDegree() {
-	    return flashlight.getConeDegree();
+		return flashlight.getConeDegree();
 	}
 
 	public void setFlashlightConeDegree(float degree) {
@@ -334,7 +337,7 @@ public class PlayerActor extends ShapeActor implements Damageable {
 		playerSpeed = GameRules.PLAYER_VELOCITY + bonus;
 	}
 
-	public void allowMovement(boolean allowIt){
+	public void allowMovement(boolean allowIt) {
 		allowMovement = allowIt;
 		body.setLinearVelocity(0, 0);
 		moving = false;
@@ -345,14 +348,15 @@ public class PlayerActor extends ShapeActor implements Damageable {
 		this.rooted = rooted;
 	}
 
-	public Boolean isRooted(){
+	public Boolean isRooted() {
 		return rooted;
 	}
 
-	public void changeUiText(){
+	public void changeUiText() {
 		uiText.changeText();
 	}
-	public void setUiText(UiText uiText){
+
+	public void setUiText(UiText uiText) {
 		this.uiText = uiText;
 	}
 

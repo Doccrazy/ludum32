@@ -30,6 +30,7 @@ public class StartAbility implements Ability {
 			Vector2 d = position.cpy().sub(world.getPlayer().getBody().getPosition());
 			d.nor().scl(5f);
 			world.addActor(new BulletActor(world, new Vector2(world.getPlayer().getBody().getPosition().x, world.getPlayer().getBody().getPosition().y + PlayerActor.RADIUS/2) , d, color));
+			Resource.SOUND.standardSchuss.play();
 		}
 
 	}

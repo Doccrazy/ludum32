@@ -28,6 +28,7 @@ public class RootAbility implements Ability {
                     0.5f, 50, 1f, DamageType.DOT, Resource.GFX.rootAoe, Color.RED);
             aoe.setFriendly(true);
 			world.addActor(aoe);
+			Resource.SOUND.rootUp.play();
 		} else {
 			if (isRooted) {
 				world.getPlayer().allowMovement(!isRooted);
