@@ -43,6 +43,7 @@ public class InsectActor extends EnemyActor {
 	}
 
 	public void attack(float radius, float damage) {
+
 	    attacking = true;
 	    body.setActive(false);
 	    stateTime = 0;
@@ -52,6 +53,7 @@ public class InsectActor extends EnemyActor {
 	        }
 	        float dist = ((GameWorld)world).getPlayer().getBody().getPosition().cpy().sub(body.getPosition()).len();
 	        if (dist < radius) {
+	        	Resource.SOUND.rootUp.play();
 	            ((GameWorld)world).getPlayer().damage(damage, DamageType.MELEE);
 	        }
 	    });

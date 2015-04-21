@@ -14,7 +14,6 @@ import de.obvious.ld32.data.GameRules;
 import de.obvious.ld32.data.GamepadActions;
 import de.obvious.ld32.data.QuestStatus;
 import de.obvious.ld32.data.QuestType;
-import de.obvious.ld32.game.abilities.ShroomAbility;
 import de.obvious.ld32.game.abilities.StartAbility;
 import de.obvious.ld32.game.actor.PlayerActor;
 import de.obvious.ld32.game.actor.RootActor;
@@ -46,7 +45,7 @@ public class GameWorld extends Box2dWorld {
 		case INIT:
 			player = new PlayerActor(this, new Vector2(106, 84), true);
 			player.setAbility(0, new StartAbility(this, new Color(1f, 1f, 0f, 1f))); // TODO
-			player.setAbility(1, new ShroomAbility(this)); // TODO
+			player.setAbility(1, new StartAbility(this, new Color(1f, 1f, 0f, 1f))); // TODO
 			player.setupKeyboardControl();
 			level = new TiledMapActor(this, Resource.GFX.LEVEL1);
 			addActor(level);
@@ -117,7 +116,7 @@ public class GameWorld extends Box2dWorld {
 		if (currentMusic != null)
 			currentMusic.stop();
 		currentMusic = music;
-		currentMusic.setLooping(false);
+		currentMusic.setLooping(true);
 		currentMusic.play();
 
 	}
@@ -138,6 +137,9 @@ public class GameWorld extends Box2dWorld {
 	public void progressQuest(QuestType type, QuestStatus status) {
 		if (quests.get(type) == null || quests.get(type).ordinal() < status.ordinal()) {
 			quests.put(type, status);
+			if(!currentMusic.equals(Resource.MUSIC.gamefastPiano)){
+				startMusic(Resource.MUSIC.gamefastPiano);
+			}
 			postEvent(new UpdateQuestEvent(type));
 		}
 	}

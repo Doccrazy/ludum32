@@ -1,5 +1,7 @@
 package de.obvious.ld32.game.actor;
 
+import java.util.ArrayList;
+
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Batch;
@@ -13,6 +15,8 @@ import de.obvious.ld32.data.DamageType;
 import de.obvious.ld32.data.GameRules;
 import de.obvious.ld32.game.abilities.ShroomAbility;
 import de.obvious.ld32.game.actor.action.ShroomAiAction;
+import de.obvious.ld32.game.misc.StoryText;
+import de.obvious.ld32.game.misc.UiTextEvent;
 import de.obvious.ld32.game.world.GameWorld;
 
 public class ShroomActor extends EnemyActor{
@@ -84,10 +88,15 @@ public class ShroomActor extends EnemyActor{
 	    body.setLinearVelocity(0, 0);
 	    stunned = 1;
 	    stateTime = 0;
+	    ArrayList<StoryText> tmp = new ArrayList<StoryText>();
+	    tmp.add(new StoryText("That little shit is just stunned...", "Weapon"));
+	    tmp.add(new StoryText("Lets get back later with another ability", "Weapon"));
+	    world.postEvent(new UiTextEvent(tmp, true));
 	    task.in(Resource.GFX.enemyShroomStunned.getAnimationDuration(), (Void) -> stunned = 2);
 	}
 
 	public void unstun() {
+		Resource.SOUND.rootUp.play();
 	    stunned = 3;
 	    stateTime = 0;
         task.in(Resource.GFX.enemyShroomStunned.getAnimationDuration(), (Void) -> stunned = 0);

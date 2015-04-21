@@ -148,6 +148,7 @@ public abstract class EnemyActor extends ShapeActor implements Damageable {
 			tmp.add(new StoryText("Oh yeah! Now we can either do a tentacle attack or make sure to stand still while shooting.", "Weapon"));
 		}
 		if(this instanceof ShroomActor){
+			Resource.SOUND.littleShroomExplode.play();
 			tmp.add(new StoryText("Haha. Now we can either shoot little poison shrooms or heal you.", "Weapon"));
 		}
 		if(this instanceof SpikyActor){
