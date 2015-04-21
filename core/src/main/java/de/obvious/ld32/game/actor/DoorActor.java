@@ -36,7 +36,7 @@ public class DoorActor extends ShapeActor implements CollisionListener {
 
     @Override
     protected BodyBuilder createBody(Vector2 spawn) {
-        return BodyBuilder.forStatic(spawn).fixShape(ShapeBuilder.box(vertical ? 0.5f : 1f, vertical ? 1f : 0.5f));
+        return BodyBuilder.forStatic(spawn).fixShape(ShapeBuilder.box(vertical ? 0.5f : 1f, vertical ? 1f : 0.5f)).fixFilter((short) 2, (short) -1);
     }
 
     @Override

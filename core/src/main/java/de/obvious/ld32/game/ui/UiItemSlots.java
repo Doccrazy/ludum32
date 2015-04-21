@@ -38,7 +38,7 @@ public class UiItemSlots extends Widget {
 	    super.act(delta);
 	    world.pollEvents(NewAbilityEvent.class, (NewAbilityEvent event) -> {
 	        pendingAbility = event.getAbility();
-	        abilityTime = 5f;
+	        abilityTime = 7f;
 	    });
 	    abilityTime = Math.max(0, abilityTime - delta);
 	    if (abilityTime <= 0) {
@@ -50,18 +50,19 @@ public class UiItemSlots extends Widget {
 	public void draw(Batch batch, float parentAlpha) {
 
 		if (world.isGameInProgress()) {
-			batch.draw(Resource.GFX.itemSlot, Constants.SCREEN_WIDTH / 2 - 120, Constants.SCREEN_HEIGHT - 120, 100, 100);
+			batch.draw(Resource.GFX.itemSlot, Constants.SCREEN_WIDTH / 2 - 130, Constants.SCREEN_HEIGHT - 120, 100, 100);
 			if (player.getAbility(0) != null) {
 				batch.setColor(1, 1, 1, player.isCooldown(0, FireMode.PRIMARY) ? 0.5f : 1);
-				batch.draw(player.getAbility(0).getTexture(FireMode.PRIMARY), Constants.SCREEN_WIDTH / 2 - 120, Constants.SCREEN_HEIGHT - 120, 100, 100);
+				batch.draw(player.getAbility(0).getTexture(FireMode.PRIMARY), Constants.SCREEN_WIDTH / 2 - 130, Constants.SCREEN_HEIGHT - 120, 100, 100);
 				batch.setColor(1, 1, 1, 1);
 			}
-			batch.draw(Resource.GFX.itemSlot, Constants.SCREEN_WIDTH / 2 + 20, Constants.SCREEN_HEIGHT - 120, 100, 100);
+			batch.draw(Resource.GFX.itemSlot, Constants.SCREEN_WIDTH / 2 + 30, Constants.SCREEN_HEIGHT - 120, 100, 100);
 			if (player.getAbility(1) != null) {
 				batch.setColor(1, 1, 1, player.isCooldown(1, FireMode.ALTERNATE) ? 0.5f : 1);
-				batch.draw(player.getAbility(1).getTexture(FireMode.ALTERNATE), Constants.SCREEN_WIDTH / 2 + 20, Constants.SCREEN_HEIGHT - 120, 100, 100);
+				batch.draw(player.getAbility(1).getTexture(FireMode.ALTERNATE), Constants.SCREEN_WIDTH / 2 + 30, Constants.SCREEN_HEIGHT - 120, 100, 100);
 				batch.setColor(1, 1, 1, 1);
 			}
+			batch.draw(Resource.GFX.tab, Constants.SCREEN_WIDTH / 2 - 25, Constants.SCREEN_HEIGHT - 100, 50, 50);
 
 			if (pendingAbility != null) {
 			    batch.setColor(1, 1, 1, abilityTime % 0.5f < 0.25f ? 1 : 0);

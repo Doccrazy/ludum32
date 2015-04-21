@@ -97,7 +97,7 @@ public abstract class EnemyActor extends ShapeActor implements Damageable {
             if (fixture.getBody() == body) {
                 return -1f;
             }
-            if (fixture.getBody().getUserData() == null && !fixture.isSensor()) {
+            if (((fixture.getBody().getUserData() == null || fixture.getBody().getUserData() instanceof DoorActor) && !fixture.isSensor())) {
                 hit = true;
                 return 0f;
             }

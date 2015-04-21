@@ -166,6 +166,7 @@ public class GfxResources extends ResourcesBase {
 	public Texture questDone = texture("questDone.png");
 	public Texture screenIntro = texture("intro.png");
 	public Texture screenVictory = texture("win.png");
+	public Texture tab = texture("tab.png");
 
     public Map<QuestType, Sprite> questItem = new HashMap<QuestType, Sprite>() {{
         put(QuestType.FUEL, atlas.createSprite("items/tFuel"));
